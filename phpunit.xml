@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phpunit
+  bootstrap="test/bootstrap.php"
+  colors="true"
+  stopOnError="false"
+  stopOnFailure="false"
+  stopOnSkipped="false"
+  stopOnIncomplete="false"
+  strict="true"
+  verbose="false"
+  mapTestClassNameToCoveredClassName="true"
+>
+  <testsuites>
+    <testsuite name="Bee4">
+      <directory>test/Bee4</directory>
+    </testsuite>
+  </testsuites>
+	<php>
+    <const name="WEB_SERVER_HOST" value="127.0.0.1" />
+    <const name="WEB_SERVER_PORT" value="1349" />
+    <const name="WEB_SERVER_DOCROOT" value="./test/public" />
+  </php>
+</phpunit>
