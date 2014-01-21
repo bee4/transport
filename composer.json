@@ -1,0 +1,24 @@
+{
+  "name": "bee4/httpclient",
+  "description": "A simple chainable HTTP client. Built for intensive HTTP calls!",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "Stéphane HULARD",
+      "email": "s.hulard@chstudio.fr"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "ext-curl": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "3.7.*",
+    "phpunit/php-code-coverage": ">=1.2.10,<1.3.0"
+  },
+  "autoload": {
+    "psr-0": {
+      "Bee4": "src"
+    }
+  }
+}
