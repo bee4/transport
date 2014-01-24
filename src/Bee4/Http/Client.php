@@ -46,48 +46,19 @@ class Client {
 	}
 
 	/**
-	 * HTTP Get wrapper
-	 * @param string $url
-	 * @param array $headers
+	 * Magic method to implement dynamically all request types that are defined.
+	 * The request factory can't build a valid object, an exception is thrown
+	 * @param string $name The method name
+	 * @param array $arguments Argument collection to be used to build request
+	 * @return AbstractRequest
 	 */
-	public function get($url = '', array $headers = []) {
-		return $this->createRequest('GET', $this->baseUrl.$url, $headers);
-	}
+	public function __call( $name, $arguments ) {
+		if( count($arguments) > 2 || count($arguments) < 1 ) {
+			throw new \InvalidArgumentException('Argument list given to build "'.$name.'" request is invalid, should contain url and headers if needed');
+		}
 
-	/**
-	 * HTTP HEAD wrapper
-	 * @param string $url
-	 * @param array $headers
-	 */
-	public function head($url = '', array $headers = []) {
-		return $this->createRequest('HEAD', $this->baseUrl.$url, $headers);
-	}
-
-	/**
-	 * HTTP POST wrapper
-	 * @param string $url
-	 * @param array $headers
-	 */
-	public function post($url = '', array $headers = []) {
-		return $this->createRequest('POST', $this->baseUrl.$url, $headers);
-	}
-
-	/**
-	 * HTTP PUT wrapper
-	 * @param string $url
-	 * @param array $headers
-	 */
-	public function put($url = '', array $headers = []) {
-		return $this->createRequest('PUT', $this->baseUrl.$url, $headers);
-	}
-
-	/**
-	 * HTTP DELETE wrapper
-	 * @param string $url
-	 * @param array $headers
-	 */
-	public function delete($url = '', array $headers = []) {
-		return $this->createRequest('DELETE', $this->baseUrl.$url, $headers);
+		array_unshift($arguments, $name);
+		return call_user_method_array('createRequest', $this, $arguments);
 	}
 
 	/**
