@@ -56,7 +56,7 @@ class Client {
 		$arguments[0] = $this->baseUrl.(isset($arguments[0])?$arguments[0]:'');
 
 		array_unshift($arguments, $name);
-		return call_user_method_array('createRequest', $this, $arguments);
+		return call_user_func_array([$this, 'createRequest'], $arguments);
 	}
 
 	/**
