@@ -52,7 +52,9 @@ class Client {
 	 * @param array $arguments Argument collection to be used to build request
 	 * @return AbstractRequest
 	 */
-	public function __call( $name, array $arguments ) {
+	public function __call( $name, array $arguments = [] ) {
+		$arguments[0] = $this->baseUrl.(isset($arguments[0])?$arguments[0]:'');
+
 		array_unshift($arguments, $name);
 		return call_user_method_array('createRequest', $this, $arguments);
 	}
@@ -64,12 +66,12 @@ class Client {
 	 * @param array $headers
 	 * @return AbstractRequest
 	 */
-	protected function createRequest( $method, $url = '', array $headers = [] ) {
+	protected function createRequest( $method, $url, array $headers = [] ) {
 		if( !is_string($url) || trim($url) === "" || parse_url($url) === false ) {
-			throw new \InvalidArgumentException('URL given must be a valid URL');
+			throw new \InvalidArgumentException('URL given must be a valid URL and can\'t be empty');
 		}
 
-		$request = $this->requestFactory->build($method, $this->baseUrl.$url, $headers);
+		$request = $this->requestFactory->build($method, $url, $headers);
 		$request->setClient($this);
 
 		return $request;
