@@ -5,7 +5,7 @@
  * file that was distributed with this source code.
  *
  * @copyright Bee4 2014
- * @author	Stephane HULARD <s.hulard@chstudio.fr>
+ * @author  Stephane HULARD <s.hulard@chstudio.fr>
  * @package Bee4\Http
  */
 
@@ -41,8 +41,8 @@ class Client {
 			throw new \RuntimeException('The PHP cURL extension must be installed!');
 		}
 
-    $this->baseUrl = $baseUrl;
-    $this->requestFactory = new RequestFactory();
+		$this->baseUrl = $baseUrl;
+		$this->requestFactory = new RequestFactory();
 	}
 
 	/**
