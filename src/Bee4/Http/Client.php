@@ -37,9 +37,11 @@ class Client {
 	 * @param string $baseUrl Base URL of the web service
 	 */
 	public function __construct($baseUrl = '') {
+		// @codeCoverageIgnoreStart
 		if (!extension_loaded('curl')) {
 			throw new \RuntimeException('The PHP cURL extension must be installed!');
 		}
+		// @codeCoverageIgnoreEnd
 
 		$this->baseUrl = $baseUrl;
 		$this->requestFactory = new RequestFactory();
