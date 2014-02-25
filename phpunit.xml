@@ -12,12 +12,19 @@
 >
   <testsuites>
     <testsuite name="Bee4">
-      <directory>test/Bee4</directory>
+      <directory phpVersion="5.4.0" phpVersionOperator=">=">test/Bee4</directory>
     </testsuite>
   </testsuites>
+	<filter>
+		<whitelist processUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">src/Bee4</directory>
+		</whitelist>
+	</filter>
+  <logging>
+    <log type="coverage-text" target="php://stdout" showUncoveredFiles="true"/>
+	</logging>
 	<php>
-    <const name="WEB_SERVER_HOST" value="127.0.0.1" />
-    <const name="WEB_SERVER_PORT" value="1349" />
-    <const name="WEB_SERVER_DOCROOT" value="./test/public" />
+    <const name="WEBSERVER_HOST" value="127.0.0.1" />
+    <const name="WEBSERVER_PORT" value="1349" />
   </php>
 </phpunit>

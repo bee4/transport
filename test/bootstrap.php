@@ -7,10 +7,9 @@
 
 // Command that starts the built-in web server
 $command = sprintf(
-	'php -S %s:%d -t %s >/dev/null 2>&1 & echo $!',
-	WEB_SERVER_HOST,
-	WEB_SERVER_PORT,
-	realpath(WEB_SERVER_DOCROOT)
+	'php -S %s:%d -t "'.realpath(__DIR__).'/public'.'" >/dev/null 2>&1 & echo $!',
+	WEBSERVER_HOST,
+	WEBSERVER_PORT
 );
 
 // Execute the command and store the process ID
@@ -20,8 +19,8 @@ $pid = (int) $output[0];
 echo sprintf(
 	'%s - Web server started on %s:%d with PID %d',
 	date('r'),
-	WEB_SERVER_HOST,
-	WEB_SERVER_PORT,
+	WEBSERVER_HOST,
+	WEBSERVER_PORT,
 	$pid
 ) . PHP_EOL;
 
@@ -37,3 +36,6 @@ register_shutdown_function(function() use ($pid) {
 //------------------------------------------------------------------------------
 //Use composer for autoloading
 require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__.'/Bee4/PHPUnit/TestCase.php';
+
+\Bee4\PHPUnit\TestCase::setBaseUrl('http://'.WEBSERVER_HOST.':'.WEBSERVER_PORT);

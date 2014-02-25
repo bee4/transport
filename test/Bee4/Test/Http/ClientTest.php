@@ -17,7 +17,7 @@ use Bee4\Http\Client;
  * Http client test
  * @package Bee4\Test\Http
  */
-class ClientTest extends \PHPUnit_Framework_TestCase
+class ClientTest extends \Bee4\PHPUnit\TestCase
 {
 	/**
 	 * @var Client
@@ -35,7 +35,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 			$this->markTestSkipped('The curl extension is not available.');
 		}
 
-		$this->object = new Client('http://'.WEB_SERVER_HOST.':'.WEB_SERVER_PORT);
+		$this->object = new Client(self::getBaseUrl());
 	}
 
 	/**
@@ -57,8 +57,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Bee4\Http\Client::get
+	 * @covers Bee4\Http\Client::__call
 	 * @covers Bee4\Http\Client::createRequest
+	 * @covers Bee4\Http\Message\Request\Get
 	 */
 	public function testGet()
 	{
@@ -66,7 +67,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('\Bee4\Http\Message\AbstractMessage', $request);
 		$this->assertInstanceOf('\Bee4\Http\Message\Request\Get', $request);
 
-		$this->assertEquals('http://'.WEB_SERVER_HOST.':'.WEB_SERVER_PORT.'/get.php', $request->getUrl());
+		$this->assertEquals(self::getBaseUrl().'/get.php', $request->getUrl());
 
 		$response = $request->send();
 
