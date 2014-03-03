@@ -103,8 +103,10 @@ abstract class AbstractMessage implements MessageInterface {
 	 * @param string $name
 	 */
 	public function removeHeader($name) {
-		if( $this->hasHeader($name) )
+		if( $this->hasHeader($name) ) {
 			unset($this->headers[$name]);
+		}
+		
 		return $this;
 	}
 
