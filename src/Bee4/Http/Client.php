@@ -96,8 +96,8 @@ class Client {
 
 		$result = self::$handles[get_class($request)]->execute();
 
-		if( self::$handles[get_class($request)]->hasInfo('request_header') ) {
-			$request->setSentHeaders(self::$handles[get_class($request)]->getInfo('request_header'));
+		if( self::$handles[get_class($request)]->hasInfo(CURLINFO_HEADER_OUT) ) {
+			$request->setSentHeaders(self::$handles[get_class($request)]->getInfo(CURLINFO_HEADER_OUT));
 		}
 
 		$response = ResponseFactory::build($result, self::$handles[get_class($request)]->getInfos());
