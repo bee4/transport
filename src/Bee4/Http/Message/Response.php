@@ -34,11 +34,19 @@ class Response extends AbstractMessage {
 
 	/**
 	 * Request dependency injection
-	 * @param Request $request
+	 * @param AbstractRequest $request
 	 */
 	public function setRequest( AbstractRequest $request ) {
 		$this->request = $request;
 		return $this;
+	}
+
+	/**
+	 *
+	 * @return AbstractRequest
+	 */
+	public function getRequest() {
+		return $this->request;
 	}
 
 	/**
@@ -58,19 +66,16 @@ class Response extends AbstractMessage {
 		return $this->status;
 	}
 
+	/**
+	 * Try to json_decode the response body
+	 * @return string
+	 * @throws \RuntimeException
+	 */
 	public function json() {
 		$json = json_decode($this->getBody(), true);
 		if( $json === null ) {
-			ob_start();
-			var_dump($this->getBody());
-			$dump = ob_get_clean();
 			throw new \RuntimeException(
-				"Can't decode JSON response: ".PHP_EOL.
-				"URL: ".$this->request->getUrl().PHP_EOL.
-				"Sent headers: ".PHP_EOL.$this->request->getSentHeaders().PHP_EOL.
-				"Sent BODY: ".PHP_EOL.$this->request->getBody().PHP_EOL.
-				"Received headers: ".PHP_EOL.implode(PHP_EOL, $this->getHeaderLines()).PHP_EOL.
-				"Received body: ".PHP_EOL.$dump
+				"Can't decode JSON response: ".$json
 			);
 		}
 		return $json;
