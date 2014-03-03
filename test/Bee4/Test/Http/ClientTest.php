@@ -16,6 +16,7 @@ use Bee4\Http\Client;
 /**
  * Http client test
  * @package Bee4\Test\Http
+ * @covers Bee4\Http\Client
  */
 class ClientTest extends \Bee4\PHPUnit\HttpClientTestCase
 {
@@ -27,7 +28,6 @@ class ClientTest extends \Bee4\PHPUnit\HttpClientTestCase
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
-	 * @covers Bee4\Http\Client::__construct
 	 */
 	protected function setUp() {
 		if (!extension_loaded('curl')) {
@@ -38,14 +38,6 @@ class ClientTest extends \Bee4\PHPUnit\HttpClientTestCase
 	}
 
 	/**
-	 * @covers Bee4\Http\Client::getUserAgent
-	 */
-	public function testGetUserAgent() {
-		$this->assertEquals('Bee4 - BeeBot/1.0', $this->object->getUserAgent());
-	}
-
-	/**
-	 * @covers Bee4\Http\Client::createRequest
 	 * @expectedException \InvalidArgumentException
 	 */
 	public function testNonStringUrl() {
@@ -55,7 +47,6 @@ class ClientTest extends \Bee4\PHPUnit\HttpClientTestCase
 	}
 
 	/**
-	 * @covers Bee4\Http\Client::createRequest
 	 * @expectedException \InvalidArgumentException
 	 */
 	public function testEmptyUrl() {
@@ -64,37 +55,96 @@ class ClientTest extends \Bee4\PHPUnit\HttpClientTestCase
 		$method->invoke(new Client(), 'post', '');
 	}
 
-	/**
-	 * @covers Bee4\Http\Client
-	 */
+	public function testGetUserAgent() {
+		$this->assertEquals('Bee4 - BeeBot/1.0', $this->object->getUserAgent());
+	}
+
 	public function testSend() {
+		//Check that Post request is nicely mapped
 		$request1 = $this->object->get('/index.html');
+		$this->assertEquals(self::getBaseUrl().'/index.html', (string)$request1->getUrl());
+
 		$this->assertInstanceOf('\Bee4\Http\Message\AbstractMessage', $request1);
 		$this->assertInstanceOf('\Bee4\Http\Message\Request\AbstractRequest', $request1);
 		$this->assertInstanceOf('\Bee4\Http\Message\Request\Get', $request1);
-		$response = $request1->send();
+		$this->assertInstanceOf('\Bee4\Http\Message\Response', $request1->send());
 
-		$this->assertInstanceOf('\Bee4\Http\Message\Response', $response);
-
+		//Check that Post request is nicely mapped
 		$request2 = $this->object->post('/index.html');
+		$this->assertInstanceOf('\Bee4\Http\Message\AbstractMessage', $request2);
+		$this->assertInstanceOf('\Bee4\Http\Message\Request\AbstractRequest', $request2);
 		$this->assertInstanceOf('\Bee4\Http\Message\Request\Post', $request2);
+		$this->assertInstanceOf('\Bee4\Http\Message\Response', $request2->send());
 	}
 
 	/**
-	 * @covers Bee4\Http\Client
 	 * @covers Bee4\Http\Message\Request\Get
 	 */
 	public function testGet() {
 		$request = $this->object->get('/index.html');
-		$this->assertEquals(self::getBaseUrl().'/index.html', $request->getUrl()->toString());
-
 		$response = $request->send();
-
 		$options = $request->getCurlOptions();
 
 		$this->assertArrayHasKey(CURLOPT_HTTPGET, $options);
 		$this->assertTrue($options[CURLOPT_HTTPGET]);
+		$this->assertInstanceOf('\Bee4\Http\Message\Request\Get', $response->getRequest());
+	}
 
-		$this->assertInstanceOf('\Bee4\Http\Message\Response', $response);
+	/**
+	 * @covers Bee4\Http\Message\Request\Post
+	 */
+	public function testPost() {
+		$request = $this->object->post('/index.html')->setBody('{"body": "I\'m the body"}}');
+		$response = $request->send();
+		$options = $request->getCurlOptions();
+
+		$this->assertArrayHasKey(CURLOPT_POST, $options);
+		$this->assertArrayHasKey(CURLOPT_POSTFIELDS, $options);
+		$this->assertTrue($options[CURLOPT_POST]);
+		$this->assertEquals('{"body": "I\'m the body"}}', $options[CURLOPT_POSTFIELDS]);
+		$this->assertInstanceOf('\Bee4\Http\Message\Request\Post', $response->getRequest());
+	}
+
+	/**
+	 * @covers Bee4\Http\Message\Request\Head
+	 */
+	public function testHead() {
+		$request = $this->object->head('/index.html');
+		$response = $request->send();
+		$options = $request->getCurlOptions();
+
+		$this->assertArrayHasKey(CURLOPT_NOBODY, $options);
+		$this->assertTrue($options[CURLOPT_NOBODY]);
+		$this->assertInstanceOf('\Bee4\Http\Message\Request\Head', $response->getRequest());
+	}
+
+	/**
+	 * @covers Bee4\Http\Message\Request\Delete
+	 */
+	public function testDelete() {
+		$request = $this->object->delete('/index.html');
+		$response = $request->send();
+		$options = $request->getCurlOptions();
+
+		$this->assertArrayHasKey(CURLOPT_CUSTOMREQUEST, $options);
+		$this->assertArrayHasKey(CURLOPT_POSTFIELDS, $options);
+		$this->assertEquals('DELETE', $options[CURLOPT_CUSTOMREQUEST]);
+		$this->assertEquals(false, $options[CURLOPT_POSTFIELDS]);
+		$this->assertInstanceOf('\Bee4\Http\Message\Request\Delete', $response->getRequest());
+	}
+
+	/**
+	 * @covers Bee4\Http\Message\Request\Put
+	 */
+	public function testPut() {
+		$request = $this->object->put('/index.html');
+		$response = $request->send();
+		$options = $request->getCurlOptions();
+
+		$this->assertArrayHasKey(CURLOPT_CUSTOMREQUEST, $options);
+		$this->assertArrayHasKey(CURLOPT_POSTFIELDS, $options);
+		$this->assertEquals('PUT', $options[CURLOPT_CUSTOMREQUEST]);
+		$this->assertEquals(false, $options[CURLOPT_POSTFIELDS]);
+		$this->assertInstanceOf('\Bee4\Http\Message\Request\Put', $response->getRequest());
 	}
 }
