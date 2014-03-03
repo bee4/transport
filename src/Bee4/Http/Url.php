@@ -145,6 +145,18 @@ class Url
 	}
 
 	/**
+	 * Transform to string with dynamic cast
+	 * @return String
+	 */
+	public function __toString() {
+		try {
+			return $this->toString();
+		} catch (\Exception $ex) {
+			return $ex->getMessage();
+		}
+	}
+
+	/**
 	 *
 	 * @param type $name
 	 * @param type $value
