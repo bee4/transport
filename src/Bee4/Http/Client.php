@@ -55,7 +55,7 @@ class Client {
 	 * @return AbstractRequest
 	 */
 	public function __call( $name, array $arguments = [] ) {
-		$arguments[0] = $this->baseUrl.(isset($arguments[0])?$arguments[0]:'');
+		$arguments[0] = isset($arguments[0])?$arguments[0]:'';
 
 		array_unshift($arguments, $name);
 		return call_user_func_array([$this, 'createRequest'], $arguments);
@@ -69,8 +69,12 @@ class Client {
 	 * @return AbstractRequest
 	 */
 	protected function createRequest( $method, $url, array $headers = [] ) {
-		if( !is_string($url) || trim($url) === "" || parse_url($url) === false ) {
-			throw new \InvalidArgumentException('URL given must be a valid URL and can\'t be empty');
+		if( !is_string($url) ) {
+			throw new \InvalidArgumentException('URL parameter must be a valid String');
+		}
+		$url = $this->baseUrl.$url;
+		if( trim($url) === "" || parse_url($url) === false ) {
+			throw new \InvalidArgumentException('URL given must be a non empty and valid URL');
 		}
 
 		$request = $this->requestFactory->build($method, $url, $headers);
@@ -96,9 +100,9 @@ class Client {
 
 		$result = self::$handles[get_class($request)]->execute();
 
-		if( self::$handles[get_class($request)]->hasInfo(CURLINFO_HEADER_OUT) ) {
+		/*if( self::$handles[get_class($request)]->hasInfo(CURLINFO_HEADER_OUT) ) {
 			$request->setSentHeaders(self::$handles[get_class($request)]->getInfo(CURLINFO_HEADER_OUT));
-		}
+		}*/
 
 		$response = ResponseFactory::build($result, self::$handles[get_class($request)]->getInfos());
 		$response->setRequest($request);

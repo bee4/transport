@@ -50,10 +50,20 @@ class ClientTest extends \Bee4\PHPUnit\HttpClientTestCase
 	 * @covers Bee4\Http\Client::createRequest
 	 * @expectedException \InvalidArgumentException
 	 */
-	public function testInvalidUrl() {
+	public function testNonStringUrl() {
 		$method = new \ReflectionMethod('\Bee4\Http\Client', 'createRequest');
 		$method->setAccessible(TRUE);
-		$method->invoke($this->object, 'GET', new \stdClass());
+		$method->invoke($this->object, 'get', new \stdClass());
+	}
+
+	/**
+	 * @covers Bee4\Http\Client::createRequest
+	 * @expectedException \InvalidArgumentException
+	 */
+	public function testEmptyUrl() {
+		$method = new \ReflectionMethod('\Bee4\Http\Client', 'createRequest');
+		$method->setAccessible(TRUE);
+		$method->invoke(new Client(), 'post', '');
 	}
 
 	/**
