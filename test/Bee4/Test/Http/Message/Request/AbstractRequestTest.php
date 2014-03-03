@@ -40,7 +40,7 @@ class AbstractRequestTest extends \Bee4\PHPUnit\HttpClientTestCase
 		$this->assertEquals($headers, $mock->getHeaders());
 		$this->assertEquals(
 			self::getBaseUrl(),
-			$mock->getUrl()->toString()
+			(string)$mock->getUrl()
 		);
 	}
 

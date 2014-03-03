@@ -50,7 +50,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase {
 		}
 
 		$object = new Url($url);
-		$this->assertEquals($url, $object->toString());
+		$this->assertEquals($url, (string)$object);
 	}
 
 	/**
@@ -70,7 +70,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase {
 		$url->query('nb=20');
 		$url->fragment('anchor');
 
-		$this->assertEquals('https://www.bee4.fr/page.html?nb=20#anchor', $url->toString());
+		$this->assertEquals('https://www.bee4.fr/page.html?nb=20#anchor', (string)$url);
 	}
 
 	/**
