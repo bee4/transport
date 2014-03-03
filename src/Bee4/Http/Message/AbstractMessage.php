@@ -17,18 +17,6 @@ namespace Bee4\Http\Message;
  */
 abstract class AbstractMessage implements MessageInterface {
 	/**
-	 * Protocol name for the current message
-	 * @var string
-	 */
-	protected $protocol = 'HTTP';
-
-	/**
-	 * Protocol version for the current message
-	 * @var string
-	 */
-	protected $protocolVersion = '1.1';
-
-	/**
 	 * Header collection
 	 * @var array
 	 */
@@ -38,6 +26,7 @@ abstract class AbstractMessage implements MessageInterface {
 	 * Add a header to the message
 	 * @param string $name
 	 * @param string $value
+	 * @return AbstractMessage
 	 */
 	public function addHeader($name, $value) {
 		$this->headers[$name] = $value;
@@ -47,6 +36,7 @@ abstract class AbstractMessage implements MessageInterface {
 	/**
 	 * Add multiple headers at once
 	 * @param array $headers
+	 * @return AbstractMessage
 	 */
 	public function addHeaders( array $headers ) {
 		foreach( $headers as $name => $value ) {
@@ -101,17 +91,19 @@ abstract class AbstractMessage implements MessageInterface {
 	/**
 	 * Remove a header by name
 	 * @param string $name
+	 * @return AbstractMessage
 	 */
 	public function removeHeader($name) {
 		if( $this->hasHeader($name) ) {
 			unset($this->headers[$name]);
 		}
-		
+
 		return $this;
 	}
 
 	/**
 	 * Remove all headers at once
+	 * @return AbstractMessage
 	 */
 	public function removeHeaders() {
 		$this->headers = [];
