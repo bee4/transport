@@ -27,21 +27,15 @@ abstract class AbstractRequest extends AbstractMessage {
 	protected $client;
 
 	/**
-	 * cURL option list specific for the current request
+	 * specific cURL options for the current request
 	 * @var array
 	 */
 	protected $options;
 
 	/**
-	 * URL for the request
-	 */
-	protected $url;
-
-	/**
-	 * Sent headers
 	 * @var string
 	 */
-	protected $sentHeaders = "";
+	protected $url;
 
 	/**
 	 * Construct a new request object
@@ -50,6 +44,7 @@ abstract class AbstractRequest extends AbstractMessage {
 	 */
 	public function __construct($url, array $headers = []) {
 		$this->url = $url;
+		$this->options = [];
 		$this->addHeaders($headers);
 	}
 
@@ -101,13 +96,6 @@ abstract class AbstractRequest extends AbstractMessage {
 		$this->options[$name] = $value;
 
 		return $this;
-	}
-
-	public function setSentHeaders( $headers ) {
-		$this->sentHeaders = $headers;
-	}
-	public function getSentHeaders() {
-		return $this->sentHeaders;
 	}
 
 	/**
