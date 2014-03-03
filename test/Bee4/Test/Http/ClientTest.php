@@ -17,7 +17,7 @@ use Bee4\Http\Client;
  * Http client test
  * @package Bee4\Test\Http
  */
-class ClientTest extends \Bee4\PHPUnit\TestCase
+class ClientTest extends \Bee4\PHPUnit\HttpClientTestCase
 {
 	/**
 	 * @var Client
@@ -57,17 +57,29 @@ class ClientTest extends \Bee4\PHPUnit\TestCase
 	}
 
 	/**
-	 * @covers Bee4\Http\Client::__call
-	 * @covers Bee4\Http\Client::createRequest
+	 * @covers Bee4\Http\Client
+	 */
+	public function testSend() {
+		$request1 = $this->object->get('/index.html');
+		$this->assertInstanceOf('\Bee4\Http\Message\AbstractMessage', $request1);
+		$this->assertInstanceOf('\Bee4\Http\Message\Request\AbstractRequest', $request1);
+		$this->assertInstanceOf('\Bee4\Http\Message\Request\Get', $request1);
+		$response = $request1->send();
+
+		$this->assertInstanceOf('\Bee4\Http\Message\Response', $response);
+
+		$request2 = $this->object->post('/index.html');
+		$this->assertInstanceOf('\Bee4\Http\Message\Request\Post', $request2);
+	}
+
+	/**
+	 * @covers Bee4\Http\Client
 	 * @covers Bee4\Http\Message\Request\Get
 	 */
 	public function testGet()
 	{
-		$request = $this->object->get('/get.php');
-		$this->assertInstanceOf('\Bee4\Http\Message\AbstractMessage', $request);
-		$this->assertInstanceOf('\Bee4\Http\Message\Request\Get', $request);
-
-		$this->assertEquals(self::getBaseUrl().'/get.php', $request->getUrl());
+		$request = $this->object->get('/index.html');
+		$this->assertEquals(self::getBaseUrl().'/index.html', $request->getUrl());
 
 		$response = $request->send();
 

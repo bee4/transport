@@ -36,6 +36,6 @@ register_shutdown_function(function() use ($pid) {
 //------------------------------------------------------------------------------
 //Use composer for autoloading
 require_once __DIR__.'/../vendor/autoload.php';
-require_once __DIR__.'/Bee4/PHPUnit/TestCase.php';
+require_once __DIR__.'/Bee4/PHPUnit/HttpClientTestCase.php';
 
-\Bee4\PHPUnit\TestCase::setBaseUrl('http://'.WEBSERVER_HOST.':'.WEBSERVER_PORT);
+\Bee4\PHPUnit\HttpClientTestCase::setBaseUrl('http://'.WEBSERVER_HOST.':'.WEBSERVER_PORT);

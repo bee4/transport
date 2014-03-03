@@ -16,7 +16,7 @@ namespace Bee4\PHPUnit;
  * Allow to register the base URL for all tests
  * @package   Bee4\PHPUnit
  */
-class TestCase extends \PHPUnit_Framework_TestCase {
+class HttpClientTestCase extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @var string
 	 */
