@@ -14,14 +14,20 @@ namespace Bee4\Test\Http\Message\Request;
 use Bee4\Http\Url;
 
 /**
- * Http client test
+ * AbstractRequest test definition
  * @package Bee4\Test\Http\Message\Request
  * @covers Bee4\Http\Message\Request\AbstractRequest
  */
 class AbstractRequestTest extends \Bee4\PHPUnit\HttpClientTestCase
 {
+	/**
+	 * @var Url
+	 */
 	protected $url;
 
+	/**
+	 * Build an Url object which represent BaseUrl
+	 */
 	public function setUp() {
 		$this->url = new Url(self::getBaseUrl());
 	}

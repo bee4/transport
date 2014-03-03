@@ -16,8 +16,6 @@ namespace Bee4\Http\Message;
  * @package Bee4\Http\Message
  */
 class ResponseFactory {
-	protected static $headers;
-
 	/**
 	 * Build a new reponse object from cURL execution result
 	 * @param string $content Response content
