@@ -29,8 +29,7 @@ class ClientTest extends \Bee4\PHPUnit\HttpClientTestCase
 	 * This method is called before a test is executed.
 	 * @covers Bee4\Http\Client::__construct
 	 */
-	protected function setUp()
-	{
+	protected function setUp() {
 		if (!extension_loaded('curl')) {
 			$this->markTestSkipped('The curl extension is not available.');
 		}
@@ -41,8 +40,7 @@ class ClientTest extends \Bee4\PHPUnit\HttpClientTestCase
 	/**
 	 * @covers Bee4\Http\Client::getUserAgent
 	 */
-	public function testGetUserAgent()
-	{
+	public function testGetUserAgent() {
 		$this->assertEquals('Bee4 - BeeBot/1.0', $this->object->getUserAgent());
 	}
 
@@ -86,10 +84,9 @@ class ClientTest extends \Bee4\PHPUnit\HttpClientTestCase
 	 * @covers Bee4\Http\Client
 	 * @covers Bee4\Http\Message\Request\Get
 	 */
-	public function testGet()
-	{
+	public function testGet() {
 		$request = $this->object->get('/index.html');
-		$this->assertEquals(self::getBaseUrl().'/index.html', $request->getUrl());
+		$this->assertEquals(self::getBaseUrl().'/index.html', $request->getUrl()->toString());
 
 		$response = $request->send();
 

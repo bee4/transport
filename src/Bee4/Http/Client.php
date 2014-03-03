@@ -22,7 +22,7 @@ use Bee4\Http\Message\ResponseFactory;
 class Client {
 	/**
 	 * Base URL for calls
-	 * @var string
+	 * @var Url
 	 */
 	protected $baseUrl;
 
@@ -43,7 +43,10 @@ class Client {
 		}
 		// @codeCoverageIgnoreEnd
 
-		$this->baseUrl = $baseUrl;
+		if( $baseUrl != '' ) {
+			$this->baseUrl = new Url($baseUrl);
+		}
+
 		$this->requestFactory = new RequestFactory();
 	}
 
@@ -70,12 +73,10 @@ class Client {
 	 */
 	protected function createRequest( $method, $url, array $headers = [] ) {
 		if( !is_string($url) ) {
-			throw new \InvalidArgumentException('URL parameter must be a valid String');
+			throw new \InvalidArgumentException('Url parameter must be a valid string!!');
 		}
-		$url = $this->baseUrl.$url;
-		if( trim($url) === "" || parse_url($url) === false ) {
-			throw new \InvalidArgumentException('URL given must be a non empty and valid URL');
-		}
+
+		$url = new Url((isset($this->baseUrl)?$this->baseUrl->toString():'').$url);
 
 		$request = $this->requestFactory->build($method, $url, $headers);
 		$request->setClient($this);
@@ -94,15 +95,11 @@ class Client {
 		}
 
 		self::$handles[get_class($request)]->addOptions($request->getCurlOptions());
-		self::$handles[get_class($request)]->addOption(CURLOPT_URL, $request->getUrl());
+		self::$handles[get_class($request)]->addOption(CURLOPT_URL, $request->getUrl()->toString());
 		self::$handles[get_class($request)]->addOption(CURLOPT_HTTPHEADER, $request->getHeaderLines());
 		self::$handles[get_class($request)]->addOption(CURLOPT_USERAGENT, $this->getUserAgent());
 
 		$result = self::$handles[get_class($request)]->execute();
-
-		/*if( self::$handles[get_class($request)]->hasInfo(CURLINFO_HEADER_OUT) ) {
-			$request->setSentHeaders(self::$handles[get_class($request)]->getInfo(CURLINFO_HEADER_OUT));
-		}*/
 
 		$response = ResponseFactory::build($result, self::$handles[get_class($request)]->getInfos());
 		$response->setRequest($request);

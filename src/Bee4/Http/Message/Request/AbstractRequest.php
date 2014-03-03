@@ -14,6 +14,7 @@ namespace Bee4\Http\Message\Request;
 
 use Bee4\Http\Message\AbstractMessage;
 use Bee4\Http\Client;
+use Bee4\Http\Url;
 
 /**
  * HTTP Request object
@@ -33,16 +34,16 @@ abstract class AbstractRequest extends AbstractMessage {
 	protected $options;
 
 	/**
-	 * @var string
+	 * @var Url
 	 */
 	protected $url;
 
 	/**
 	 * Construct a new request object
-	 * @param string $url
+	 * @param Url $url
 	 * @param array $headers
 	 */
-	public function __construct($url, array $headers = []) {
+	public function __construct(Url $url, array $headers = []) {
 		$this->url = $url;
 		$this->options = [];
 		$this->addHeaders($headers);
@@ -59,7 +60,7 @@ abstract class AbstractRequest extends AbstractMessage {
 
 	/**
 	 * URL accessor
-	 * @return string
+	 * @return Url
 	 */
 	public function getUrl() {
 		return $this->url;

@@ -97,8 +97,9 @@ class Handle {
 	 * @return array
 	 */
 	public function getInfo($name) {
-		if( $this->hasInfo($name) )
+		if( $this->hasInfo($name) ) {
 			return $this->infos[$name];
+		}
 
 		return null;
 	}

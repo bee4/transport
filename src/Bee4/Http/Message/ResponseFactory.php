@@ -32,12 +32,12 @@ class ResponseFactory {
 
 		//Headers are returned with content, so we extract it
 		if( strpos($content,'HTTP/') === 0 ) {
-			$lines = [];
 			while( ($line = substr($content, 0, strpos($content, "\r\n"))) != "" ) {
 				$content = substr($content, strlen($line)+2);
 
-				if( preg_match('/^([A-Za-z\-]+): (.*)/', $line, $matches) )
+				if( preg_match('/^([A-Za-z\-]+): (.*)/', $line, $matches) ) {
 					$response->addHeader(strtolower($matches[1]), $matches[2]);
+				}
 			}
 			$content = substr($content, strlen($line)+2);
 		} else {
