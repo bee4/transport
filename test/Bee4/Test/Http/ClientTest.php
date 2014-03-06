@@ -59,6 +59,9 @@ class ClientTest extends \Bee4\PHPUnit\HttpClientTestCase
 		$this->assertEquals('Bee4 - BeeBot/1.0', $this->object->getUserAgent());
 	}
 
+	/**
+	 * @covers Bee4\Http\Curl\Handle::execute
+	 */
 	public function testSend() {
 		//Check that Post request is nicely mapped
 		$request1 = $this->object->get('/index.html');

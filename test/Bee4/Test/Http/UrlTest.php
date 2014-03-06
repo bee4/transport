@@ -86,6 +86,17 @@ class UrlTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * Try to set host + port at the same time
+	 */
+	public function testHostAndPort() {
+		$url = new Url('http://www.bee4.fr:80');
+		$this->assertEquals('http://www.bee4.fr', (string)$url);
+		$url->host('localhost:8080');
+		$this->assertEquals('localhost', $url->host());
+		$this->assertEquals(8080, $url->port());
+	}
+
+	/**
 	 * Url must be called with a valid string has parameter
 	 * @expectedException \InvalidArgumentException
 	 */
@@ -121,83 +132,73 @@ class UrlTest extends \PHPUnit_Framework_TestCase {
 		$url->toString();
 	}
 
+	public function testInvalidToStringCast() {
+		$url = new Url('http://www.bee4.fr');
+		$url->host('');
+		$this->assertEquals(get_class($url).'::INVALID', (string)$url);
+	}
+
+	/**
+	 * @expectedException \InvalidArgumentException
+	 */
 	public function testSetInvalidPort() {
 		$url = new Url('http://www.bee4.fr');
-		try {
-			$url->port('invalid');
-			$this->fail();
-		} catch( \InvalidArgumentException $error ) {
-			$this->assertTrue(true);
-		}
+		$url->port('invalid');
 	}
 
+	/**
+	 * @expectedException \InvalidArgumentException
+	 */
 	public function testSetInvalidScheme() {
 		$url = new Url('http://www.bee4.fr');
-		try {
-			$url->scheme(null);
-			$this->fail();
-		} catch( \InvalidArgumentException $error ) {
-			$this->assertTrue(true);
-		}
+		$url->scheme(null);
 	}
 
+	/**
+	 * @expectedException \InvalidArgumentException
+	 */
 	public function testSetInvalidHost() {
 		$url = new Url('http://www.bee4.fr');
-		try {
-			$url->host(0);
-			$this->fail();
-		} catch( \InvalidArgumentException $error ) {
-			$this->assertTrue(true);
-		}
+		$url->host(0);
 	}
 
+	/**
+	 * @expectedException \InvalidArgumentException
+	 */
 	public function testSetInvalidUser() {
 		$url = new Url('http://www.bee4.fr');
-		try {
-			$url->user(new \stdClass);
-			$this->fail();
-		} catch( \InvalidArgumentException $error ) {
-			$this->assertTrue(true);
-		}
+		$url->user(new \stdClass);
 	}
 
+	/**
+	 * @expectedException \InvalidArgumentException
+	 */
 	public function testSetInvalidPass() {
 		$url = new Url('http://www.bee4.fr');
-		try {
-			$url->pass(0);
-			$this->fail();
-		} catch( \InvalidArgumentException $error ) {
-			$this->assertTrue(true);
-		}
+		$url->pass(0);
 	}
 
+	/**
+	 * @expectedException \InvalidArgumentException
+	 */
 	public function testSetInvalidPath() {
 		$url = new Url('http://www.bee4.fr');
-		try {
-			$url->path(null);
-			$this->fail();
-		} catch( \InvalidArgumentException $error ) {
-			$this->assertTrue(true);
-		}
+		$url->path(null);
 	}
 
+	/**
+	 * @expectedException \InvalidArgumentException
+	 */
 	public function testSetInvalidQuery() {
 		$url = new Url('http://www.bee4.fr');
-		try {
-			$url->query(null);
-			$this->fail();
-		} catch( \InvalidArgumentException $error ) {
-			$this->assertTrue(true);
-		}
+		$url->query(null);
 	}
 
+	/**
+	 * @expectedException \InvalidArgumentException
+	 */
 	public function testSetInvalidFragment() {
 		$url = new Url('http://www.bee4.fr');
-		try {
-			$url->fragment(null);
-			$this->fail();
-		} catch( \InvalidArgumentException $error ) {
-			$this->assertTrue(true);
-		}
+		$url->fragment(null);
 	}
 }

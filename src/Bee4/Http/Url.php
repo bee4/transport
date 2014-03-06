@@ -164,14 +164,14 @@ class Url
 		try {
 			return $this->toString();
 		} catch (\Exception $ex) {
-			return $ex->getMessage();
+			return __CLASS__.'::INVALID';
 		}
 	}
 
 	/**
 	 * Fill a property with the given value
-	 * @param type $name
-	 * @param type $value
+	 * @param string $name
+	 * @param mixed $value
 	 * @throws \InvalidArgumentException
 	 */
 	protected function populate( $name, $value ) {
@@ -183,8 +183,14 @@ class Url
 				if( isset(self::$defaultPorts[$this->scheme]) && $value == self::$defaultPorts[$this->scheme] ) {
 					break;
 				}
-				$this->$name = (int)$value;
+				$this->$name = $value;
 				break;
+			case 'host':
+				if(strpos($value, ':') !== false ) {
+					$tmp = explode(':', $value);
+					$this->port((int)$tmp[1]);
+					$value = $tmp[0];
+				}
 			default:
 				if( !is_string($value) ) {
 					throw new \InvalidArgumentException('Value given to set "'.$name.'" must be a valid string!!');

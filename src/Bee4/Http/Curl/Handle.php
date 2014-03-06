@@ -45,7 +45,7 @@ class Handle {
 	 * Initialize cURL resource
 	 */
 	public function __construct() {
-		$this->handle = curl_init();
+		$this->open();
 	}
 
 	/**
@@ -56,13 +56,26 @@ class Handle {
 	}
 
 	/**
+	 * Open the curl handle to be used
+	 * @return Handle
+	 */
+	public function open() {
+		if( !is_resource($this->handle) ) {
+			$this->handle = curl_init();
+		}
+		return $this;
+	}
+
+	/**
 	 * Close currently opened handle
+	 * @return Handle
 	 */
 	public function close() {
 		if( is_resource($this->handle) ) {
 			curl_close($this->handle);
 		}
 		$this->handle = null;
+		return $this;
 	}
 
 	/**
@@ -70,6 +83,10 @@ class Handle {
 	 * @return string
 	 */
 	public function execute() {
+		if( !is_resource($this->handle) ) {
+			throw new \RuntimeException('Curl handle has been closed, just open it before execute...');
+		}
+
 		curl_setopt_array($this->handle, $this->options);
 
 		$return = curl_exec($this->handle);
@@ -125,18 +142,22 @@ class Handle {
 	 * Add an option to the handle
 	 * @param int $name
 	 * @param mixed $value
+	 * @return Handle
 	 */
 	public function addOption( $name, $value ) {
 		$this->options[$name] = $value;
+		return $this;
 	}
 
 	/**
 	 * Add multiple option at once
 	 * @param array $options
+	 * @return Handle
 	 */
 	public function addOptions( array $options ) {
 		foreach( $options as $name => $value ) {
 			$this->addOption($name, $value);
 		}
+		return $this;
 	}
 }
