@@ -21,7 +21,7 @@ class Url
 	/**
 	 * @var string
 	 */
-	protected $scheme = 'http';
+	protected $scheme;
 
 	/**
 	 * @var string
@@ -31,7 +31,7 @@ class Url
 	/**
 	 * @var int
 	 */
-	protected $port = 80;
+	protected $port;
 
 	/**
 	 * @var string
@@ -59,6 +59,17 @@ class Url
 	protected $fragment;
 
 	/**
+	 * Standard ports for specific schemes
+	 * @var array
+	 */
+	private static $defaultPorts = [
+		'http' => 80,
+		'https' => 443,
+		'ftp' => 21,
+		'ssh' => 22
+	];
+
+	/**
 	 * @param string $url
 	 */
 	public function __construct( $url ) {
@@ -69,9 +80,10 @@ class Url
 			throw new \InvalidArgumentException('url given is not a valid url (according to PHP FILTER_VALIDATE_URL)');
 		}
 
+		//Define default entries
 		$parsed = parse_url($url);
 		foreach( $parsed as $name => $value ) {
-			$this->populate($name, $value);
+			$this->$name($value);
 		}
 	}
 
@@ -105,7 +117,7 @@ class Url
 			}
 			$url .= $this->host;
 
-			if( trim($this->port) != '' && $this->port != 80 ) {
+			if( trim($this->port) != '' ) {
 				$url .= ':'.$this->port;
 			}
 		}
@@ -132,7 +144,7 @@ class Url
 		//Define getter and setter for each valid property
 		if(property_exists($this, $name)) {
 			if( count( $arguments ) == 0 ) {
-				return $this->$name;
+				return $this->retrieve($name);
 			} elseif( count( $arguments ) == 1 ) {
 				$this->populate($name, $arguments[0]);
 				return $this;
@@ -157,7 +169,7 @@ class Url
 	}
 
 	/**
-	 *
+	 * Fill a property with the given value
 	 * @param type $name
 	 * @param type $value
 	 * @throws \InvalidArgumentException
@@ -168,6 +180,9 @@ class Url
 				if( !is_int($value) ) {
 					throw new \InvalidArgumentException('Value given to set "'.$name.'" must be a valid int!!');
 				}
+				if( isset(self::$defaultPorts[$this->scheme]) && $value == self::$defaultPorts[$this->scheme] ) {
+					break;
+				}
 				$this->$name = (int)$value;
 				break;
 			default:
@@ -176,6 +191,23 @@ class Url
 				}
 				$this->$name = $value;
 				break;
+		}
+	}
+
+	/**
+	 * Property name to retrieve from the current object
+	 * This function is defined only for the special port case
+	 * @param string $name
+	 * @return mixed
+	 */
+	protected function retrieve($name) {
+		switch( $name ) {
+			case 'port':
+				if( is_null($this->$name) && isset(self::$defaultPorts[$this->scheme]) ) {
+					return self::$defaultPorts[$this->scheme];
+				}
+			default:
+				return $this->$name;
 		}
 	}
 }

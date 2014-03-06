@@ -28,11 +28,12 @@ class UrlTest extends \PHPUnit_Framework_TestCase {
 			['www.jeux.com', false],
 			['www.jeux.com/without-scheme.html', false],
 			['http://www.bee4.fr'],
-			['http://www.bee4.fr/a-page.html'],
+			['ftp://www.bee4.fr/a-page.html'],
 			['http://www.bee4.fr:8080/a-page.html?with=query'],
 			['http://www.bee4.fr:1349/a-page.html?with=query#and-fragment'],
 			['http://user:pass@www.bee4.fr/a-page.html?with=query#and-fragment'],
 			['http://user@bee4.fr/a-page.html?with=query#and-fragment'],
+			['ssh://user:pass@host.com/a-page/'],
 			['mailto:dev@bee4.fr']
 		];
 	}
@@ -65,6 +66,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase {
 
 		$url->scheme('https');
 		$this->assertEquals('https', $url->scheme());
+		$this->assertEquals(443, $url->port());
 
 		$url->path('/page.html');
 		$url->query('nb=20');
