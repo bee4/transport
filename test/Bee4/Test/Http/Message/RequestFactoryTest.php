@@ -17,7 +17,6 @@ use Bee4\Http\Url;
 /**
  * RequestFactory unit test definition
  * @package Bee4\Test\Http\Message
- * @covers Bee4\Http\Message\RequestFactory
  */
 class RequestFactoryTest extends \PHPUnit_Framework_TestCase
 {

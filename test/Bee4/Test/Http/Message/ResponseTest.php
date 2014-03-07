@@ -16,7 +16,6 @@ use Bee4\Http\Message\Response;
 /**
  * Response unit test definition
  * @package Bee4\Test\Http\Message
- * @covers Bee4\Http\Message\Response
  */
 class ResponseTest extends \PHPUnit_Framework_TestCase
 {

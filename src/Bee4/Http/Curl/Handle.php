@@ -50,6 +50,7 @@ class Handle {
 
 	/**
 	 * Handle destructor
+	 * @codeCoverageIgnore
 	 */
 	public function __destruct() {
 		$this->close();

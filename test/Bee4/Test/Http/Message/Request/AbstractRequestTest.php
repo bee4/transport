@@ -16,7 +16,6 @@ use Bee4\Http\Url;
 /**
  * AbstractRequest test definition
  * @package Bee4\Test\Http\Message\Request
- * @covers Bee4\Http\Message\Request\AbstractRequest
  */
 class AbstractRequestTest extends \Bee4\PHPUnit\HttpClientTestCase
 {

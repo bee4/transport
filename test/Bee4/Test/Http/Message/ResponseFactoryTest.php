@@ -16,7 +16,6 @@ use Bee4\Http\Message\ResponseFactory;
 /**
  * ResponseFactory unit test definition
  * @package Bee4\Test\Http\Message
- * @covers Bee4\Http\Message\ResponseFactory
  */
 class ResponseFactoryTest extends \Bee4\PHPUnit\HttpClientTestCase
 {

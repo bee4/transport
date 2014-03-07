@@ -14,7 +14,6 @@ namespace Bee4\Test\Http\Message;
 /**
  * AbstractMessage unit test definition
  * @package Bee4\Test\Http\Message
- * @covers Bee4\Http\Message\WithBodyTrait
  */
 class WithBodyTraitTest extends \PHPUnit_Framework_TestCase
 {

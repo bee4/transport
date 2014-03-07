@@ -16,8 +16,6 @@ use Bee4\Http\Client;
 /**
  * Http client test
  * @package Bee4\Test\Http
- * @covers Bee4\Http\Client
- * @covers Bee4\Http\Message\ResponseFactory
  */
 class ClientTest extends \Bee4\PHPUnit\HttpClientTestCase
 {
@@ -60,9 +58,6 @@ class ClientTest extends \Bee4\PHPUnit\HttpClientTestCase
 		$this->assertEquals('Bee4 - BeeBot/1.0', $this->object->getUserAgent());
 	}
 
-	/**
-	 * @covers Bee4\Http\Curl\Handle::execute
-	 */
 	public function testSend() {
 		//Check that Post request is nicely mapped
 		$request1 = $this->object->get('/index.html');
@@ -81,9 +76,6 @@ class ClientTest extends \Bee4\PHPUnit\HttpClientTestCase
 		$this->assertInstanceOf('\Bee4\Http\Message\Response', $request2->send());
 	}
 
-	/**
-	 * @covers Bee4\Http\Message\Request\Get
-	 */
 	public function testGet() {
 		$request = $this->object->get('/index.html');
 		$response = $request->send();
@@ -94,9 +86,6 @@ class ClientTest extends \Bee4\PHPUnit\HttpClientTestCase
 		$this->assertInstanceOf('\Bee4\Http\Message\Request\Get', $response->getRequest());
 	}
 
-	/**
-	 * @covers Bee4\Http\Message\Request\Post
-	 */
 	public function testPost() {
 		$request = $this->object->post('/index.html')->setBody('{"body": "I\'m the body"}}');
 		$response = $request->send();
@@ -109,9 +98,6 @@ class ClientTest extends \Bee4\PHPUnit\HttpClientTestCase
 		$this->assertInstanceOf('\Bee4\Http\Message\Request\Post', $response->getRequest());
 	}
 
-	/**
-	 * @covers Bee4\Http\Message\Request\Head
-	 */
 	public function testHead() {
 		$request = $this->object->head('/index.html');
 		$response = $request->send();
@@ -122,9 +108,6 @@ class ClientTest extends \Bee4\PHPUnit\HttpClientTestCase
 		$this->assertInstanceOf('\Bee4\Http\Message\Request\Head', $response->getRequest());
 	}
 
-	/**
-	 * @covers Bee4\Http\Message\Request\Delete
-	 */
 	public function testDelete() {
 		$request = $this->object->delete('/index.html');
 		$response = $request->send();
@@ -137,9 +120,6 @@ class ClientTest extends \Bee4\PHPUnit\HttpClientTestCase
 		$this->assertInstanceOf('\Bee4\Http\Message\Request\Delete', $response->getRequest());
 	}
 
-	/**
-	 * @covers Bee4\Http\Message\Request\Put
-	 */
 	public function testPut() {
 		$request = $this->object->put('/index.html');
 		$response = $request->send();
