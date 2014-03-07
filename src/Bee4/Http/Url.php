@@ -15,6 +15,15 @@ namespace Bee4\Http;
  * Define a valid URL component
  * Allow to check if it's a valid Url and define all components
  * @package Bee4\Http
+ *
+ * @method string|Url scheme(string $value) Getter and setter for scheme property
+ * @method string|Url host(string $value) Getter and setter for host property
+ * @method int|Url port(int $value) Getter and setter for port property
+ * @method string|Url user(string $value) Getter and setter for user property
+ * @method string|Url pass(string $value) Getter and setter for pass property
+ * @method string|Url path(string $value) Getter and setter for path property
+ * @method string|Url query(string $value) Getter and setter for query property
+ * @method string|Url fragment(string $value) Getter and setter for fragment property
  */
 class Url
 {

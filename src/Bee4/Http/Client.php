@@ -18,6 +18,12 @@ use Bee4\Http\Message\ResponseFactory;
 /**
  * Http client
  * @package Bee4\Http
+ *
+ * @method Bee4\Http\Message\Request\AbstractRequest get(string $url, array $headers)
+ * @method Bee4\Http\Message\Request\AbstractRequest post(string $url, array $headers)
+ * @method Bee4\Http\Message\Request\AbstractRequest head(string $url, array $headers)
+ * @method Bee4\Http\Message\Request\AbstractRequest delete(string $url, array $headers)
+ * @method Bee4\Http\Message\Request\AbstractRequest put(string $url, array $headers)
  */
 class Client {
 	/**
@@ -101,8 +107,11 @@ class Client {
 
 		$result = self::$handles[get_class($request)]->execute();
 
-		$response = ResponseFactory::build($result, self::$handles[get_class($request)]->getInfos());
-		$response->setRequest($request);
+		$response = ResponseFactory::build(
+			$result,
+			self::$handles[get_class($request)],
+			$request
+		);
 
 		return $response;
 	}
