@@ -40,7 +40,7 @@ class HandleTest extends \Bee4\PHPUnit\HttpClientTestCase {
 		$result = $this->object->execute();
 
 		$this->assertTrue($this->object->hasInfo('request_header'));
-		$this->assertEquals(404, $this->object->getInfo('http_code'));
+		$this->assertEquals(200, $this->object->getInfo('http_code'));
 		$this->assertNull($this->object->getInfo('unknown_property'));
 		$this->assertTrue(is_string($result));
 

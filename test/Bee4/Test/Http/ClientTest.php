@@ -17,6 +17,7 @@ use Bee4\Http\Client;
  * Http client test
  * @package Bee4\Test\Http
  * @covers Bee4\Http\Client
+ * @covers Bee4\Http\Message\ResponseFactory
  */
 class ClientTest extends \Bee4\PHPUnit\HttpClientTestCase
 {
