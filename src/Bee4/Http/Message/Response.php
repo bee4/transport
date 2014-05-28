@@ -33,10 +33,10 @@ class Response extends AbstractMessage {
 	protected $status;
 
 	/**
-	 * HTTP Response time
-	 * @var integer
+	 * HTTP total transaction time in second
+	 * @var double
 	 */
-	protected $time;
+	protected $transactionTime;
 
 	/**
 	 * Request dependency injection
@@ -48,7 +48,6 @@ class Response extends AbstractMessage {
 	}
 
 	/**
-	 *
 	 * @return AbstractRequest
 	 */
 	public function getRequest() {
@@ -56,7 +55,6 @@ class Response extends AbstractMessage {
 	}
 
 	/**
-	 * Set the response status code
 	 * @param int $code
 	 */
 	public function setStatus($code) {
@@ -65,7 +63,6 @@ class Response extends AbstractMessage {
 	}
 
 	/**
-	 * Retrieve request status code
 	 * @return int
 	 */
 	public function getStatus() {
@@ -73,26 +70,23 @@ class Response extends AbstractMessage {
 	}
 
 	/**
-	 * Set the response time
-	 * @param int $time
+	 * @param double $time
+	 * @return Response
 	 * @throws \RuntimeException
 	 */
-	public function setResponseTime($time) {
+	public function setTransactionTime($time) {
 		if( !is_numeric($time) || $time < 0 ) {
-			throw new \RuntimeException(
-				"Strange response time"
-			);
+			throw new \RuntimeException("Invalid response time format");
 		}
-		$this->time = (float)$time;
+		$this->transactionTime = (float)$time;
 		return $this;
 	}
 
 	/**
-	 * Retrieve request response time
-	 * @return int
+	 * @return double
 	 */
-	public function getResponseTime() {
-		return $this->time;
+	public function getTransactionTime() {
+		return $this->transactionTime;
 	}
 
 	/**

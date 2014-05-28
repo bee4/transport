@@ -29,9 +29,9 @@ class ResponseFactory {
 		Request\AbstractRequest $request
 	) {
 		$response = new Response();
-		
+
 		$response->setStatus($handle->getInfo('http_code'));
-		$response->setResponseTime($handle->getInfo('total_time'));
+		$response->setTransactionTime($handle->getInfo('total_time'));
 
 		//Populate request headers with all really sent headers
 		if( $handle->hasInfo('request_header') ) {

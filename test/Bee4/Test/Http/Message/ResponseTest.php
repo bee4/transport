@@ -44,22 +44,22 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 		$this->object->setStatus(200);
 		$this->assertEquals(200, $this->object->getStatus());
 
-		$this->object->setResponseTime(1.5);
-		$this->assertEquals(1.5, $this->object->getResponseTime());
+		$this->object->setTransactionTime(1.5);
+		$this->assertEquals(1.5, $this->object->getTransactionTime());
 	}
 
-	/**
-	 * @expectedException \RuntimeException
-	 */
-	public function testResponseTime() {
-		$this->object->setResponseTime(-0.8);
+	public function badResponseTimeProvider() {
+		return [
+			['hello_world'],
+			[-0.8]
+		];
 	}
-
 	/**
+	 * @dataProvider badResponseTimeProvider
 	 * @expectedException \RuntimeException
 	 */
-	public function testResponseTimeAgain() {
-		$this->object->setResponseTime('hello world');
+	public function testResponseTimeFormatCheck($value) {
+		$this->object->setTransactionTime($value);
 	}
 
 	/**
