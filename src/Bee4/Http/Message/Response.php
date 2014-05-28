@@ -33,6 +33,12 @@ class Response extends AbstractMessage {
 	protected $status;
 
 	/**
+	 * HTTP Response time
+	 * @var integer
+	 */
+	protected $time;
+
+	/**
 	 * Request dependency injection
 	 * @param AbstractRequest $request
 	 */
@@ -64,6 +70,29 @@ class Response extends AbstractMessage {
 	 */
 	public function getStatus() {
 		return $this->status;
+	}
+
+	/**
+	 * Set the response time
+	 * @param int $time
+	 * @throws \RuntimeException
+	 */
+	public function setResponseTime($time) {
+		if( !is_numeric($time) || $time < 0 ) {
+			throw new \RuntimeException(
+				"Strange response time"
+			);
+		}
+		$this->time = (float)$time;
+		return $this;
+	}
+
+	/**
+	 * Retrieve request response time
+	 * @return int
+	 */
+	public function getResponseTime() {
+		return $this->time;
 	}
 
 	/**
