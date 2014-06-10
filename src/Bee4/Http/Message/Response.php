@@ -17,7 +17,8 @@ use Bee4\Http\Message\Request\AbstractRequest;
  * Response wrapper
  * @package Bee4\Http\Message
  */
-class Response extends AbstractMessage {
+class Response extends AbstractMessage
+{
 	use \Bee4\Http\Message\WithBodyTrait;
 
 	/**

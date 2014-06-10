@@ -16,12 +16,10 @@ namespace Bee4\Http\Message\Request;
  * HTTP POST Request object
  * @package Bee4\Http\Message\Request
  */
-class Put extends AbstractRequest {
+class Put extends AbstractRequest
+{
 	use \Bee4\Http\Message\WithBodyTrait;
 
-	/**
-	 * {@inheritdoc}
-	 */
 	protected function prepare() {
 		$this->options[CURLOPT_CUSTOMREQUEST] = 'PUT';
 		$this->options[CURLOPT_POSTFIELDS] = $this->getBody();

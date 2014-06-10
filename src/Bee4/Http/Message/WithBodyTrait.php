@@ -14,7 +14,8 @@ namespace Bee4\Http\Message;
  * Add body capability to the current request
  * @package Bee4\Http\Message
  */
-trait WithBodyTrait {
+trait WithBodyTrait
+{
 	/**
 	 * Request body
 	 * @var string

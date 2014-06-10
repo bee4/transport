@@ -16,7 +16,8 @@ namespace Bee4\Http\Message;
  * Define a model for transport communication object
  * @package Bee4\Http\Message
  */
-interface MessageInterface {
+interface MessageInterface
+{
 	/**
 	 * Add a header to the message
 	 * @param string $name

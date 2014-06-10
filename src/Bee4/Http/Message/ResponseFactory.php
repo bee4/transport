@@ -17,7 +17,8 @@ use Bee4\Http\Curl\Handle;
  * Build a response from cURL response
  * @package Bee4\Http\Message
  */
-class ResponseFactory {
+class ResponseFactory
+{
 	/**
 	 * Build a new reponse object from cURL execution result
 	 * @param string $content Response content

@@ -17,7 +17,8 @@ use Bee4\Http\Url;
  * Static object in charge to build and initialize Request instance
  * @package Bee4\Http\Message
  */
-class RequestFactory {
+class RequestFactory
+{
 	/**
 	 * Build a new request from parameters
 	 * @param string $method

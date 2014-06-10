@@ -16,10 +16,8 @@ namespace Bee4\Http\Message\Request;
  * HTTP GET Request object
  * @package Bee4\Http\Message\Request
  */
-class Get extends AbstractRequest {
-	/**
-	 * {@inheritdoc}
-	 */
+class Get extends AbstractRequest
+{
 	protected function prepare() {
 		$this->options[CURLOPT_HTTPGET] = true;
 	}

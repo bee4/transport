@@ -25,7 +25,8 @@ use Bee4\Http\Message\ResponseFactory;
  * @method Bee4\Http\Message\Request\AbstractRequest delete(string $url, array $headers)
  * @method Bee4\Http\Message\Request\AbstractRequest put(string $url, array $headers)
  */
-class Client {
+class Client
+{
 	/**
 	 * Base URL for calls
 	 * @var Url

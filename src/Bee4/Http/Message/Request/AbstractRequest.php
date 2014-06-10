@@ -20,7 +20,8 @@ use Bee4\Http\Url;
  * HTTP Request object
  * @package Bee4\Http\Message\Request
  */
-abstract class AbstractRequest extends AbstractMessage {
+abstract class AbstractRequest extends AbstractMessage
+{
 	/**
 	 * Current client instance
 	 * @var Client

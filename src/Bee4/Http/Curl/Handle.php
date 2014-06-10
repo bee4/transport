@@ -17,7 +17,8 @@ use \Bee4\Http\Exception\CurlException;
  * Define cURL handle wrapper
  * @package Bee4\Http\Curl
  */
-class Handle {
+class Handle
+{
 	/**
 	 * cURL option to be used to execute current handle
 	 * @var array

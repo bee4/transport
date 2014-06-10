@@ -15,7 +15,8 @@ namespace Bee4\Http\Message;
  * HTTP Message basic implementation
  * @package Bee4\Http\Message
  */
-abstract class AbstractMessage implements MessageInterface {
+abstract class AbstractMessage implements MessageInterface
+{
 	/**
 	 * Header collection
 	 * @var array
