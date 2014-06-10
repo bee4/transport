@@ -131,4 +131,38 @@ class ClientTest extends \Bee4\PHPUnit\HttpClientTestCase
 		$this->assertEquals(false, $options[CURLOPT_POSTFIELDS]);
 		$this->assertInstanceOf('\Bee4\Http\Message\Request\Put', $response->getRequest());
 	}
+	
+	/**
+	 * @expectedException \Exception
+	 * @expectedExceptionMessage Yes event triggered
+	 */
+	public function testRegister() {
+		//Try to register events
+		$this->object->register(Client::ON_REQUEST, function($request) {
+			throw new \Exception("Yes event triggered");
+		});
+		$this->object->get('/index.html')->send();
+	}
+	
+	/**
+	 * @expectedException \InvalidArgumentException
+	 */
+	public function testInvalidRegister() {
+		$this->object->register("invalid event type", function() {});
+	}
+	
+	public function testCurlError() {
+		$this->expectOutputString('error');
+		$this->object = new Client("unmapped://127.0.0.1");
+		$this->object->register(Client::ON_ERROR, function($error) {
+			echo "error";
+		});
+		try {
+			$this->object->get()->send();
+		} catch( \Exception $error ) {
+			$this->assertInstanceOf("\Bee4\Http\Exception\CurlException", $error);
+			return;
+		}
+		$this->fail();
+	}
 }
