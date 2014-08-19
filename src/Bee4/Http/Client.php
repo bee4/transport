@@ -12,7 +12,6 @@
 namespace Bee4\Http;
 
 use Closure;
-
 use Bee4\Http\Message\Request\AbstractRequest;
 use Bee4\Http\Message\RequestFactory;
 use Bee4\Http\Message\ResponseFactory;
@@ -118,8 +117,8 @@ class Client
 
 	/**
 	 * Send the request
-	 * @param Request $request The request to be send
-	 * @return Bee4\Http\Message\Response
+	 * @param AbstractRequest $request The request to be send
+	 * @return Message\Response
 	 */
 	public function send( AbstractRequest $request ) {
 		$name = get_class($request);
