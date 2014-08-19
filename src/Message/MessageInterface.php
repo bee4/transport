@@ -22,12 +22,14 @@ interface MessageInterface
 	 * Add a header to the message
 	 * @param string $name
 	 * @param string $value
+	 * @return AbstractMessage
 	 */
 	public function addHeader($name, $value);
 
 	/**
 	 * Add multiple headers at once
 	 * @param array $headers
+	 * @return AbstractMessage
 	 */
 	public function addHeaders( array $headers );
 
@@ -54,11 +56,13 @@ interface MessageInterface
 	/**
 	 * Remove a header by name
 	 * @param string $name
+	 * @return AbstractMessage
 	 */
 	public function removeHeader($name);
 
 	/**
 	 * Remove all headers at once
+	 * @return AbstractMessage
 	 */
 	public function removeHeaders();
 }

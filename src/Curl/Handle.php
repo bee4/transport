@@ -113,6 +113,7 @@ class Handle
 
 	/**
 	 * Return cURL last execution detail
+	 * @param string $name
 	 * @return array
 	 */
 	public function getInfo($name) {
