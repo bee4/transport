@@ -40,7 +40,7 @@ class Client
 	 * Triggered when a response in built
 	 */
 	const ON_RESPONSE = 'response.built';
-	
+
 	/**
 	 * Base URL for calls
 	 * @var Url
@@ -52,7 +52,13 @@ class Client
 	 * @var array
 	 */
 	protected static $handles = [];
-	
+
+	/**
+	 * The factory to build request messages
+	 * @var RequestFactory
+	 */
+	protected $requestFactory;
+
 	/**
 	 * Contain a list of handlers to be triggered at some process actions
 	 * @var array
@@ -152,7 +158,7 @@ class Client
 	public function getUserAgent() {
 		return 'Bee4 - BeeBot/1.0';
 	}
-	
+
 	/**
 	 * Trigger an event on current client instance
 	 * @param string $name
@@ -163,7 +169,7 @@ class Client
 			call_user_func($handler, $data);
 		}
 	}
-	
+
 	/**
 	 * Register a callback executed when event is encountered
 	 * @param string $event
