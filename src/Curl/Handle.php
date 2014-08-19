@@ -105,6 +105,7 @@ class Handle
 
 	/**
 	 * Check if curl execution contain requested info
+	 * @param string $name
 	 * @return boolean
 	 */
 	public function hasInfo($name) {
