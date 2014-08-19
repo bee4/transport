@@ -1,0 +1,26 @@
+build_settings:
+  #Clone only the last revision
+  clone_depth: 1
+  ignore:
+    - "vendor"
+    - "bin"
+    - "doc"
+    - "test"
+
+setup:
+  composer:
+    action: "install"
+
+test:
+  php_unit:
+  php_mess_detector:
+    allow_failures: true
+    zero_config: true
+    path: "src"
+  php_cpd:
+    allow_failures: true
+    path: "src"
+  php_loc:
+    directory: "src"
+
+complete:
