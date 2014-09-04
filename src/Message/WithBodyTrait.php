@@ -25,6 +25,7 @@ trait WithBodyTrait
 	/**
 	 * Set the body for the current request
 	 * @param string $body
+     * @return AbstractMessage
 	 */
 	public function setBody($body) {
 		$this->body = $body;

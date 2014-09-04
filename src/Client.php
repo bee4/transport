@@ -11,6 +11,7 @@
 
 namespace Bee4\Http;
 
+use Bee4\Http\Exception\CurlException;
 use Closure;
 use Bee4\Http\Message\Request\AbstractRequest;
 use Bee4\Http\Message\RequestFactory;
@@ -20,11 +21,11 @@ use Bee4\Http\Message\ResponseFactory;
  * Http client
  * @package Bee4\Http
  *
- * @method Bee4\Http\Message\Request\AbstractRequest get(string $url, array $headers)
- * @method Bee4\Http\Message\Request\AbstractRequest post(string $url, array $headers)
- * @method Bee4\Http\Message\Request\AbstractRequest head(string $url, array $headers)
- * @method Bee4\Http\Message\Request\AbstractRequest delete(string $url, array $headers)
- * @method Bee4\Http\Message\Request\AbstractRequest put(string $url, array $headers)
+ * @method AbstractRequest get(string $url = "", array $headers = [])
+ * @method AbstractRequest post(string $url = "", array $headers = [])
+ * @method AbstractRequest head(string $url = "", array $headers = [])
+ * @method AbstractRequest delete(string $url = "", array $headers = [])
+ * @method AbstractRequest put(string $url = "", array $headers = [])
  */
 class Client
 {
@@ -40,7 +41,7 @@ class Client
 	 * Triggered when a response in built
 	 */
 	const ON_RESPONSE = 'response.built';
-	
+
 	/**
 	 * Base URL for calls
 	 * @var Url
@@ -52,7 +53,13 @@ class Client
 	 * @var array
 	 */
 	protected static $handles = [];
-	
+
+	/**
+	 * The factory to build request messages
+	 * @var RequestFactory
+	 */
+	protected $requestFactory;
+
 	/**
 	 * Contain a list of handlers to be triggered at some process actions
 	 * @var array
@@ -119,6 +126,7 @@ class Client
 	 * Send the request
 	 * @param AbstractRequest $request The request to be send
 	 * @return Message\Response
+     * @throws CurlException
 	 */
 	public function send( AbstractRequest $request ) {
 		$name = get_class($request);
@@ -134,7 +142,7 @@ class Client
 
 		try {
 			$result = self::$handles[$name]->execute();
-		} catch( \Bee4\Http\Exception\CurlException $error ) {
+		} catch( CurlException $error ) {
 			$this->trigger(self::ON_ERROR, $error);
 			throw $error;
 		}
@@ -152,7 +160,7 @@ class Client
 	public function getUserAgent() {
 		return 'Bee4 - BeeBot/1.0';
 	}
-	
+
 	/**
 	 * Trigger an event on current client instance
 	 * @param string $name
@@ -163,7 +171,7 @@ class Client
 			call_user_func($handler, $data);
 		}
 	}
-	
+
 	/**
 	 * Register a callback executed when event is encountered
 	 * @param string $event

@@ -24,12 +24,12 @@ class RequestFactory
 	 * @param string $method
 	 * @param Url $url
 	 * @param array $headers
-	 * @return Request\AbstractReqyest
+	 * @return Request\AbstractRequest
 	 */
 	public function build( $method, Url $url, array $headers ) {
 		$name = __NAMESPACE__.'\\Request\\'.ucfirst(strtolower($method));
 		if( !class_exists($name) ) {
-			throw new \InvalidArgumentException('Method given is not a valide request: '.$method);
+			throw new \InvalidArgumentException('Method given is not a valid request: '.$method);
 		}
 
 		$request = new $name($url, $headers);
