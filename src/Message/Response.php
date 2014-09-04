@@ -19,7 +19,7 @@ use Bee4\Http\Message\Request\AbstractRequest;
  */
 class Response extends AbstractMessage
 {
-	use \Bee4\Http\Message\WithBodyTrait;
+	use WithBodyTrait;
 
 	/**
 	 * The request which allow to generate this response
@@ -42,6 +42,7 @@ class Response extends AbstractMessage
 	/**
 	 * Request dependency injection
 	 * @param AbstractRequest $request
+     * @return Response
 	 */
 	public function setRequest( AbstractRequest $request ) {
 		$this->request = $request;
@@ -57,6 +58,7 @@ class Response extends AbstractMessage
 
 	/**
 	 * @param int $code
+     * @return Response
 	 */
 	public function setStatus($code) {
 		$this->status = (int)$code;

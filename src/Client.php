@@ -11,6 +11,7 @@
 
 namespace Bee4\Http;
 
+use Bee4\Http\Exception\CurlException;
 use Closure;
 use Bee4\Http\Message\Request\AbstractRequest;
 use Bee4\Http\Message\RequestFactory;
@@ -20,11 +21,11 @@ use Bee4\Http\Message\ResponseFactory;
  * Http client
  * @package Bee4\Http
  *
- * @method Bee4\Http\Message\Request\AbstractRequest get(string $url, array $headers)
- * @method Bee4\Http\Message\Request\AbstractRequest post(string $url, array $headers)
- * @method Bee4\Http\Message\Request\AbstractRequest head(string $url, array $headers)
- * @method Bee4\Http\Message\Request\AbstractRequest delete(string $url, array $headers)
- * @method Bee4\Http\Message\Request\AbstractRequest put(string $url, array $headers)
+ * @method AbstractRequest get(string $url = "", array $headers = [])
+ * @method AbstractRequest post(string $url = "", array $headers = [])
+ * @method AbstractRequest head(string $url = "", array $headers = [])
+ * @method AbstractRequest delete(string $url = "", array $headers = [])
+ * @method AbstractRequest put(string $url = "", array $headers = [])
  */
 class Client
 {
@@ -125,6 +126,7 @@ class Client
 	 * Send the request
 	 * @param AbstractRequest $request The request to be send
 	 * @return Message\Response
+     * @throws CurlException
 	 */
 	public function send( AbstractRequest $request ) {
 		$name = get_class($request);
@@ -140,7 +142,7 @@ class Client
 
 		try {
 			$result = self::$handles[$name]->execute();
-		} catch( \Bee4\Http\Exception\CurlException $error ) {
+		} catch( CurlException $error ) {
 			$this->trigger(self::ON_ERROR, $error);
 			throw $error;
 		}

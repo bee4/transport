@@ -82,6 +82,8 @@ class Handle
 
 	/**
 	 * Execute current handle and return result
+     * @throws \RuntimeException
+     * @throws CurlException
 	 * @return string
 	 */
 	public function execute() {
@@ -115,7 +117,7 @@ class Handle
 	/**
 	 * Return cURL last execution detail
 	 * @param string $name
-	 * @return array
+	 * @return int|string|double
 	 */
 	public function getInfo($name) {
 		if( $this->hasInfo($name) ) {

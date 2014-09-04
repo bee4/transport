@@ -12,13 +12,15 @@
 
 namespace Bee4\Http\Message\Request;
 
+use Bee4\Http\Message\WithBodyTrait;
+
 /**
  * HTTP DELETE Request object
  * @package Bee4\Http\Message\Request
  */
 class Delete extends AbstractRequest
 {
-	use \Bee4\Http\Message\WithBodyTrait;
+	use WithBodyTrait;
 
 	protected function prepare() {
 		$this->options[CURLOPT_CUSTOMREQUEST] = 'DELETE';

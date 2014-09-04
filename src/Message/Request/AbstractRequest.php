@@ -53,6 +53,7 @@ abstract class AbstractRequest extends AbstractMessage
 	/**
 	 * Set the linked client
 	 * @param Client $client
+     * @return AbstractRequest
 	 */
 	public function setClient( Client $client ) {
 		$this->client = $client;
@@ -112,10 +113,10 @@ abstract class AbstractRequest extends AbstractMessage
 	 */
 	public function send() {
 		if (!$this->client) {
-      throw new \RuntimeException('A client must be set on the request');
-    }
+          throw new \RuntimeException('A client must be set on the request');
+        }
 
-    $this->prepare();
-    return $this->client->send($this);
+        $this->prepare();
+        return $this->client->send($this);
 	}
 }
