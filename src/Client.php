@@ -14,7 +14,7 @@ namespace Bee4\Transfer;
 use Bee4\Transfer\Exception\CurlException;
 use Closure;
 use Bee4\Transfer\Message\Request\AbstractRequest;
-use Bee4\Transfer\Message\RequestFactory;
+use Bee4\Transfer\Message\Request\RequestFactory;
 use Bee4\Transfer\Message\ResponseFactory;
 
 /**
@@ -107,7 +107,7 @@ class Client
 	 * @param string $method
 	 * @param string $url
 	 * @param array $headers
-	 * @return AbstractRequest
+	 * @return RequestInterface
 	 */
 	protected function createRequest( $method, $url, array $headers = [] ) {
 		if( !is_string($url) ) {
@@ -135,9 +135,6 @@ class Client
 		}
 
 		self::$handles[$name]->addOptions($request->getCurlOptions());
-		self::$handles[$name]->addOption(CURLOPT_URL, $request->getUrl()->toString());
-		self::$handles[$name]->addOption(CURLOPT_HTTPHEADER, $request->getHeaderLines());
-		self::$handles[$name]->addOption(CURLOPT_USERAGENT, $this->getUserAgent());
 		$this->trigger(self::ON_REQUEST, $request);
 
 		try {
@@ -151,14 +148,6 @@ class Client
 		$this->trigger(self::ON_RESPONSE, $response);
 
 		return $response;
-	}
-
-	/**
-	 * Set the client UA for all requests
-	 * @return string
-	 */
-	public function getUserAgent() {
-		return 'Bee4 - BeeBot/1.0';
 	}
 
 	/**
