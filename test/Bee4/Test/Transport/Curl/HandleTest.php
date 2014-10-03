@@ -6,17 +6,17 @@
  *
  * @copyright Bee4 2014
  * @author  Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Test\Transfer\Curl
+ * @package Bee4\Test\Transport\Curl
  */
 
 namespace Bee4\Test\Http;
 
 use Bee4\PHPUnit\HttpClientTestCase;
-use Bee4\Transfer\Curl\Handle;
+use Bee4\Transport\Curl\Handle;
 
 /**
  * Check behaviour of Url helper
- * @package Bee4\Test\Transfer\Curl
+ * @package Bee4\Test\Transport\Curl
  */
 class HandleTest extends HttpClientTestCase {
 	/**
@@ -59,7 +59,7 @@ class HandleTest extends HttpClientTestCase {
 	}
 
 	/**
-	 * @expectedException \Bee4\Transfer\Exception\CurlException
+	 * @expectedException \Bee4\Transport\Exception\CurlException
 	 */
 	public function testInvalidUrl() {
 		$this->object->addOptions([CURLOPT_URL => 'invalidUrlToGet']);

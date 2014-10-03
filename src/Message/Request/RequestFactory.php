@@ -6,17 +6,17 @@
  *
  * @copyright Bee4 2014
  * @author	Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Transfer\Message\Request
+ * @package Bee4\Transport\Message\Request
  */
 
-namespace Bee4\Transfer\Message\Request;
+namespace Bee4\Transport\Message\Request;
 
-use Bee4\Transfer\Exception\UnknownProtocolException;
-use Bee4\Transfer\Url;
+use Bee4\Transport\Exception\UnknownProtocolException;
+use Bee4\Transport\Url;
 
 /**
  * Static object in charge to build and initialize Request instance
- * @package Bee4\Transfer\Message\Request
+ * @package Bee4\Transport\Message\Request
  */
 class RequestFactory
 {

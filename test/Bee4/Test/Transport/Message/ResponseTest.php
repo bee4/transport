@@ -6,17 +6,17 @@
  *
  * @copyright Bee4 2014
  * @author    Stephane HULARD <s.hulard@chstudio.fr>
- * @package   Bee4\Test\Transfer\Message
+ * @package   Bee4\Test\Transport\Message
  */
 
-namespace Bee4\Test\Transfer\Message;
+namespace Bee4\Test\Transport\Message;
 
-use Bee4\Transfer\Message\Response;
-use Bee4\Transfer\Url;
+use Bee4\Transport\Message\Response;
+use Bee4\Transport\Url;
 
 /**
  * Response unit test definition
- * @package Bee4\Test\Transfer\Message
+ * @package Bee4\Test\Transport\Message
  */
 class ResponseTest extends \PHPUnit_Framework_TestCase
 {
@@ -31,12 +31,12 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 
 	public function testIntegrity() {
 		$uses = class_uses(get_class($this->object));
-		$this->assertContains('Bee4\Transfer\Message\WithBodyTrait', $uses);
+		$this->assertContains('Bee4\Transport\Message\WithBodyTrait', $uses);
 	}
 
 	public function testSetters() {
 		$request = $this->getMockForAbstractClass(
-			'\Bee4\Transfer\Message\Request\AbstractRequest',
+			'\Bee4\Transport\Message\Request\AbstractRequest',
 			[ new Url('http://www.bee4.fr') ]
 		);
 		$this->object->setRequest($request);

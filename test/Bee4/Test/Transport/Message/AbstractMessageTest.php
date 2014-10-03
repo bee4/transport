@@ -6,20 +6,20 @@
  *
  * @copyright Bee4 2014
  * @author    Stephane HULARD <s.hulard@chstudio.fr>
- * @package   Bee4\Test\Transfer\Message
+ * @package   Bee4\Test\Transport\Message
  */
 
-namespace Bee4\Test\Transfer\Message;
+namespace Bee4\Test\Transport\Message;
 use Bee4\PHPUnit\HttpClientTestCase;
 
 /**
  * AbstractMessage unit test definition
- * @package Bee4\Test\Transfer\Message
+ * @package Bee4\Test\Transport\Message
  */
 class AbstractMessageTest extends HttpClientTestCase
 {
 	/**
-	 * @var \Bee4\Transfer\Message\AbstractMessage
+	 * @var \Bee4\Transport\Message\AbstractMessage
 	 */
 	protected $object;
 
@@ -28,7 +28,7 @@ class AbstractMessageTest extends HttpClientTestCase
 	 */
 	public function testAllHeaders() {
 		$mock = $this->getMockForAbstractClass(
-			'\Bee4\Transfer\Message\AbstractMessage'
+			'\Bee4\Transport\Message\AbstractMessage'
 		);
 
 		$mock->addHeader('Content-Type', 'text/html');

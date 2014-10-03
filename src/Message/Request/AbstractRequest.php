@@ -7,18 +7,18 @@
  *
  * @copyright Bee4 2014
  * @author	Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Transfer\Message\Request
+ * @package Bee4\Transport\Message\Request
  */
 
-namespace Bee4\Transfer\Message\Request;
+namespace Bee4\Transport\Message\Request;
 
-use Bee4\Transfer\Message\AbstractMessage;
-use Bee4\Transfer\Client;
-use Bee4\Transfer\Url;
+use Bee4\Transport\Message\AbstractMessage;
+use Bee4\Transport\Client;
+use Bee4\Transport\Url;
 
 /**
  * HTTP Request object
- * @package Bee4\Transfer\Message\Request
+ * @package Bee4\Transport\Message\Request
  */
 abstract class AbstractRequest extends AbstractMessage implements RequestInterface
 {
@@ -109,7 +109,7 @@ abstract class AbstractRequest extends AbstractMessage implements RequestInterfa
 	/**
 	 * Send method.
 	 * To send a request, a client must be linked
-	 * @return \Bee4\Transfer\Message\Response
+	 * @return \Bee4\Transport\Message\Response
 	 */
 	public function send() {
 		if (!$this->client) {

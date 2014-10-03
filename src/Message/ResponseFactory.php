@@ -6,16 +6,16 @@
  *
  * @copyright Bee4 2014
  * @author	Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Transfer\Message
+ * @package Bee4\Transport\Message
  */
 
-namespace Bee4\Transfer\Message;
+namespace Bee4\Transport\Message;
 
-use Bee4\Transfer\Curl\Handle;
+use Bee4\Transport\Curl\Handle;
 
 /**
  * Build a response from cURL response
- * @package Bee4\Transfer\Message
+ * @package Bee4\Transport\Message
  */
 class ResponseFactory
 {
@@ -56,7 +56,7 @@ class ResponseFactory
 	/**
 	 * Parse headers from content and populate response with it
 	 * @param string $content
-	 * @param \Bee4\Transfer\Message\AbstractMessage $message
+	 * @param \Bee4\Transport\Message\AbstractMessage $message
 	 * @return string
 	 */
 	public static function parseHeaders($content, AbstractMessage $message) {

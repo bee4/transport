@@ -6,19 +6,19 @@
  *
  * @copyright Bee4 2014
  * @author    Stephane HULARD <s.hulard@chstudio.fr>
- * @package   Bee4\Test\Transfer\Message
+ * @package   Bee4\Test\Transport\Message
  */
 
-namespace Bee4\Test\Transfer\Message;
+namespace Bee4\Test\Transport\Message;
 
 use Bee4\PHPUnit\HttpClientTestCase;
-use Bee4\Transfer\Client;
-use Bee4\Transfer\Message\Response;
-use Bee4\Transfer\Message\ResponseFactory;
+use Bee4\Transport\Client;
+use Bee4\Transport\Message\Response;
+use Bee4\Transport\Message\ResponseFactory;
 
 /**
  * ResponseFactory unit test definition
- * @package Bee4\Test\Transfer\Message
+ * @package Bee4\Test\Transport\Message
  */
 class ResponseFactoryTest extends HttpClientTestCase
 {

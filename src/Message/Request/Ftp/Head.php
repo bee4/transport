@@ -7,14 +7,14 @@
  *
  * @copyright Bee4 2014
  * @author	Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Transfer\Message\Request\Ftp
+ * @package Bee4\Transport\Message\Request\Ftp
  */
 
-namespace Bee4\Transfer\Message\Request\Ftp;
+namespace Bee4\Transport\Message\Request\Ftp;
 
 /**
  * HTTP HEAD Request object
- * @package Bee4\Transfer\Message\Request\Ftp
+ * @package Bee4\Transport\Message\Request\Ftp
  */
 class Head extends AbstractFtpRequest
 {

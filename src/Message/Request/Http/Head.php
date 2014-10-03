@@ -7,14 +7,14 @@
  *
  * @copyright Bee4 2014
  * @author	Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Transfer\Message\Request\Http
+ * @package Bee4\Transport\Message\Request\Http
  */
 
-namespace Bee4\Transfer\Message\Request\Http;
+namespace Bee4\Transport\Message\Request\Http;
 
 /**
  * HTTP HEAD Request object
- * @package Bee4\Transfer\Message\Request\Http
+ * @package Bee4\Transport\Message\Request\Http
  */
 class Head extends AbstractHttpRequest
 {

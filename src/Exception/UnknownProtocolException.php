@@ -6,13 +6,13 @@
  *
  * @copyright Bee4 2014
  * @author	Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Transfer\Exception
+ * @package Bee4\Transport\Exception
  */
 
-namespace Bee4\Transfer\Exception;
+namespace Bee4\Transport\Exception;
 
 /**
  * Define cURL handle wrapper
- * @package Bee4\Transfer\Exception
+ * @package Bee4\Transport\Exception
  */
 class UnknownProtocolException extends \Exception {}

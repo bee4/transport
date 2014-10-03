@@ -6,15 +6,15 @@
  *
  * @copyright Bee4 2014
  * @author  Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Transfer
+ * @package Bee4\Transport
  */
 
-namespace Bee4\Transfer;
+namespace Bee4\Transport;
 
 /**
  * Define a valid URL component
  * Allow to check if it's a valid Url and define all components
- * @package Bee4\Transfer
+ * @package Bee4\Transport
  *
  * @method string|Url scheme(string $value = null) Getter and setter for scheme property
  * @method string|Url host(string $value = null) Getter and setter for host property

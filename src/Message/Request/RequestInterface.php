@@ -7,13 +7,13 @@
  *
  * @copyright Bee4 2014
  * @author	Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Transfer\Message\Request
+ * @package Bee4\Transport\Message\Request
  */
 
-namespace Bee4\Transfer\Message\Request;
+namespace Bee4\Transport\Message\Request;
 
 /**
- * @package Bee4\Transfer\Message\Request
+ * @package Bee4\Transport\Message\Request
  */
 interface RequestInterface {
     const HTTP = 'http';
@@ -21,7 +21,7 @@ interface RequestInterface {
 
     /**
      * To send a request, a client must be linked
-     * @return \Bee4\Transfer\Message\Response
+     * @return \Bee4\Transport\Message\Response
      */
     public function send();
 

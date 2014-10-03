@@ -6,21 +6,22 @@
  *
  * @copyright Bee4 2014
  * @author  Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Transfer
+ * @package Bee4\Transport
  */
 
-namespace Bee4\Transfer;
+namespace Bee4\Transport;
 
-use Bee4\Transfer\Exception\CurlException;
-use Bee4\Transfer\Message\Request\RequestInterface;
+use Bee4\Events\DispatcherAwareTrait;
+use Bee4\Transport\Exception\CurlException;
+use Bee4\Transport\Message\Request\RequestInterface;
 use Closure;
-use Bee4\Transfer\Message\Request\AbstractRequest;
-use Bee4\Transfer\Message\Request\RequestFactory;
-use Bee4\Transfer\Message\ResponseFactory;
+use Bee4\Transport\Message\Request\AbstractRequest;
+use Bee4\Transport\Message\Request\RequestFactory;
+use Bee4\Transport\Message\ResponseFactory;
 
 /**
  * Http client
- * @package Bee4\Transfer
+ * @package Bee4\Transport
  *
  * @method AbstractRequest get(string $url = "", array $headers = [])
  * @method AbstractRequest post(string $url = "", array $headers = [])
@@ -30,6 +31,8 @@ use Bee4\Transfer\Message\ResponseFactory;
  */
 class Client
 {
+	use DispatcherAwareTrait;
+
 	/**
 	 * Triggered when the request is totally built
 	 */
