@@ -6,18 +6,20 @@
  *
  * @copyright Bee4 2014
  * @author    Stephane HULARD <s.hulard@chstudio.fr>
- * @package   Bee4\Test\Http\Message\Request
+ * @package   Bee4\Test\Transport\Message\Request
  */
 
-namespace Bee4\Test\Http\Message\Request;
+namespace Bee4\Test\Transport\Message\Request;
 
-use Bee4\Http\Url;
+use Bee4\PHPUnit\HttpClientTestCase;
+use Bee4\Transport\Client;
+use Bee4\Transport\Url;
 
 /**
  * AbstractRequest test definition
- * @package Bee4\Test\Http\Message\Request
+ * @package Bee4\Test\Transport\Message\Request
  */
-class AbstractRequestTest extends \Bee4\PHPUnit\HttpClientTestCase
+class AbstractRequestTest extends HttpClientTestCase
 {
 	/**
 	 * @var Url
@@ -38,7 +40,7 @@ class AbstractRequestTest extends \Bee4\PHPUnit\HttpClientTestCase
 		$headers = ['Content-Type' => 'text/html'];
 
 		$mock = $this->getMockForAbstractClass(
-			'\Bee4\Http\Message\Request\AbstractRequest',
+			'\Bee4\Transport\Message\Request\AbstractRequest',
 			[$this->url, $headers]
 		);
 
@@ -52,14 +54,14 @@ class AbstractRequestTest extends \Bee4\PHPUnit\HttpClientTestCase
 	/**
 	 * Check curl option collection manipulation
 	 */
-	public function testCurlOptions() {
-		$mock = $this->getMockForAbstractClass('\Bee4\Http\Message\Request\AbstractRequest', [$this->url]);
+	public function testOptions() {
+		$mock = $this->getMockForAbstractClass('\Bee4\Transport\Message\Request\AbstractRequest', [$this->url]);
 
-		$this->assertEmpty($mock->getCurlOptions());
-		$mock->addCurlOption(CURL_HTTP_VERSION_1_1, true);
-		$mock->addCurlOptions([CURLOPT_AUTOREFERER => true, CURLOPT_CONNECTTIMEOUT => 10]);
+		$this->assertEmpty($mock->getOptions());
+		$mock->addOption(CURL_HTTP_VERSION_1_1, true);
+		$mock->addOptions([CURLOPT_AUTOREFERER => true, CURLOPT_CONNECTTIMEOUT => 10]);
 
-		$options = $mock->getCurlOptions();
+		$options = $mock->getOptions();
 		$this->assertArrayHasKey(CURLOPT_CONNECTTIMEOUT, $options);
 		$this->assertArrayHasKey(CURLOPT_AUTOREFERER, $options);
 		$this->assertArrayHasKey(CURL_HTTP_VERSION_1_1, $options);
@@ -72,7 +74,7 @@ class AbstractRequestTest extends \Bee4\PHPUnit\HttpClientTestCase
 	 * @expectedException \RuntimeException
 	 */
 	public function testInvalidClient() {
-		$mock = $this->getMockForAbstractClass('\Bee4\Http\Message\Request\AbstractRequest', [$this->url]);
+		$mock = $this->getMockForAbstractClass('\Bee4\Transport\Message\Request\AbstractRequest', [$this->url]);
 		$mock->send();
 	}
 
@@ -80,10 +82,10 @@ class AbstractRequestTest extends \Bee4\PHPUnit\HttpClientTestCase
 	 * Check that request send method return a valid response object
 	 */
 	public function testSend() {
-		$mock = $this->getMockForAbstractClass('\Bee4\Http\Message\Request\AbstractRequest', [$this->url]);
-		$mock->setClient(new \Bee4\Http\Client);
+		$mock = $this->getMockForAbstractClass('\Bee4\Transport\Message\Request\AbstractRequest', [$this->url]);
+		$mock->setClient(new Client());
 		$response = $mock->send();
 
-		$this->assertInstanceOf('\Bee4\Http\Message\Response', $response);
+		$this->assertInstanceOf('\Bee4\Transport\Message\Response', $response);
 	}
 }

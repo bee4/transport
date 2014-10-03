@@ -6,16 +6,17 @@
  *
  * @copyright Bee4 2014
  * @author	Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Http\Message
+ * @package Bee4\Transport\Message\Request
  */
 
-namespace Bee4\Http\Message;
+namespace Bee4\Transport\Message\Request;
 
-use Bee4\Http\Url;
+use Bee4\Transport\Exception\UnknownProtocolException;
+use Bee4\Transport\Url;
 
 /**
  * Static object in charge to build and initialize Request instance
- * @package Bee4\Http\Message
+ * @package Bee4\Transport\Message\Request
  */
 class RequestFactory
 {
@@ -24,10 +25,16 @@ class RequestFactory
 	 * @param string $method
 	 * @param Url $url
 	 * @param array $headers
-	 * @return Request\AbstractRequest
+	 * @return RequestInterface
+	 * @throws UnknownProtocolException
+	 * @throws InvalidArgumentException
 	 */
 	public function build( $method, Url $url, array $headers ) {
-		$name = __NAMESPACE__.'\\Request\\'.ucfirst(strtolower($method));
+		if( $url->scheme() != RequestInterface::HTTP && $url->scheme() != RequestInterface::FTP ) {
+			throw new UnknownProtocolException("You can't request a transfer on protocol different than FTP or HTTP!");
+		}
+
+		$name = __NAMESPACE__.'\\'.ucfirst($url->scheme()).'\\'.ucfirst(strtolower($method));
 		if( !class_exists($name) ) {
 			throw new \InvalidArgumentException('Method given is not a valid request: '.$method);
 		}

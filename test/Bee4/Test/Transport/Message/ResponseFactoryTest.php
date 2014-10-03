@@ -6,23 +6,27 @@
  *
  * @copyright Bee4 2014
  * @author    Stephane HULARD <s.hulard@chstudio.fr>
- * @package   Bee4\Test\Http\Message
+ * @package   Bee4\Test\Transport\Message
  */
 
-namespace Bee4\Test\Http\Message;
+namespace Bee4\Test\Transport\Message;
 
-use Bee4\Http\Message\ResponseFactory;
+use Bee4\PHPUnit\HttpClientTestCase;
+use Bee4\Transport\Client;
+use Bee4\Transport\Message\Response;
+use Bee4\Transport\Message\ResponseFactory;
 
 /**
  * ResponseFactory unit test definition
- * @package Bee4\Test\Http\Message
+ * @package Bee4\Test\Transport\Message
  */
-class ResponseFactoryTest extends \Bee4\PHPUnit\HttpClientTestCase
+class ResponseFactoryTest extends HttpClientTestCase
 {
 	public function testBuild() {
-		$client = new \Bee4\Http\Client(self::getBaseUrl());
+		$client = new Client(self::getBaseUrl());
 		$request = $client->get();
 		$request->addHeader('Content-Type', 'text/html');
+		$request->setUserAgent('Bee4 - BeeBot/v1.0');
 		$response = $request->send();
 
 		$headers = $response->getHeaders();
@@ -41,7 +45,7 @@ class ResponseFactoryTest extends \Bee4\PHPUnit\HttpClientTestCase
 	 * @param array $valid
 	 */
 	public function testParseHeaders($headers, $length, array $valid = []) {
-		$response = new \Bee4\Http\Message\Response;
+		$response = new Response();
 		$rest = ResponseFactory::parseHeaders($headers, $response);
 
 		$this->assertEquals($length, strlen($rest));
