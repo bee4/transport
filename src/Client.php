@@ -6,20 +6,22 @@
  *
  * @copyright Bee4 2014
  * @author  Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Http
+ * @package Bee4\Transport
  */
 
-namespace Bee4\Http;
+namespace Bee4\Transport;
 
-use Bee4\Http\Exception\CurlException;
+use Bee4\Events\DispatcherAwareTrait;
+use Bee4\Transport\Exception\CurlException;
+use Bee4\Transport\Message\Request\RequestInterface;
 use Closure;
-use Bee4\Http\Message\Request\AbstractRequest;
-use Bee4\Http\Message\RequestFactory;
-use Bee4\Http\Message\ResponseFactory;
+use Bee4\Transport\Message\Request\AbstractRequest;
+use Bee4\Transport\Message\Request\RequestFactory;
+use Bee4\Transport\Message\ResponseFactory;
 
 /**
  * Http client
- * @package Bee4\Http
+ * @package Bee4\Transport
  *
  * @method AbstractRequest get(string $url = "", array $headers = [])
  * @method AbstractRequest post(string $url = "", array $headers = [])
@@ -29,6 +31,8 @@ use Bee4\Http\Message\ResponseFactory;
  */
 class Client
 {
+	use DispatcherAwareTrait;
+
 	/**
 	 * Triggered when the request is totally built
 	 */
@@ -107,7 +111,7 @@ class Client
 	 * @param string $method
 	 * @param string $url
 	 * @param array $headers
-	 * @return AbstractRequest
+	 * @return RequestInterface
 	 */
 	protected function createRequest( $method, $url, array $headers = [] ) {
 		if( !is_string($url) ) {
@@ -124,20 +128,17 @@ class Client
 
 	/**
 	 * Send the request
-	 * @param AbstractRequest $request The request to be send
+	 * @param RequestInterface $request The request to be send
 	 * @return Message\Response
      * @throws CurlException
 	 */
-	public function send( AbstractRequest $request ) {
+	public function send( RequestInterface $request ) {
 		$name = get_class($request);
 		if( !isset(self::$handles[$name]) ) {
 			self::$handles[$name] = new Curl\Handle();
 		}
 
 		self::$handles[$name]->addOptions($request->getCurlOptions());
-		self::$handles[$name]->addOption(CURLOPT_URL, $request->getUrl()->toString());
-		self::$handles[$name]->addOption(CURLOPT_HTTPHEADER, $request->getHeaderLines());
-		self::$handles[$name]->addOption(CURLOPT_USERAGENT, $this->getUserAgent());
 		$this->trigger(self::ON_REQUEST, $request);
 
 		try {
@@ -151,14 +152,6 @@ class Client
 		$this->trigger(self::ON_RESPONSE, $response);
 
 		return $response;
-	}
-
-	/**
-	 * Set the client UA for all requests
-	 * @return string
-	 */
-	public function getUserAgent() {
-		return 'Bee4 - BeeBot/1.0';
 	}
 
 	/**

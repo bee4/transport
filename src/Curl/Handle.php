@@ -6,16 +6,16 @@
  *
  * @copyright Bee4 2014
  * @author	Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Http\Curl
+ * @package Bee4\Transport\Curl
  */
 
-namespace Bee4\Http\Curl;
+namespace Bee4\Transport\Curl;
 
-use \Bee4\Http\Exception\CurlException;
+use Bee4\Transport\Exception\CurlException;
 
 /**
  * Define cURL handle wrapper
- * @package Bee4\Http\Curl
+ * @package Bee4\Transport\Curl
  */
 class Handle
 {

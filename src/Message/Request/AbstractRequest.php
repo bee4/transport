@@ -7,20 +7,20 @@
  *
  * @copyright Bee4 2014
  * @author	Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Http\Message\Request
+ * @package Bee4\Transport\Message\Request
  */
 
-namespace Bee4\Http\Message\Request;
+namespace Bee4\Transport\Message\Request;
 
-use Bee4\Http\Message\AbstractMessage;
-use Bee4\Http\Client;
-use Bee4\Http\Url;
+use Bee4\Transport\Message\AbstractMessage;
+use Bee4\Transport\Client;
+use Bee4\Transport\Url;
 
 /**
  * HTTP Request object
- * @package Bee4\Http\Message\Request
+ * @package Bee4\Transport\Message\Request
  */
-abstract class AbstractRequest extends AbstractMessage
+abstract class AbstractRequest extends AbstractMessage implements RequestInterface
 {
 	/**
 	 * Current client instance
@@ -109,12 +109,14 @@ abstract class AbstractRequest extends AbstractMessage
 	/**
 	 * Send method.
 	 * To send a request, a client must be linked
-	 * @return \Bee4\Http\Message\Response
+	 * @return \Bee4\Transport\Message\Response
 	 */
 	public function send() {
 		if (!$this->client) {
           throw new \RuntimeException('A client must be set on the request');
         }
+
+		$this->addCurlOption(CURLOPT_URL, $this->getUrl()->toString());
 
         $this->prepare();
         return $this->client->send($this);

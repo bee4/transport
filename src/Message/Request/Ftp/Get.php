@@ -7,18 +7,18 @@
  *
  * @copyright Bee4 2014
  * @author	Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Http\Message\Request
+ * @package Bee4\Transport\Message\Request\Ftp
  */
 
-namespace Bee4\Http\Message\Request;
+namespace Bee4\Transport\Message\Request\Ftp;
 
 /**
  * HTTP GET Request object
- * @package Bee4\Http\Message\Request
+ * @package Bee4\Transport\Message\Request\Ftp
  */
-class Get extends AbstractRequest
+class Get extends AbstractFtpRequest
 {
 	protected function prepare() {
-		$this->options[CURLOPT_HTTPGET] = true;
+		//$this->options[] = true;
 	}
 }

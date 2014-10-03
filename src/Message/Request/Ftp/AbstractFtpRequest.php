@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the bee4/httpclient package.
  * For the full copyright and license information, please view the LICENSE
@@ -6,13 +7,12 @@
  *
  * @copyright Bee4 2014
  * @author	Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Transport\Exception
+ * @package Bee4\Transport\Message\Request\Ftp
  */
 
-namespace Bee4\Transport\Exception;
+namespace Bee4\Transport\Message\Request\Ftp;
 
-/**
- * Define cURL handle wrapper
- * @package Bee4\Transport\Exception
- */
-class CurlException extends \Exception {}
+use Bee4\Transport\Message\Request\AbstractRequest;
+
+abstract class AbstractFtpRequest extends AbstractRequest
+{}

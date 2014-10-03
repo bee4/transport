@@ -6,16 +6,16 @@
  *
  * @copyright Bee4 2014
  * @author  Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Test\Http
+ * @package Bee4\Test\Transport
  */
 
 namespace Bee4\Test\Http;
 
-use Bee4\Http\Url;
+use Bee4\Transport\Url;
 
 /**
  * Check behaviour of Url helper
- * @package Bee4\Test\Http
+ * @package Bee4\Test\Transport
  */
 class UrlTest extends \PHPUnit_Framework_TestCase {
 	/**

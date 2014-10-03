@@ -15,4 +15,4 @@ namespace Bee4\Transport\Exception;
  * Define cURL handle wrapper
  * @package Bee4\Transport\Exception
  */
-class CurlException extends \Exception {}
+class UnknownProtocolException extends \Exception {}
