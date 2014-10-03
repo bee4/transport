@@ -12,6 +12,7 @@
 namespace Bee4\Transfer;
 
 use Bee4\Transfer\Exception\CurlException;
+use Bee4\Transfer\Message\Request\RequestInterface;
 use Closure;
 use Bee4\Transfer\Message\Request\AbstractRequest;
 use Bee4\Transfer\Message\Request\RequestFactory;
@@ -124,11 +125,11 @@ class Client
 
 	/**
 	 * Send the request
-	 * @param AbstractRequest $request The request to be send
+	 * @param RequestInterface $request The request to be send
 	 * @return Message\Response
      * @throws CurlException
 	 */
-	public function send( AbstractRequest $request ) {
+	public function send( RequestInterface $request ) {
 		$name = get_class($request);
 		if( !isset(self::$handles[$name]) ) {
 			self::$handles[$name] = new Curl\Handle();
