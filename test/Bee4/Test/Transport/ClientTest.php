@@ -11,7 +11,7 @@
 
 namespace Bee4\Test\Http;
 
-use Bee4\PHPUnit\FakeDispatcher;
+use Bee4\Test\Events\FakeDispatcher;
 use Bee4\PHPUnit\HttpClientTestCase;
 use Bee4\Transport\Client;
 use Bee4\Transport\Events\MessageEvent;

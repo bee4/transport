@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "bee4/events",
-            "version": "v0.0.0",
+            "version": "v0.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bee4/events.git",
-                "reference": "94a23ae65bdb17c02507e4f55d95fee3a412b18a"
+                "reference": "8dc250c1de72ba99906dc319950fbccaafad72f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bee4/events/zipball/94a23ae65bdb17c02507e4f55d95fee3a412b18a",
-                "reference": "94a23ae65bdb17c02507e4f55d95fee3a412b18a",
+                "url": "https://api.github.com/repos/bee4/events/zipball/8dc250c1de72ba99906dc319950fbccaafad72f2",
+                "reference": "8dc250c1de72ba99906dc319950fbccaafad72f2",
                 "shasum": ""
             },
             "require-dev": {
@@ -40,7 +40,7 @@
                 }
             ],
             "description": "Basic event dispatcher definition, to allow a project to allow to manage events",
-            "time": "2014-10-03 16:05:18"
+            "time": "2014-10-03 16:48:14"
         }
     ],
     "packages-dev": [

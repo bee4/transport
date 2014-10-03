@@ -37,6 +37,6 @@ register_shutdown_function(function() use ($pid) {
 //Use composer for autoloading
 require_once __DIR__.'/../vendor/autoload.php';
 require_once __DIR__.'/Bee4/PHPUnit/HttpClientTestCase.php';
-require_once __DIR__.'/Bee4/PHPUnit/FakeDispatcher.php';
+require_once __DIR__.'/../vendor/bee4/events/test/FakeDispatcher.php';
 
 \Bee4\PHPUnit\HttpClientTestCase::setBaseUrl('http://'.WEBSERVER_HOST.':'.WEBSERVER_PORT);
