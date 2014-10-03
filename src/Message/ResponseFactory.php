@@ -23,13 +23,13 @@ class ResponseFactory
 	 * Build a new reponse object from cURL execution result
 	 * @param string $content Response content
 	 * @param Handle $handle Curl handle used to perform request which generate response
-     * @param Request\AbstractRequest $request
+     * @param Request\RequestInterface $request
      * @return Response
 	 */
 	public static function build(
 		$content,
 		Handle $handle,
-		Request\AbstractRequest $request
+		Request\RequestInterface $request
 	) {
 		$response = new Response();
 

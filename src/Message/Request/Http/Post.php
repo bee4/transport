@@ -23,7 +23,7 @@ class Post extends AbstractHttpRequest
 	use WithBodyTrait;
 
 	protected function prepare() {
-		$this->options[CURLOPT_POST] = true;
-		$this->options[CURLOPT_POSTFIELDS] = $this->getBody();
+		$this->addOption(CURLOPT_POST, true);
+		$this->addOption(CURLOPT_POSTFIELDS, $this->getBody());
 	}
 }

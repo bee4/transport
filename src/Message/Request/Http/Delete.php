@@ -23,7 +23,7 @@ class Delete extends AbstractHttpRequest
 	use WithBodyTrait;
 
 	protected function prepare() {
-		$this->options[CURLOPT_CUSTOMREQUEST] = 'DELETE';
-		$this->options[CURLOPT_POSTFIELDS] = $this->getBody();
+		$this->addOption(CURLOPT_CUSTOMREQUEST, 'DELETE');
+		$this->addOption(CURLOPT_POSTFIELDS, $this->getBody());
 	}
 }

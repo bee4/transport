@@ -19,6 +19,6 @@ namespace Bee4\Transport\Message\Request\Ftp;
 class Head extends AbstractFtpRequest
 {
 	protected function prepare() {
-		$this->options[CURLOPT_FTPLISTONLY] = true;
+		$this->addOption(CURLOPT_FTPLISTONLY, true);
 	}
 }

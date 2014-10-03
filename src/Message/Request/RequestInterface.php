@@ -12,10 +12,13 @@
 
 namespace Bee4\Transport\Message\Request;
 
+use Bee4\Transport\Message\MessageInterface;
+
 /**
  * @package Bee4\Transport\Message\Request
  */
-interface RequestInterface {
+interface RequestInterface extends MessageInterface
+{
     const HTTP = 'http';
     const FTP = 'ftp';
 
@@ -26,8 +29,8 @@ interface RequestInterface {
     public function send();
 
     /**
-     * Retrieve the list of configured Curl options
+     * Retrieve the list of configured options
      * @return array
      */
-    public function getCurlOptions();
+    public function getOptions();
 }
