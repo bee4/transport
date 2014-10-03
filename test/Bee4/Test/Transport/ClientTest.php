@@ -11,8 +11,11 @@
 
 namespace Bee4\Test\Http;
 
+use Bee4\PHPUnit\FakeDispatcher;
 use Bee4\PHPUnit\HttpClientTestCase;
 use Bee4\Transport\Client;
+use Bee4\Transport\Events\MessageEvent;
+use Bee4\Transport\Events\ErrorEvent;
 
 /**
  * Transfer client test
@@ -76,7 +79,7 @@ class ClientTest extends HttpClientTestCase
 	public function testGet() {
 		$request = $this->object->get('/index.html');
 		$response = $request->send();
-		$options = $request->getCurlOptions();
+		$options = $request->getOptions();
 
 		$this->assertArrayHasKey(CURLOPT_HTTPGET, $options);
 		$this->assertTrue($options[CURLOPT_HTTPGET]);
@@ -86,7 +89,7 @@ class ClientTest extends HttpClientTestCase
 	public function testPost() {
 		$request = $this->object->post('/index.html')->setBody('{"body": "I\'m the body"}}');
 		$response = $request->send();
-		$options = $request->getCurlOptions();
+		$options = $request->getOptions();
 
 		$this->assertArrayHasKey(CURLOPT_POST, $options);
 		$this->assertArrayHasKey(CURLOPT_POSTFIELDS, $options);
@@ -98,7 +101,7 @@ class ClientTest extends HttpClientTestCase
 	public function testHead() {
 		$request = $this->object->head('/index.html');
 		$response = $request->send();
-		$options = $request->getCurlOptions();
+		$options = $request->getOptions();
 
 		$this->assertArrayHasKey(CURLOPT_NOBODY, $options);
 		$this->assertTrue($options[CURLOPT_NOBODY]);
@@ -108,7 +111,7 @@ class ClientTest extends HttpClientTestCase
 	public function testDelete() {
 		$request = $this->object->delete('/index.html');
 		$response = $request->send();
-		$options = $request->getCurlOptions();
+		$options = $request->getOptions();
 
 		$this->assertArrayHasKey(CURLOPT_CUSTOMREQUEST, $options);
 		$this->assertArrayHasKey(CURLOPT_POSTFIELDS, $options);
@@ -120,7 +123,7 @@ class ClientTest extends HttpClientTestCase
 	public function testPut() {
 		$request = $this->object->put('/index.html');
 		$response = $request->send();
-		$options = $request->getCurlOptions();
+		$options = $request->getOptions();
 
 		$this->assertArrayHasKey(CURLOPT_CUSTOMREQUEST, $options);
 		$this->assertArrayHasKey(CURLOPT_POSTFIELDS, $options);
@@ -134,18 +137,13 @@ class ClientTest extends HttpClientTestCase
 	 * @expectedExceptionMessage Yes event triggered
 	 */
 	public function testRegister() {
-		//Try to register events
-		$this->object->register(Client::ON_REQUEST, function() {
+		$dispatcher = new FakeDispatcher();
+		$dispatcher->addListener(MessageEvent::REQUEST, function() {
 			throw new \Exception("Yes event triggered");
 		});
+
+		$this->object->setDispatcher($dispatcher);
 		$this->object->get('/index.html')->send();
-	}
-	
-	/**
-	 * @expectedException \InvalidArgumentException
-	 */
-	public function testInvalidRegister() {
-		$this->object->register("invalid event type", function() {});
 	}
 
 	public function testInvalidProtocol() {
@@ -163,9 +161,13 @@ class ClientTest extends HttpClientTestCase
 	public function testCurlError() {
 		$this->expectOutputString('error');
 		$this->object = new Client("ftp://127.0.0.1:8888");
-		$this->object->register(Client::ON_ERROR, function($error) {
+
+		$dispatcher = new FakeDispatcher();
+		$dispatcher->addListener(ErrorEvent::ERROR, function() {
 			echo "error";
 		});
+		$this->object->setDispatcher($dispatcher);
+
 		try {
 			$this->object->get()->send();
 		} catch( \Exception $error ) {

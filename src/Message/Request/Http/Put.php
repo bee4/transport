@@ -23,7 +23,7 @@ class Put extends AbstractHttpRequest
 	use WithBodyTrait;
 
 	protected function prepare() {
-		$this->options[CURLOPT_CUSTOMREQUEST] = 'PUT';
-		$this->options[CURLOPT_POSTFIELDS] = $this->getBody();
+		$this->addOption(CURLOPT_CUSTOMREQUEST, 'PUT');
+		$this->addOption(CURLOPT_POSTFIELDS, $this->getBody());
 	}
 }

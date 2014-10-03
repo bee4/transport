@@ -12,6 +12,8 @@
 namespace Bee4\Transport;
 
 use Bee4\Events\DispatcherAwareTrait;
+use Bee4\Transport\Events\ErrorEvent;
+use Bee4\Transport\Events\MessageEvent;
 use Bee4\Transport\Exception\CurlException;
 use Bee4\Transport\Message\Request\RequestInterface;
 use Closure;
@@ -34,19 +36,6 @@ class Client
 	use DispatcherAwareTrait;
 
 	/**
-	 * Triggered when the request is totally built
-	 */
-	const ON_REQUEST = 'request.built';
-	/**
-	 * Triggered when an error occured during request sending
-	 */
-	const ON_ERROR = 'request.error';
-	/**
-	 * Triggered when a response in built
-	 */
-	const ON_RESPONSE = 'response.built';
-
-	/**
 	 * Base URL for calls
 	 * @var Url
 	 */
@@ -63,16 +52,6 @@ class Client
 	 * @var RequestFactory
 	 */
 	protected $requestFactory;
-
-	/**
-	 * Contain a list of handlers to be triggered at some process actions
-	 * @var array
-	 */
-	protected $events = [
-		self::ON_REQUEST => [],
-		self::ON_ERROR => [],
-		self::ON_RESPONSE => []
-	];
 
 	/**
 	 * HTTP Client which use cURL extension
@@ -130,7 +109,7 @@ class Client
 	 * Send the request
 	 * @param RequestInterface $request The request to be send
 	 * @return Message\Response
-     * @throws CurlException
+     * @throws \Exception
 	 */
 	public function send( RequestInterface $request ) {
 		$name = get_class($request);
@@ -138,43 +117,19 @@ class Client
 			self::$handles[$name] = new Curl\Handle();
 		}
 
-		self::$handles[$name]->addOptions($request->getCurlOptions());
-		$this->trigger(self::ON_REQUEST, $request);
+		self::$handles[$name]->addOptions($request->getOptions());
+		$this->dispatch(MessageEvent::REQUEST, new MessageEvent($request));
 
 		try {
 			$result = self::$handles[$name]->execute();
-		} catch( CurlException $error ) {
-			$this->trigger(self::ON_ERROR, $error);
+		} catch( \Exception $error ) {
+			$this->dispatch(ErrorEvent::ERROR, new ErrorEvent($error));
 			throw $error;
 		}
 
 		$response = ResponseFactory::build( $result, self::$handles[$name], $request );
-		$this->trigger(self::ON_RESPONSE, $response);
+		$this->dispatch(MessageEvent::RESPONSE, new MessageEvent($response));
 
 		return $response;
-	}
-
-	/**
-	 * Trigger an event on current client instance
-	 * @param string $name
-	 * @param mixed $data
-	 */
-	private function trigger($name, $data) {
-		foreach( $this->events[$name] as $handler ) {
-			call_user_func($handler, $data);
-		}
-	}
-
-	/**
-	 * Register a callback executed when event is encountered
-	 * @param string $event
-	 * @param Closure $callback
-	 * @throws \RuntimeException
-	 */
-	public function register($event, Closure $callback) {
-		if( !in_array($event, array_keys($this->events)) ) {
-			throw new \InvalidArgumentException("You must used one of the registerable events!");
-		}
-		$this->events[$event][] = $callback;
 	}
 }

@@ -72,7 +72,7 @@ abstract class AbstractRequest extends AbstractMessage implements RequestInterfa
 	 * cURL option collection accessor
 	 * @return array
 	 */
-	public function getCurlOptions() {
+	public function getOptions() {
 		return $this->options;
 	}
 
@@ -81,9 +81,9 @@ abstract class AbstractRequest extends AbstractMessage implements RequestInterfa
 	 * @param array $options
 	 * @return AbstractRequest
 	 */
-	public function addCurlOptions(array $options) {
+	public function addOptions(array $options) {
 		foreach( $options as $name => $value ) {
-			$this->addCurlOption($name, $value);
+			$this->addOption($name, $value);
 		}
 
 		return $this;
@@ -95,7 +95,7 @@ abstract class AbstractRequest extends AbstractMessage implements RequestInterfa
 	 * @param mixed $value
 	 * @return AbstractRequest
 	 */
-	public function addCurlOption($name, $value) {
+	public function addOption($name, $value) {
 		$this->options[$name] = $value;
 
 		return $this;
@@ -116,7 +116,7 @@ abstract class AbstractRequest extends AbstractMessage implements RequestInterfa
           throw new \RuntimeException('A client must be set on the request');
         }
 
-		$this->addCurlOption(CURLOPT_URL, $this->getUrl()->toString());
+		$this->addOption(CURLOPT_URL, $this->getUrl()->toString());
 
         $this->prepare();
         return $this->client->send($this);

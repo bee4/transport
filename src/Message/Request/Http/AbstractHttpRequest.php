@@ -27,8 +27,8 @@ abstract class AbstractHttpRequest extends AbstractRequest
      * Send the request and prepend some headers
      */
     public function send() {
-        $this->addCurlOption(CURLOPT_HTTPHEADER, $this->getHeaderLines());
-        $this->addCurlOption(CURLOPT_USERAGENT, $this->getUserAgent());
+        $this->addOption(CURLOPT_HTTPHEADER, $this->getHeaderLines());
+        $this->addOption(CURLOPT_USERAGENT, $this->getUserAgent());
 
         return parent::send();
     }

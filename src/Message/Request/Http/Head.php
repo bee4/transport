@@ -19,6 +19,6 @@ namespace Bee4\Transport\Message\Request\Http;
 class Head extends AbstractHttpRequest
 {
 	protected function prepare() {
-		$this->options[CURLOPT_NOBODY] = true;
+		$this->addOption(CURLOPT_NOBODY, true);
 	}
 }
