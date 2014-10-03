@@ -20,8 +20,8 @@ use Bee4\Transport\Message\MessageInterface;
  */
 class MessageEvent implements EventInterface
 {
-    const REQUEST = 'message.request';
-    const RESPONSE = 'message.response';
+    const REQUEST = 'transport.message.request';
+    const RESPONSE = 'transport.message.response';
 
     /**
      * @var MessageInterface

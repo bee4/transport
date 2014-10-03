@@ -19,6 +19,8 @@ use Bee4\Events\EventInterface;
  */
 class ErrorEvent implements EventInterface
 {
+    const ERROR = 'transport.error';
+
     /**
      * @var \Exception
      */
