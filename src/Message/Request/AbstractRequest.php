@@ -20,7 +20,7 @@ use Bee4\Transfer\Url;
  * HTTP Request object
  * @package Bee4\Transfer\Message\Request
  */
-abstract class AbstractRequest extends AbstractMessage
+abstract class AbstractRequest extends AbstractMessage implements RequestInterface
 {
 	/**
 	 * Current client instance
@@ -115,6 +115,8 @@ abstract class AbstractRequest extends AbstractMessage
 		if (!$this->client) {
           throw new \RuntimeException('A client must be set on the request');
         }
+
+		$this->addCurlOption(CURLOPT_URL, $this->getUrl()->toString());
 
         $this->prepare();
         return $this->client->send($this);

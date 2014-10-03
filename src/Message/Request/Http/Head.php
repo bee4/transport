@@ -7,18 +7,18 @@
  *
  * @copyright Bee4 2014
  * @author	Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Transfer\Message\Request
+ * @package Bee4\Transfer\Message\Request\Http
  */
 
-namespace Bee4\Transfer\Message\Request;
+namespace Bee4\Transfer\Message\Request\Http;
 
 /**
- * HTTP GET Request object
- * @package Bee4\Transfer\Message\Request
+ * HTTP HEAD Request object
+ * @package Bee4\Transfer\Message\Request\Http
  */
-class Get extends AbstractRequest
+class Head extends AbstractHttpRequest
 {
 	protected function prepare() {
-		$this->options[CURLOPT_HTTPGET] = true;
+		$this->options[CURLOPT_NOBODY] = true;
 	}
 }

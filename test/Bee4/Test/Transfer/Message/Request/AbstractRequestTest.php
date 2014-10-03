@@ -12,6 +12,7 @@
 namespace Bee4\Test\Transfer\Message\Request;
 
 use Bee4\PHPUnit\HttpClientTestCase;
+use Bee4\Transfer\Client;
 use Bee4\Transfer\Url;
 
 /**
@@ -82,7 +83,7 @@ class AbstractRequestTest extends HttpClientTestCase
 	 */
 	public function testSend() {
 		$mock = $this->getMockForAbstractClass('\Bee4\Transfer\Message\Request\AbstractRequest', [$this->url]);
-		$mock->setClient(new \Bee4\Transfer\Client);
+		$mock->setClient(new Client());
 		$response = $mock->send();
 
 		$this->assertInstanceOf('\Bee4\Transfer\Message\Response', $response);

@@ -7,18 +7,18 @@
  *
  * @copyright Bee4 2014
  * @author	Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Transfer\Message\Request
+ * @package Bee4\Transfer\Message\Request\Http
  */
 
-namespace Bee4\Transfer\Message\Request;
+namespace Bee4\Transfer\Message\Request\Http;
 
 use Bee4\Transfer\Message\WithBodyTrait;
 
 /**
  * HTTP POST Request object
- * @package Bee4\Transfer\Message\Request
+ * @package Bee4\Transfer\Message\Request\Http
  */
-class Put extends AbstractRequest
+class Put extends AbstractHttpRequest
 {
 	use WithBodyTrait;
 

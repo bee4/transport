@@ -11,7 +11,7 @@
 
 namespace Bee4\Test\Transfer\Message;
 
-use Bee4\Transfer\Message\RequestFactory;
+use Bee4\Transfer\Message\Request\RequestFactory;
 use Bee4\Transfer\Url;
 
 /**
@@ -24,10 +24,10 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
 		$object = new RequestFactory();
 
 		$get = $object->build('GET', new Url('http://www.bee4.fr'), ['Content-Type' => 'text/html'] );
-		$this->assertInstanceOf('\Bee4\Transfer\Message\Request\Get', $get);
+		$this->assertInstanceOf('\Bee4\Transfer\Message\Request\Http\Get', $get);
 		$this->assertEquals('text/html', $get->getHeader('Content-Type'));
 		$post = $object->build('POST', new Url('http://www.bee4.fr'), ['Content-Length' => 128] );
-		$this->assertInstanceOf('\Bee4\Transfer\Message\Request\Post', $post);
+		$this->assertInstanceOf('\Bee4\Transfer\Message\Request\Http\Post', $post);
 		$this->assertEquals(128, $post->getHeader('Content-Length'));
 	}
 

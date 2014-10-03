@@ -26,6 +26,7 @@ class ResponseFactoryTest extends HttpClientTestCase
 		$client = new Client(self::getBaseUrl());
 		$request = $client->get();
 		$request->addHeader('Content-Type', 'text/html');
+		$request->setUserAgent('Bee4 - BeeBot/v1.0');
 		$response = $request->send();
 
 		$headers = $response->getHeaders();
