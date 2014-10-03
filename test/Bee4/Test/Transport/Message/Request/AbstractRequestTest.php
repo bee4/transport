@@ -54,14 +54,14 @@ class AbstractRequestTest extends HttpClientTestCase
 	/**
 	 * Check curl option collection manipulation
 	 */
-	public function testCurlOptions() {
+	public function testOptions() {
 		$mock = $this->getMockForAbstractClass('\Bee4\Transport\Message\Request\AbstractRequest', [$this->url]);
 
-		$this->assertEmpty($mock->getCurlOptions());
-		$mock->addCurlOption(CURL_HTTP_VERSION_1_1, true);
-		$mock->addCurlOptions([CURLOPT_AUTOREFERER => true, CURLOPT_CONNECTTIMEOUT => 10]);
+		$this->assertEmpty($mock->getOptions());
+		$mock->addOption(CURL_HTTP_VERSION_1_1, true);
+		$mock->addOptions([CURLOPT_AUTOREFERER => true, CURLOPT_CONNECTTIMEOUT => 10]);
 
-		$options = $mock->getCurlOptions();
+		$options = $mock->getOptions();
 		$this->assertArrayHasKey(CURLOPT_CONNECTTIMEOUT, $options);
 		$this->assertArrayHasKey(CURLOPT_AUTOREFERER, $options);
 		$this->assertArrayHasKey(CURL_HTTP_VERSION_1_1, $options);
