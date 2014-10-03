@@ -1,5 +1,5 @@
 {
-  "name": "bee4/httpclient",
+  "name": "bee4/transport",
   "description": "A simple chainable HTTP client. Built for intensive HTTP calls!",
   "license": "Apache-2.0",
   "authors": [
