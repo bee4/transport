@@ -6,18 +6,19 @@
  *
  * @copyright Bee4 2014
  * @author    Stephane HULARD <s.hulard@chstudio.fr>
- * @package   Bee4\Test\Http\Message\Request
+ * @package   Bee4\Test\Transfer\Message\Request
  */
 
-namespace Bee4\Test\Http\Message\Request;
+namespace Bee4\Test\Transfer\Message\Request;
 
-use Bee4\Http\Url;
+use Bee4\PHPUnit\HttpClientTestCase;
+use Bee4\Transfer\Url;
 
 /**
  * AbstractRequest test definition
- * @package Bee4\Test\Http\Message\Request
+ * @package Bee4\Test\Transfer\Message\Request
  */
-class AbstractRequestTest extends \Bee4\PHPUnit\HttpClientTestCase
+class AbstractRequestTest extends HttpClientTestCase
 {
 	/**
 	 * @var Url
@@ -38,7 +39,7 @@ class AbstractRequestTest extends \Bee4\PHPUnit\HttpClientTestCase
 		$headers = ['Content-Type' => 'text/html'];
 
 		$mock = $this->getMockForAbstractClass(
-			'\Bee4\Http\Message\Request\AbstractRequest',
+			'\Bee4\Transfer\Message\Request\AbstractRequest',
 			[$this->url, $headers]
 		);
 
@@ -53,7 +54,7 @@ class AbstractRequestTest extends \Bee4\PHPUnit\HttpClientTestCase
 	 * Check curl option collection manipulation
 	 */
 	public function testCurlOptions() {
-		$mock = $this->getMockForAbstractClass('\Bee4\Http\Message\Request\AbstractRequest', [$this->url]);
+		$mock = $this->getMockForAbstractClass('\Bee4\Transfer\Message\Request\AbstractRequest', [$this->url]);
 
 		$this->assertEmpty($mock->getCurlOptions());
 		$mock->addCurlOption(CURL_HTTP_VERSION_1_1, true);
@@ -72,7 +73,7 @@ class AbstractRequestTest extends \Bee4\PHPUnit\HttpClientTestCase
 	 * @expectedException \RuntimeException
 	 */
 	public function testInvalidClient() {
-		$mock = $this->getMockForAbstractClass('\Bee4\Http\Message\Request\AbstractRequest', [$this->url]);
+		$mock = $this->getMockForAbstractClass('\Bee4\Transfer\Message\Request\AbstractRequest', [$this->url]);
 		$mock->send();
 	}
 
@@ -80,10 +81,10 @@ class AbstractRequestTest extends \Bee4\PHPUnit\HttpClientTestCase
 	 * Check that request send method return a valid response object
 	 */
 	public function testSend() {
-		$mock = $this->getMockForAbstractClass('\Bee4\Http\Message\Request\AbstractRequest', [$this->url]);
-		$mock->setClient(new \Bee4\Http\Client);
+		$mock = $this->getMockForAbstractClass('\Bee4\Transfer\Message\Request\AbstractRequest', [$this->url]);
+		$mock->setClient(new \Bee4\Transfer\Client);
 		$response = $mock->send();
 
-		$this->assertInstanceOf('\Bee4\Http\Message\Response', $response);
+		$this->assertInstanceOf('\Bee4\Transfer\Message\Response', $response);
 	}
 }

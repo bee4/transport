@@ -7,18 +7,18 @@
  *
  * @copyright Bee4 2014
  * @author	Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Http\Message\Request
+ * @package Bee4\Transfer\Message\Request
  */
 
-namespace Bee4\Http\Message\Request;
+namespace Bee4\Transfer\Message\Request;
 
-use Bee4\Http\Message\AbstractMessage;
-use Bee4\Http\Client;
-use Bee4\Http\Url;
+use Bee4\Transfer\Message\AbstractMessage;
+use Bee4\Transfer\Client;
+use Bee4\Transfer\Url;
 
 /**
  * HTTP Request object
- * @package Bee4\Http\Message\Request
+ * @package Bee4\Transfer\Message\Request
  */
 abstract class AbstractRequest extends AbstractMessage
 {
@@ -109,7 +109,7 @@ abstract class AbstractRequest extends AbstractMessage
 	/**
 	 * Send method.
 	 * To send a request, a client must be linked
-	 * @return \Bee4\Http\Message\Response
+	 * @return \Bee4\Transfer\Message\Response
 	 */
 	public function send() {
 		if (!$this->client) {

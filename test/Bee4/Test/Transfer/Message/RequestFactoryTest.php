@@ -6,17 +6,17 @@
  *
  * @copyright Bee4 2014
  * @author    Stephane HULARD <s.hulard@chstudio.fr>
- * @package   Bee4\Test\Http\Message
+ * @package   Bee4\Test\Transfer\Message
  */
 
-namespace Bee4\Test\Http\Message;
+namespace Bee4\Test\Transfer\Message;
 
-use Bee4\Http\Message\RequestFactory;
-use Bee4\Http\Url;
+use Bee4\Transfer\Message\RequestFactory;
+use Bee4\Transfer\Url;
 
 /**
  * RequestFactory unit test definition
- * @package Bee4\Test\Http\Message
+ * @package Bee4\Test\Transfer\Message
  */
 class RequestFactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -24,10 +24,10 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
 		$object = new RequestFactory();
 
 		$get = $object->build('GET', new Url('http://www.bee4.fr'), ['Content-Type' => 'text/html'] );
-		$this->assertInstanceOf('\Bee4\Http\Message\Request\Get', $get);
+		$this->assertInstanceOf('\Bee4\Transfer\Message\Request\Get', $get);
 		$this->assertEquals('text/html', $get->getHeader('Content-Type'));
 		$post = $object->build('POST', new Url('http://www.bee4.fr'), ['Content-Length' => 128] );
-		$this->assertInstanceOf('\Bee4\Http\Message\Request\Post', $post);
+		$this->assertInstanceOf('\Bee4\Transfer\Message\Request\Post', $post);
 		$this->assertEquals(128, $post->getHeader('Content-Length'));
 	}
 

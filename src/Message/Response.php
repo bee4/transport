@@ -6,16 +6,16 @@
  *
  * @copyright Bee4 2014
  * @author	Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Http\Message
+ * @package Bee4\Transfer\Message
  */
 
-namespace Bee4\Http\Message;
+namespace Bee4\Transfer\Message;
 
-use Bee4\Http\Message\Request\AbstractRequest;
+use Bee4\Transfer\Message\Request\AbstractRequest;
 
 /**
  * Response wrapper
- * @package Bee4\Http\Message
+ * @package Bee4\Transfer\Message
  */
 class Response extends AbstractMessage
 {

@@ -6,13 +6,13 @@
  *
  * @copyright Bee4 2014
  * @author Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Http\Message
+ * @package Bee4\Transfer\Message
  */
-namespace Bee4\Http\Message;
+namespace Bee4\Transfer\Message;
 
 /**
  * Add body capability to the current request
- * @package Bee4\Http\Message
+ * @package Bee4\Transfer\Message
  */
 trait WithBodyTrait
 {
@@ -25,7 +25,7 @@ trait WithBodyTrait
 	/**
 	 * Set the body for the current request
 	 * @param string $body
-     * @return AbstractMessage
+     * @return WithBodyTrait
 	 */
 	public function setBody($body) {
 		$this->body = $body;

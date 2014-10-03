@@ -6,16 +6,16 @@
  *
  * @copyright Bee4 2014
  * @author    Stephane HULARD <s.hulard@chstudio.fr>
- * @package   Bee4\Test\Http
+ * @package   Bee4\Test\Transfer
  */
 
 namespace Bee4\Test\Http;
 
-use Bee4\Http\Client;
+use Bee4\Transfer\Client;
 
 /**
- * Http client test
- * @package Bee4\Test\Http
+ * Transfer client test
+ * @package Bee4\Test\Transfer
  */
 class ClientTest extends \Bee4\PHPUnit\HttpClientTestCase
 {
@@ -40,7 +40,7 @@ class ClientTest extends \Bee4\PHPUnit\HttpClientTestCase
 	 * @expectedException \InvalidArgumentException
 	 */
 	public function testNonStringUrl() {
-		$method = new \ReflectionMethod('\Bee4\Http\Client', 'createRequest');
+		$method = new \ReflectionMethod('\Bee4\Transfer\Client', 'createRequest');
 		$method->setAccessible(TRUE);
 		$method->invoke($this->object, 'get', new \stdClass());
 	}
@@ -49,7 +49,7 @@ class ClientTest extends \Bee4\PHPUnit\HttpClientTestCase
 	 * @expectedException \InvalidArgumentException
 	 */
 	public function testEmptyUrl() {
-		$method = new \ReflectionMethod('\Bee4\Http\Client', 'createRequest');
+		$method = new \ReflectionMethod('\Bee4\Transfer\Client', 'createRequest');
 		$method->setAccessible(TRUE);
 		$method->invoke(new Client(), 'post', '');
 	}
@@ -63,17 +63,17 @@ class ClientTest extends \Bee4\PHPUnit\HttpClientTestCase
 		$request1 = $this->object->get('/index.html');
 		$this->assertEquals(self::getBaseUrl().'/index.html', (string)$request1->getUrl());
 
-		$this->assertInstanceOf('\Bee4\Http\Message\AbstractMessage', $request1);
-		$this->assertInstanceOf('\Bee4\Http\Message\Request\AbstractRequest', $request1);
-		$this->assertInstanceOf('\Bee4\Http\Message\Request\Get', $request1);
-		$this->assertInstanceOf('\Bee4\Http\Message\Response', $request1->send());
+		$this->assertInstanceOf('\Bee4\Transfer\Message\AbstractMessage', $request1);
+		$this->assertInstanceOf('\Bee4\Transfer\Message\Request\AbstractRequest', $request1);
+		$this->assertInstanceOf('\Bee4\Transfer\Message\Request\Get', $request1);
+		$this->assertInstanceOf('\Bee4\Transfer\Message\Response', $request1->send());
 
 		//Check that Post request is nicely mapped
 		$request2 = $this->object->post('/index.html');
-		$this->assertInstanceOf('\Bee4\Http\Message\AbstractMessage', $request2);
-		$this->assertInstanceOf('\Bee4\Http\Message\Request\AbstractRequest', $request2);
-		$this->assertInstanceOf('\Bee4\Http\Message\Request\Post', $request2);
-		$this->assertInstanceOf('\Bee4\Http\Message\Response', $request2->send());
+		$this->assertInstanceOf('\Bee4\Transfer\Message\AbstractMessage', $request2);
+		$this->assertInstanceOf('\Bee4\Transfer\Message\Request\AbstractRequest', $request2);
+		$this->assertInstanceOf('\Bee4\Transfer\Message\Request\Post', $request2);
+		$this->assertInstanceOf('\Bee4\Transfer\Message\Response', $request2->send());
 	}
 
 	public function testGet() {
@@ -83,7 +83,7 @@ class ClientTest extends \Bee4\PHPUnit\HttpClientTestCase
 
 		$this->assertArrayHasKey(CURLOPT_HTTPGET, $options);
 		$this->assertTrue($options[CURLOPT_HTTPGET]);
-		$this->assertInstanceOf('\Bee4\Http\Message\Request\Get', $response->getRequest());
+		$this->assertInstanceOf('\Bee4\Transfer\Message\Request\Get', $response->getRequest());
 	}
 
 	public function testPost() {
@@ -95,7 +95,7 @@ class ClientTest extends \Bee4\PHPUnit\HttpClientTestCase
 		$this->assertArrayHasKey(CURLOPT_POSTFIELDS, $options);
 		$this->assertTrue($options[CURLOPT_POST]);
 		$this->assertEquals('{"body": "I\'m the body"}}', $options[CURLOPT_POSTFIELDS]);
-		$this->assertInstanceOf('\Bee4\Http\Message\Request\Post', $response->getRequest());
+		$this->assertInstanceOf('\Bee4\Transfer\Message\Request\Post', $response->getRequest());
 	}
 
 	public function testHead() {
@@ -105,7 +105,7 @@ class ClientTest extends \Bee4\PHPUnit\HttpClientTestCase
 
 		$this->assertArrayHasKey(CURLOPT_NOBODY, $options);
 		$this->assertTrue($options[CURLOPT_NOBODY]);
-		$this->assertInstanceOf('\Bee4\Http\Message\Request\Head', $response->getRequest());
+		$this->assertInstanceOf('\Bee4\Transfer\Message\Request\Head', $response->getRequest());
 	}
 
 	public function testDelete() {
@@ -117,7 +117,7 @@ class ClientTest extends \Bee4\PHPUnit\HttpClientTestCase
 		$this->assertArrayHasKey(CURLOPT_POSTFIELDS, $options);
 		$this->assertEquals('DELETE', $options[CURLOPT_CUSTOMREQUEST]);
 		$this->assertEquals(false, $options[CURLOPT_POSTFIELDS]);
-		$this->assertInstanceOf('\Bee4\Http\Message\Request\Delete', $response->getRequest());
+		$this->assertInstanceOf('\Bee4\Transfer\Message\Request\Delete', $response->getRequest());
 	}
 
 	public function testPut() {
@@ -129,7 +129,7 @@ class ClientTest extends \Bee4\PHPUnit\HttpClientTestCase
 		$this->assertArrayHasKey(CURLOPT_POSTFIELDS, $options);
 		$this->assertEquals('PUT', $options[CURLOPT_CUSTOMREQUEST]);
 		$this->assertEquals(false, $options[CURLOPT_POSTFIELDS]);
-		$this->assertInstanceOf('\Bee4\Http\Message\Request\Put', $response->getRequest());
+		$this->assertInstanceOf('\Bee4\Transfer\Message\Request\Put', $response->getRequest());
 	}
 	
 	/**
@@ -160,7 +160,7 @@ class ClientTest extends \Bee4\PHPUnit\HttpClientTestCase
 		try {
 			$this->object->get()->send();
 		} catch( \Exception $error ) {
-			$this->assertInstanceOf("\Bee4\Http\Exception\CurlException", $error);
+			$this->assertInstanceOf("\Bee4\Transfer\Exception\CurlException", $error);
 			return;
 		}
 		$this->fail();

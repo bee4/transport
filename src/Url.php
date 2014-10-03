@@ -6,24 +6,24 @@
  *
  * @copyright Bee4 2014
  * @author  Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Http
+ * @package Bee4\Transfer
  */
 
-namespace Bee4\Http;
+namespace Bee4\Transfer;
 
 /**
  * Define a valid URL component
  * Allow to check if it's a valid Url and define all components
- * @package Bee4\Http
+ * @package Bee4\Transfer
  *
- * @method string|Url scheme(string $value) Getter and setter for scheme property
- * @method string|Url host(string $value) Getter and setter for host property
- * @method int|Url port(int $value) Getter and setter for port property
- * @method string|Url user(string $value) Getter and setter for user property
- * @method string|Url pass(string $value) Getter and setter for pass property
- * @method string|Url path(string $value) Getter and setter for path property
- * @method string|Url query(string $value) Getter and setter for query property
- * @method string|Url fragment(string $value) Getter and setter for fragment property
+ * @method string|Url scheme(string $value = null) Getter and setter for scheme property
+ * @method string|Url host(string $value = null) Getter and setter for host property
+ * @method int|Url port(int $value = null) Getter and setter for port property
+ * @method string|Url user(string $value = null) Getter and setter for user property
+ * @method string|Url pass(string $value = null) Getter and setter for pass property
+ * @method string|Url path(string $value = null) Getter and setter for path property
+ * @method string|Url query(string $value = null) Getter and setter for query property
+ * @method string|Url fragment(string $value = null) Getter and setter for fragment property
  */
 class Url
 {
@@ -86,7 +86,7 @@ class Url
 			throw new \InvalidArgumentException('url given must be a valid string!');
 		}
 		if( !Url::isValid($url) ) {
-			throw new \InvalidArgumentException('url given is not a valid url (according to PHP FILTER_VALIDATE_URL)');
+			throw new \InvalidArgumentException('url given is not a valid url (according to PHP FILTER_VALIDATE_URL). '.$url);
 		}
 
 		//Define default entries

@@ -6,13 +6,13 @@
  *
  * @copyright Bee4 2014
  * @author	Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Http\Exception
+ * @package Bee4\Transfer\Exception
  */
 
-namespace Bee4\Http\Exception;
+namespace Bee4\Transfer\Exception;
 
 /**
  * Define cURL handle wrapper
- * @package Bee4\Http\Exception
+ * @package Bee4\Transfer\Exception
  */
 class CurlException extends \Exception {}

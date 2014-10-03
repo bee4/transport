@@ -6,14 +6,14 @@
  *
  * @copyright Bee4 2014
  * @author	Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Http\Message
+ * @package Bee4\Transfer\Message
  */
 
-namespace Bee4\Http\Message;
+namespace Bee4\Transfer\Message;
 
 /**
  * HTTP Message basic implementation
- * @package Bee4\Http\Message
+ * @package Bee4\Transfer\Message
  */
 abstract class AbstractMessage implements MessageInterface
 {
