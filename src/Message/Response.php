@@ -43,8 +43,18 @@ class Response extends AbstractMessage
 	 * Build the response with Request dependency injection
 	 * @param AbstractRequest $request
 	 */
-	public function __construct(AbstractRequest $request) {
+	public function __construct(AbstractRequest $request = null) {
 		$this->request = $request;
+	}
+
+	/**
+	 * Set the linked request
+	 * @param AbstractRequest $request
+	 * @return Response
+	 */
+	public function setRequest(AbstractRequest $request) {
+		$this->request = $request;
+		return $this;
 	}
 
 	/**
