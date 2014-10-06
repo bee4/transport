@@ -120,8 +120,18 @@ abstract class AbstractRequest extends AbstractMessage
         }
 
 		$this->addOption(CURLOPT_URL, $this->getUrl()->toString());
+		$this->prepare();
 
-        $this->prepare();
-        return $this->client->send($this);
+		return $this->client->send($this);
+	}
+
+	/**
+	 * Retrieve the status message for the current request based on STATUS_XXX constants
+	 * @param string $status
+	 * @return string
+	 */
+	public function getStatusMessage($status) {
+		$name = get_called_class().'::STATUS_'.$status;
+		return defined($name)?constant($name):'';
 	}
 }
