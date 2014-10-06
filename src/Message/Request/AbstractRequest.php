@@ -20,8 +20,11 @@ use Bee4\Transport\Url;
  * HTTP Request object
  * @package Bee4\Transport\Message\Request
  */
-abstract class AbstractRequest extends AbstractMessage implements RequestInterface
+abstract class AbstractRequest extends AbstractMessage
 {
+	const HTTP = 'http';
+	const FTP = 'ftp';
+
 	/**
 	 * Current client instance
 	 * @var Client

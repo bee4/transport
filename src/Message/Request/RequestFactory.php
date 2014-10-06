@@ -25,12 +25,12 @@ class RequestFactory
 	 * @param string $method
 	 * @param Url $url
 	 * @param array $headers
-	 * @return RequestInterface
+	 * @return AbstractRequest
 	 * @throws UnknownProtocolException
 	 * @throws InvalidArgumentException
 	 */
 	public function build( $method, Url $url, array $headers ) {
-		if( $url->scheme() != RequestInterface::HTTP && $url->scheme() != RequestInterface::FTP ) {
+		if( $url->scheme() != AbstractRequest::HTTP && $url->scheme() != AbstractRequest::FTP ) {
 			throw new UnknownProtocolException("You can't request a transfer on protocol different than FTP or HTTP!");
 		}
 

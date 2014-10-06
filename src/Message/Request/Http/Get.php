@@ -16,7 +16,7 @@ namespace Bee4\Transport\Message\Request\Http;
  * HTTP GET Request object
  * @package Bee4\Transport\Message\Request\Http
  */
-class Get extends AbstractHttpRequest
+class Get extends HttpRequest
 {
 	protected function prepare() {
 		$this->addOption(CURLOPT_HTTPGET, true);

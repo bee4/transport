@@ -18,7 +18,7 @@ use Bee4\Transport\Message\WithBodyTrait;
  * HTTP POST Request object
  * @package Bee4\Transport\Message\Request\Http
  */
-class Put extends AbstractHttpRequest
+class Put extends HttpRequest
 {
 	use WithBodyTrait;
 

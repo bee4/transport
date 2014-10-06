@@ -18,7 +18,7 @@ use Bee4\Transport\Message\WithBodyTrait;
  * HTTP DELETE Request object
  * @package Bee4\Transport\Message\Request\Http
  */
-class Delete extends AbstractHttpRequest
+class Delete extends HttpRequest
 {
 	use WithBodyTrait;
 

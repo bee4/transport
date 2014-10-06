@@ -16,7 +16,7 @@ namespace Bee4\Transport\Message\Request\Ftp;
  * HTTP HEAD Request object
  * @package Bee4\Transport\Message\Request\Ftp
  */
-class Head extends AbstractFtpRequest
+class Head extends FtpRequest
 {
 	protected function prepare() {
 		$this->addOption(CURLOPT_FTPLISTONLY, true);
