@@ -94,13 +94,6 @@ class HttpRequest extends AbstractRequest
     const STATUS_511 = "511 Network Authentication Required (RFC 6585)";
 
     /**
-     * Request UserAgent
-     * This property is only useful with HTTP
-     * @var string
-     */
-    protected $ua;
-
-    /**
      * Send the request and prepend some headers
      * @return \Bee4\Transport\Message\Response
      */
@@ -109,23 +102,6 @@ class HttpRequest extends AbstractRequest
         $this->addOption(CURLOPT_USERAGENT, $this->getUserAgent());
 
         return parent::send();
-    }
-
-    /**
-     * Get the client UA for all requests
-     * @return string
-     */
-    public function getUserAgent() {
-        return $this->ua;
-    }
-
-    /**
-     * Set the client UA for all requests
-     * @param string $ua
-     * @return string
-     */
-    public function setUserAgent($ua) {
-        $this->ua = $ua;
     }
 
     /**
