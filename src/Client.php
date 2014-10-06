@@ -121,6 +121,10 @@ class Client
 		try {
 			$result = self::$handles[$name]->execute();
 		} catch( \Exception $error ) {
+			if( $error instanceof CurlException ) {
+				$response = ResponseFactory::build( '', self::$handles[$name], $request );
+				$error->setResponse($response);
+			}
 			$this->dispatch(ErrorEvent::ERROR, new ErrorEvent($error));
 			throw $error;
 		}
