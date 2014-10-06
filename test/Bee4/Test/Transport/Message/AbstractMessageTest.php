@@ -10,6 +10,7 @@
  */
 
 namespace Bee4\Test\Transport\Message;
+
 use Bee4\PHPUnit\HttpClientTestCase;
 
 /**

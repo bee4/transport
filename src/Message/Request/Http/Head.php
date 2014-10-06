@@ -16,7 +16,7 @@ namespace Bee4\Transport\Message\Request\Http;
  * HTTP HEAD Request object
  * @package Bee4\Transport\Message\Request\Http
  */
-class Head extends AbstractHttpRequest
+class Head extends HttpRequest
 {
 	protected function prepare() {
 		$this->addOption(CURLOPT_NOBODY, true);

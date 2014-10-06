@@ -40,11 +40,19 @@ class Response extends AbstractMessage
 	protected $transactionTime;
 
 	/**
-	 * Request dependency injection
+	 * Build the response with Request dependency injection
 	 * @param AbstractRequest $request
-     * @return Response
 	 */
-	public function setRequest( AbstractRequest $request ) {
+	public function __construct(AbstractRequest $request = null) {
+		$this->request = $request;
+	}
+
+	/**
+	 * Set the linked request
+	 * @param AbstractRequest $request
+	 * @return Response
+	 */
+	public function setRequest(AbstractRequest $request) {
 		$this->request = $request;
 		return $this;
 	}
@@ -70,6 +78,13 @@ class Response extends AbstractMessage
 	 */
 	public function getStatus() {
 		return $this->status;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getStatusMessage() {
+		return $this->request->getStatusMessage($this->status);
 	}
 
 	/**

@@ -9,7 +9,7 @@
  * @package Bee4\Test\Transport\Curl
  */
 
-namespace Bee4\Test\Http;
+namespace Bee4\Test\Transport\Curl;
 
 use Bee4\PHPUnit\HttpClientTestCase;
 use Bee4\Transport\Curl\Handle;

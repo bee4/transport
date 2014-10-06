@@ -15,8 +15,6 @@ use Bee4\Events\DispatcherAwareTrait;
 use Bee4\Transport\Events\ErrorEvent;
 use Bee4\Transport\Events\MessageEvent;
 use Bee4\Transport\Exception\CurlException;
-use Bee4\Transport\Message\Request\RequestInterface;
-use Closure;
 use Bee4\Transport\Message\Request\AbstractRequest;
 use Bee4\Transport\Message\Request\RequestFactory;
 use Bee4\Transport\Message\ResponseFactory;
@@ -90,7 +88,7 @@ class Client
 	 * @param string $method
 	 * @param string $url
 	 * @param array $headers
-	 * @return RequestInterface
+	 * @return AbstractRequest
 	 */
 	protected function createRequest( $method, $url, array $headers = [] ) {
 		if( !is_string($url) ) {
@@ -107,11 +105,11 @@ class Client
 
 	/**
 	 * Send the request
-	 * @param RequestInterface $request The request to be send
+	 * @param AbstractRequest $request The request to be send
 	 * @return Message\Response
      * @throws \Exception
 	 */
-	public function send( RequestInterface $request ) {
+	public function send( AbstractRequest $request ) {
 		$name = get_class($request);
 		if( !isset(self::$handles[$name]) ) {
 			self::$handles[$name] = new Curl\Handle();
@@ -123,6 +121,10 @@ class Client
 		try {
 			$result = self::$handles[$name]->execute();
 		} catch( \Exception $error ) {
+			if( $error instanceof CurlException ) {
+				$response = ResponseFactory::build( '', self::$handles[$name], $request );
+				$error->setResponse($response);
+			}
 			$this->dispatch(ErrorEvent::ERROR, new ErrorEvent($error));
 			throw $error;
 		}

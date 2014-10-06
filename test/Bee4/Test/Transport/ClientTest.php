@@ -9,7 +9,7 @@
  * @package   Bee4\Test\Transport
  */
 
-namespace Bee4\Test\Http;
+namespace Bee4\Test\Transport;
 
 use Bee4\Test\Events\FakeDispatcher;
 use Bee4\PHPUnit\HttpClientTestCase;

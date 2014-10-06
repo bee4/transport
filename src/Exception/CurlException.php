@@ -10,9 +10,30 @@
  */
 
 namespace Bee4\Transport\Exception;
+use Bee4\Transport\Message\Response;
 
 /**
  * Define cURL handle wrapper
  * @package Bee4\Transport\Exception
  */
-class CurlException extends \Exception {}
+class CurlException extends \Exception {
+    /**
+     * @var Response
+     */
+    protected $response;
+
+    /**
+     * Set the error response
+     * @param Response $response
+     */
+    public function setResponse(Response $response) {
+        $this->response = $response;
+    }
+
+    /**
+     * @return Response
+     */
+    public function getResponse() {
+        return $this->response;
+    }
+}
