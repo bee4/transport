@@ -22,8 +22,16 @@ use Bee4\Transport\Url;
  */
 abstract class AbstractRequest extends AbstractMessage
 {
+	//Compatible SCHEME
 	const HTTP = 'http';
 	const FTP = 'ftp';
+
+	/**
+	 * Request UserAgent
+	 * Allow to identify the request initiator
+	 * @var string
+	 */
+	protected $ua;
 
 	/**
 	 * Current client instance
@@ -105,6 +113,15 @@ abstract class AbstractRequest extends AbstractMessage
 	}
 
 	/**
+	 * Check if an option exists
+	 * @param mixed $name
+	 * @return boolean
+	 */
+	public function hasOption($name) {
+		return isset($this->options[$name]);
+	}
+
+	/**
 	 * Prepare the request execution by adding specific cURL parameters
 	 */
 	abstract protected function prepare();
@@ -133,5 +150,22 @@ abstract class AbstractRequest extends AbstractMessage
 	public function getStatusMessage($status) {
 		$name = get_called_class().'::STATUS_'.$status;
 		return defined($name)?constant($name):'';
+	}
+	
+	/**
+	 * Get the client UA for all requests
+	 * @return string
+	 */
+	public function getUserAgent() {
+		return $this->ua;
+	}
+
+	/**
+	 * Set the client UA for all requests
+	 * @param string $ua
+	 * @return string
+	 */
+	public function setUserAgent($ua) {
+		$this->ua = $ua;
 	}
 }
