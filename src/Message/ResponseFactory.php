@@ -23,15 +23,15 @@ class ResponseFactory
 	 * Build a new reponse object from cURL execution result
 	 * @param string $content Response content
 	 * @param Handle $handle Curl handle used to perform request which generate response
-     * @param Request\RequestInterface $request
+     * @param Request\AbstractRequest $request
      * @return Response
 	 */
 	public static function build(
 		$content,
 		Handle $handle,
-		Request\RequestInterface $request
+		Request\AbstractRequest $request
 	) {
-		$response = new Response();
+		$response = new Response($request);
 
 		$response->setStatus($handle->getInfo('http_code'));
 		$response->setTransactionTime($handle->getInfo('total_time'));
@@ -43,7 +43,6 @@ class ResponseFactory
 				$request
 			);
 		}
-		$response->setRequest($request);
 
 		//Headers are returned with content, so we extract it
 		$content = self::parseHeaders($content, $response);
@@ -64,11 +63,11 @@ class ResponseFactory
 		$name = strtoupper(array_pop($namespace));
 
 		if( strpos($content,'HTTP/') === 0 || strpos($content, $name) === 0 ) {
-			$line = self::readLine($content);
+			$line = self::nibbleLine($content);
 			if( preg_match('/^HTTP\/[0-9]{1}\.[0-9]{1} (?P<code>[0-9]+) (?P<message>.*)$/', $line, $matches) && $matches["code"] == "100") {
-				self::readLine($content);
+				self::nibbleLine($content);
 			}
-			while( ($line = self::readLine($content)) != "" ) {
+			while( ($line = self::nibbleLine($content)) != "" ) {
 				if( preg_match('/^([A-Za-z\-]+): (.*)/', $line, $matches) ) {
 					$message->addHeader($matches[1], $matches[2]);
 				}
@@ -84,7 +83,7 @@ class ResponseFactory
 	 * @param string $eol
 	 * @return string
 	 */
-	private static function readLine(&$content, $eol = "\r\n") {
+	private static function nibbleLine(&$content, $eol = "\r\n") {
 		$line = substr($content, 0, strpos($content, $eol));
 		$content = substr($content, strlen($line)+2);
 		return $line;
