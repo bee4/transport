@@ -151,7 +151,7 @@ abstract class AbstractRequest extends AbstractMessage
 		$name = get_called_class().'::STATUS_'.$status;
 		return defined($name)?constant($name):'';
 	}
-	
+
 	/**
 	 * Get the client UA for all requests
 	 * @return string
@@ -167,5 +167,6 @@ abstract class AbstractRequest extends AbstractMessage
 	 */
 	public function setUserAgent($ua) {
 		$this->ua = $ua;
+		return $this;
 	}
 }
