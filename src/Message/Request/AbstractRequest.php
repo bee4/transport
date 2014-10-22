@@ -163,7 +163,7 @@ abstract class AbstractRequest extends AbstractMessage
 	/**
 	 * Set the client UA for all requests
 	 * @param string $ua
-	 * @return string
+	 * @return AbstractRequest
 	 */
 	public function setUserAgent($ua) {
 		$this->ua = $ua;
