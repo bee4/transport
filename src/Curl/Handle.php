@@ -157,7 +157,7 @@ class Handle
 
 	/**
 	 * Add multiple option at once
-	 * @param array $options
+	 * @param string[] $options
 	 * @return Handle
 	 */
 	public function addOptions( array $options ) {
