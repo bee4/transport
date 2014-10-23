@@ -107,7 +107,7 @@ class Client
 	 * Send the request
 	 * @param AbstractRequest $request The request to be send
 	 * @return Message\Response
-     * @throws \Exception
+	 * @throws \Exception
 	 */
 	public function send( AbstractRequest $request ) {
 		$name = get_class($request);
