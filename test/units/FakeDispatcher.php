@@ -55,4 +55,7 @@ class FakeDispatcher implements DispatcherInterface
 		sort($this->listeners[$name]);
 		return $this;
 	}
+
+	public function removeListener($name, $listener) {}
+	public function getListeners($name) {}
 }
