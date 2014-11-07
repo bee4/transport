@@ -6,26 +6,26 @@
  *
  * @copyright Bee4 2014
  * @author  Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Test\Transport\Curl
+ * @package Bee4\Test\Transport\Handle
  */
 
-namespace Bee4\Test\Transport\Curl;
+namespace Bee4\Test\Transport\Handle;
 
 use Bee4\PHPUnit\HttpClientTestCase;
-use Bee4\Transport\Curl\Handle;
+use Bee4\Transport\Handle\CurlHandle;
 
 /**
  * Check behaviour of Url helper
- * @package Bee4\Test\Transport\Curl
+ * @package Bee4\Test\Transport\Handle
  */
-class HandleTest extends HttpClientTestCase {
+class CurlHandleTest extends HttpClientTestCase {
 	/**
-	 * @var Handle
+	 * @var CurlHandle
 	 */
 	protected $object;
 
 	public function setUp() {
-		$this->object = new Handle();
+		$this->object = new CurlHandle();
 	}
 
 	public function testAll() {
