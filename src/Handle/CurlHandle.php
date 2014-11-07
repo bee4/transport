@@ -6,18 +6,18 @@
  *
  * @copyright Bee4 2014
  * @author	Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Transport\Curl
+ * @package Bee4\Transport\Handle
  */
 
-namespace Bee4\Transport\Curl;
+namespace Bee4\Transport\Handle;
 
 use Bee4\Transport\Exception\CurlException;
 
 /**
  * Define cURL handle wrapper
- * @package Bee4\Transport\Curl
+ * @package Bee4\Transport\Handle
  */
-class Handle
+class CurlHandle implements HandleInterface
 {
 	/**
 	 * cURL option to be used to execute current handle
