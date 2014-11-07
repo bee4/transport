@@ -11,7 +11,7 @@
 
 namespace Bee4\Transport\Message;
 
-use Bee4\Transport\Curl\Handle;
+use Bee4\Transport\Handle\HandleInterface;
 
 /**
  * Build a response from cURL response
@@ -23,12 +23,12 @@ class ResponseFactory
 	 * Build a new reponse object from cURL execution result
 	 * @param string $content Response content
 	 * @param Handle $handle Curl handle used to perform request which generate response
-     * @param Request\AbstractRequest $request
-     * @return Response
+	 * @param Request\AbstractRequest $request
+	 * @return Response
 	 */
 	public static function build(
 		$content,
-		Handle $handle,
+		HandleInterface $handle,
 		Request\AbstractRequest $request
 	) {
 		$response = new Response($request);
