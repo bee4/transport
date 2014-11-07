@@ -14,11 +14,11 @@
   "require": {
     "php": ">=5.4.0",
     "ext-curl": "*",
-    "bee4/events": "~0"
+    "bee4/events": "~0.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "4.*",
-    "behat/behat": "3.*"
+    "phpunit/phpunit": "~4.0",
+    "behat/behat": "~3.0"
   },
   "autoload": {
     "psr-4": {
