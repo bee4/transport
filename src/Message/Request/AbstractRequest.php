@@ -1,7 +1,6 @@
 <?php
-
 /**
- * This file is part of the bee4/httpclient package.
+ * This file is part of the bee4/transport package.
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
@@ -133,8 +132,8 @@ abstract class AbstractRequest extends AbstractMessage
 	 */
 	public function send() {
 		if (!$this->client) {
-          throw new \RuntimeException('A client must be set on the request');
-        }
+			throw new \RuntimeException('A client must be set on the request');
+		}
 
 		$this->addOption(CURLOPT_URL, $this->getUrl()->toString());
 		$this->prepare();
