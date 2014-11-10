@@ -90,9 +90,10 @@ class Url
 		}
 
 		//Define default entries
-		$parsed = parse_url($url);
-		foreach( $parsed as $name => $value ) {
-			$this->$name($value);
+		if( ($parsed = parse_url($url)) !== false ) {
+			foreach( $parsed as $name => $value ) {
+				$this->$name($value);
+			}
 		}
 	}
 
