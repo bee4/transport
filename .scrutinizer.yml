@@ -3,6 +3,7 @@ before_commands:
   - 'composer install --prefer-source --no-interaction'
 
 tools:
+  external_code_coverage: true
   php_mess_detector:
     config:
       unused_code_rules:
