@@ -19,6 +19,10 @@ use Bee4\Transport\Message\Request\AbstractRequest;
  */
 class HandleFactory
 {
+	/**
+	 * List of already loaded handles
+	 * @var array
+	 */
 	private static $loaded = [];
 
 	/**

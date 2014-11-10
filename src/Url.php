@@ -28,41 +28,49 @@ namespace Bee4\Transport;
 class Url
 {
 	/**
+	 * scheme - http
 	 * @var string
 	 */
 	protected $scheme;
 
 	/**
+	 * host - example.com
 	 * @var string
 	 */
 	protected $host;
 
 	/**
+	 * port - 80, 443...
 	 * @var int
 	 */
 	protected $port;
 
 	/**
+	 * user - credential if authentication used
 	 * @var string
 	 */
 	protected $user;
 
 	/**
+	 * pass - credential if authentication used
 	 * @var string
 	 */
 	protected $pass;
 
 	/**
+	 * path - /my-page.html
 	 * @var string
 	 */
 	protected $path;
 
 	/**
+	 * query - ?xx=yy&zz=aa
 	 * @var string
 	 */
 	protected $query;
 
 	/**
+	 * fragment - #anchor
 	 * @var string
 	 */
 	protected $fragment;
