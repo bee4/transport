@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+	<title>bee4/transport</title>
+	<parser>
+		<target>doc/phpdoc</target>
+		<extensions>
+			<extension>php</extension>
+		</extensions>
+		<visibility></visibility>
+		<markers>
+			<item>TODO</item>
+			<item>FIXME</item>
+			<item>IDEA</item>
+		</markers>
+	</parser>
+	<transformer>
+		<target>doc/phpdoc</target>
+	</transformer>
+	<transformations>
+		<template name="clean" />
+	</transformations>
+	<files>
+		<directory>src</directory>
+	</files>
+	<logging>
+		<level>crit</level>
+		<paths>
+			<default>doc/phpdoc/default.log</default>
+			<errors>doc/phpdoc/errors.log</errors>
+		</paths>
+	</logging>
+</phpdoc>
