@@ -106,6 +106,10 @@ abstract class AbstractRequest extends AbstractMessage
 	 * @return AbstractRequest
 	 */
 	public function addOption($name, $value) {
+		if( $name === CURLOPT_USERAGENT ) {
+			$this->setUserAgent($value);
+		}
+
 		$this->options[$name] = $value;
 
 		return $this;
