@@ -1,6 +1,6 @@
 ## Scrutinizer quality insurance configuration
 before_commands:
-  - 'composer install --prefer-source --no-interaction'
+  - 'composer install --prefer-source --no-interaction --no-dev'
 
 tools:
   external_code_coverage: true
