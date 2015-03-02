@@ -82,8 +82,8 @@ class CurlHandle implements HandleInterface
 
 	/**
 	 * Execute current handle and return result
-     * @throws \RuntimeException
-     * @throws CurlException
+	 * @throws \RuntimeException
+	 * @throws CurlException
 	 * @return string
 	 */
 	public function execute() {

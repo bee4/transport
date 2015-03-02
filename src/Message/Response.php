@@ -66,7 +66,7 @@ class Response extends AbstractMessage
 
 	/**
 	 * @param int $code
-     * @return Response
+	 * @return Response
 	 */
 	public function setStatus($code) {
 		$this->status = (int)$code;

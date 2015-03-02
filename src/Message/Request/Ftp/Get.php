@@ -16,8 +16,4 @@ namespace Bee4\Transport\Message\Request\Ftp;
  * @package Bee4\Transport\Message\Request\Ftp
  */
 class Get extends FtpRequest
-{
-	protected function prepare() {
-		//$this->options[] = true;
-	}
-}
+{}

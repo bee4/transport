@@ -20,25 +20,25 @@ use Bee4\Transport\Message\MessageInterface;
  */
 class MessageEvent implements EventInterface
 {
-    const REQUEST = 'transport.message.request';
-    const RESPONSE = 'transport.message.response';
+	const REQUEST = 'transport.message.request';
+	const RESPONSE = 'transport.message.response';
 
-    /**
-     * @var MessageInterface
-     */
-    protected $message;
+	/**
+	 * @var MessageInterface
+	 */
+	protected $message;
 
-    /**
-     * @param MessageInterface $message
-     */
-    public function __construct(MessageInterface $message) {
-        $this->message = $message;
-    }
+	/**
+	 * @param MessageInterface $message
+	 */
+	public function __construct(MessageInterface $message) {
+		$this->message = $message;
+	}
 
-    /**
-     * @return MessageInterface
-     */
-    public function getMessage() {
-        return $this->message;
-    }
+	/**
+	 * @return MessageInterface
+	 */
+	public function getMessage() {
+		return $this->message;
+	}
 }

@@ -63,7 +63,7 @@ abstract class AbstractRequest extends AbstractMessage
 	/**
 	 * Set the linked client
 	 * @param Client $client
-     * @return AbstractRequest
+	 * @return AbstractRequest
 	 */
 	public function setClient( Client $client ) {
 		$this->client = $client;
