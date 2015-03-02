@@ -62,6 +62,16 @@ Failed to connect to 127.0.0.1: Cannot assign requested address
 ?>
 {% endhighlight %}
 
+<p>You can also make FTP requests the same way just by giving an FTP URL:</p>
+{% highlight PHP %}
+<?php
+  $file = (new \Bee4\Transport\Client())
+    ->get('ftp://serveur.com/file.zip')
+    ->send()
+    ->getBody();
+?>
+{% endhighlight %}
+
 <h3>
 	<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick">
 		<span class="octicon octicon-link"></span>
