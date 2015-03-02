@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Bee4 - HTTPClient a PHP cURL interface to build intensive calls application
-description: "A simple HTTP client which is designed to perform intensive HTTP calls on nosql databases"
+title: Bee4/Transport a PHP cURL interface to build intensive calls application
+description: "A simple HTTP client which is designed to perform intensive HTTP calls"
 keywords: HTTP, PHP, cURL, ElasticSearch, NoSQL, Intensive
 ---
 
@@ -41,7 +41,7 @@ Failed to connect to 127.0.0.1: Cannot assign requested address
 	You first build a client and define if needed, the start URL point:
 </p>
 {% highlight PHP %}
-<?php $client = new \Bee4\Http\Client('http://www.example.com'); ?>
+<?php $client = new \Bee4\Transport\Client('http://www.example.com'); ?>
 {% endhighlight %}
 
 <p>Then you choose an implemented request type and call the client method :</p>
