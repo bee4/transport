@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the bee4/httpclient package.
+ * This file is part of the bee4/transport package.
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
@@ -20,25 +20,25 @@ use Bee4\Transport\Message\MessageInterface;
  */
 class MessageEvent implements EventInterface
 {
-    const REQUEST = 'transport.message.request';
-    const RESPONSE = 'transport.message.response';
+	const REQUEST = 'transport.message.request';
+	const RESPONSE = 'transport.message.response';
 
-    /**
-     * @var MessageInterface
-     */
-    protected $message;
+	/**
+	 * @var MessageInterface
+	 */
+	protected $message;
 
-    /**
-     * @param MessageInterface $message
-     */
-    public function __construct(MessageInterface $message) {
-        $this->message = $message;
-    }
+	/**
+	 * @param MessageInterface $message
+	 */
+	public function __construct(MessageInterface $message) {
+		$this->message = $message;
+	}
 
-    /**
-     * @return MessageInterface
-     */
-    public function getMessage() {
-        return $this->message;
-    }
-} 
+	/**
+	 * @return MessageInterface
+	 */
+	public function getMessage() {
+		return $this->message;
+	}
+}

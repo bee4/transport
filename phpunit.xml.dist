@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <phpunit
-  bootstrap="test/bootstrap.php"
+  bootstrap="test/units/bootstrap.php"
   colors="true"
   stopOnError="false"
   stopOnFailure="false"
@@ -12,12 +12,12 @@
 >
   <testsuites>
     <testsuite name="Bee4">
-      <directory phpVersion="5.4.0" phpVersionOperator=">=">test/Bee4</directory>
+      <directory phpVersion="5.4.0" phpVersionOperator=">=">test/units</directory>
     </testsuite>
   </testsuites>
 	<filter>
-		<whitelist processUncoveredFilesFromWhitelist="true">
-			<directory suffix=".php">src/Bee4</directory>
+		<whitelist>
+			<directory suffix=".php">src</directory>
 		</whitelist>
 	</filter>
   <logging>

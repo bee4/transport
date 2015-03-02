@@ -1,9 +1,4 @@
 <?php
-/**
- * PHPUnit tests bootstrap, must contain initialization...
- * @copyright Bee4 2014
- * @author Stéphane HULARD <s.hulard@chstudio.fr>
- */
 
 // Command that starts the built-in web server
 $command = sprintf(
@@ -32,11 +27,3 @@ register_shutdown_function(function() use ($pid) {
 	echo sprintf('%s - Killing process with ID %d', date('r'), $pid) . PHP_EOL;
 	exec('kill ' . $pid);
 });
-
-//------------------------------------------------------------------------------
-//Use composer for autoloading
-require_once __DIR__.'/../vendor/autoload.php';
-require_once __DIR__.'/Bee4/PHPUnit/HttpClientTestCase.php';
-require_once __DIR__.'/../vendor/bee4/events/test/FakeDispatcher.php';
-
-\Bee4\PHPUnit\HttpClientTestCase::setBaseUrl('http://'.WEBSERVER_HOST.':'.WEBSERVER_PORT);

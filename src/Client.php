@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the bee4/httpclient package.
+ * This file is part of the bee4/transport package.
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
@@ -18,9 +18,10 @@ use Bee4\Transport\Exception\CurlException;
 use Bee4\Transport\Message\Request\AbstractRequest;
 use Bee4\Transport\Message\Request\RequestFactory;
 use Bee4\Transport\Message\ResponseFactory;
+use Bee4\Transport\Handle\HandleFactory;
 
 /**
- * Http client
+ * Transport client, generate a request and return the linked response
  * @package Bee4\Transport
  *
  * @method AbstractRequest get(string $url = "", array $headers = [])
@@ -38,12 +39,6 @@ class Client
 	 * @var Url
 	 */
 	protected $baseUrl;
-
-	/**
-	 * Handle collection to be used to prevent bind problem
-	 * @var array
-	 */
-	protected static $handles = [];
 
 	/**
 	 * The factory to build request messages
@@ -107,29 +102,24 @@ class Client
 	 * Send the request
 	 * @param AbstractRequest $request The request to be send
 	 * @return Message\Response
-     * @throws \Exception
+	 * @throws \Exception
 	 */
 	public function send( AbstractRequest $request ) {
-		$name = get_class($request);
-		if( !isset(self::$handles[$name]) ) {
-			self::$handles[$name] = new Curl\Handle();
-		}
-
-		self::$handles[$name]->addOptions($request->getOptions());
+		$handle = HandleFactory::build($request);
 		$this->dispatch(MessageEvent::REQUEST, new MessageEvent($request));
 
 		try {
-			$result = self::$handles[$name]->execute();
+			$result = $handle->execute();
 		} catch( \Exception $error ) {
 			if( $error instanceof CurlException ) {
-				$response = ResponseFactory::build( '', self::$handles[$name], $request );
+				$response = ResponseFactory::build( '', $handle, $request );
 				$error->setResponse($response);
 			}
 			$this->dispatch(ErrorEvent::ERROR, new ErrorEvent($error));
 			throw $error;
 		}
 
-		$response = ResponseFactory::build( $result, self::$handles[$name], $request );
+		$response = ResponseFactory::build( $result, $handle, $request );
 		$this->dispatch(MessageEvent::RESPONSE, new MessageEvent($response));
 
 		return $response;

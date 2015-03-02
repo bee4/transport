@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the bee4/httpclient package.
+ * This file is part of the bee4/transport package.
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
@@ -19,24 +19,24 @@ use Bee4\Events\EventInterface;
  */
 class ErrorEvent implements EventInterface
 {
-    const ERROR = 'transport.error';
+	const ERROR = 'transport.error';
 
-    /**
-     * @var \Exception
-     */
-    protected $error;
+	/**
+	 * @var \Exception
+	 */
+	protected $error;
 
-    /**
-     * @param \Exception $error
-     */
-    public function __construct(\Exception $error) {
-        $this->error = $error;
-    }
+	/**
+	 * @param \Exception $error
+	 */
+	public function __construct(\Exception $error) {
+		$this->error = $error;
+	}
 
-    /**
-     * @return \Exception
-     */
-    public function getError() {
-        return $this->error;
-    }
-} 
+	/**
+	 * @return \Exception
+	 */
+	public function getError() {
+		return $this->error;
+	}
+}

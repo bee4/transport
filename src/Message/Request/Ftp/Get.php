@@ -1,7 +1,6 @@
 <?php
-
 /**
- * This file is part of the bee4/httpclient package.
+ * This file is part of the bee4/transport package.
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
@@ -17,8 +16,4 @@ namespace Bee4\Transport\Message\Request\Ftp;
  * @package Bee4\Transport\Message\Request\Ftp
  */
 class Get extends FtpRequest
-{
-	protected function prepare() {
-		//$this->options[] = true;
-	}
-}
+{}

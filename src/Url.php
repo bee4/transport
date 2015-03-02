@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the bee4/httpclient package.
+ * This file is part of the bee4/transport package.
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
@@ -28,41 +28,49 @@ namespace Bee4\Transport;
 class Url
 {
 	/**
+	 * scheme - http
 	 * @var string
 	 */
 	protected $scheme;
 
 	/**
+	 * host - example.com
 	 * @var string
 	 */
 	protected $host;
 
 	/**
+	 * port - 80, 443...
 	 * @var int
 	 */
 	protected $port;
 
 	/**
+	 * user - credential if authentication used
 	 * @var string
 	 */
 	protected $user;
 
 	/**
+	 * pass - credential if authentication used
 	 * @var string
 	 */
 	protected $pass;
 
 	/**
+	 * path - /my-page.html
 	 * @var string
 	 */
 	protected $path;
 
 	/**
+	 * query - ?xx=yy&zz=aa
 	 * @var string
 	 */
 	protected $query;
 
 	/**
+	 * fragment - #anchor
 	 * @var string
 	 */
 	protected $fragment;
@@ -90,9 +98,10 @@ class Url
 		}
 
 		//Define default entries
-		$parsed = parse_url($url);
-		foreach( $parsed as $name => $value ) {
-			$this->$name($value);
+		if( ($parsed = parse_url($url)) !== false ) {
+			foreach( $parsed as $name => $value ) {
+				$this->$name($value);
+			}
 		}
 	}
 

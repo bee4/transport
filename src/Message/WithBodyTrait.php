@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the bee4/httpclient package.
+ * This file is part of the bee4/transport package.
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
@@ -25,7 +25,7 @@ trait WithBodyTrait
 	/**
 	 * Set the body for the current request
 	 * @param string $body
-     * @return WithBodyTrait
+	 * @return WithBodyTrait
 	 */
 	public function setBody($body) {
 		$this->body = $body;

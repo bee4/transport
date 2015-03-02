@@ -1,23 +1,23 @@
 <?php
 /**
- * This file is part of the bee4/httpclient package.
+ * This file is part of the bee4/transport package.
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
  * @copyright Bee4 2014
  * @author	Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Transport\Curl
+ * @package Bee4\Transport\Handle
  */
 
-namespace Bee4\Transport\Curl;
+namespace Bee4\Transport\Handle;
 
 use Bee4\Transport\Exception\CurlException;
 
 /**
  * Define cURL handle wrapper
- * @package Bee4\Transport\Curl
+ * @package Bee4\Transport\Handle
  */
-class Handle
+class CurlHandle implements HandleInterface
 {
 	/**
 	 * cURL option to be used to execute current handle
@@ -82,8 +82,8 @@ class Handle
 
 	/**
 	 * Execute current handle and return result
-     * @throws \RuntimeException
-     * @throws CurlException
+	 * @throws \RuntimeException
+	 * @throws CurlException
 	 * @return string
 	 */
 	public function execute() {
@@ -157,7 +157,7 @@ class Handle
 
 	/**
 	 * Add multiple option at once
-	 * @param array $options
+	 * @param string[] $options
 	 * @return Handle
 	 */
 	public function addOptions( array $options ) {

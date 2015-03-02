@@ -11,7 +11,7 @@
 
 namespace Bee4\Test\Transport;
 
-use Bee4\Test\Events\FakeDispatcher;
+use Bee4\Test\FakeDispatcher;
 use Bee4\PHPUnit\HttpClientTestCase;
 use Bee4\Transport\Client;
 use Bee4\Transport\Events\MessageEvent;
@@ -131,7 +131,7 @@ class ClientTest extends HttpClientTestCase
 		$this->assertEquals(false, $options[CURLOPT_POSTFIELDS]);
 		$this->assertInstanceOf('\Bee4\Transport\Message\Request\Http\Put', $response->getRequest());
 	}
-	
+
 	/**
 	 * @expectedException \Exception
 	 * @expectedExceptionMessage Yes event triggered
