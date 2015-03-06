@@ -19,7 +19,6 @@ class Head extends FtpRequest
 {
 	protected function prepare() {
 		$tmp = clone $this->getUrl();
-		$tmp->path('');
 
 		//To make a HEAD like call, we apply SIZE action on the file, if not valid status is 550
 		$this->addOption(CURLOPT_URL, $tmp->toString());
