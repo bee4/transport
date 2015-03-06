@@ -1,5 +1,5 @@
-bee4/transport
-======================
+bee4/transport v1.0.5
+=====================
 
 [![Build Status](https://travis-ci.org/bee4/transport.svg?branch=develop)](https://travis-ci.org/bee4/transport)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/bee4/transport/badges/quality-score.png?s=e908698796250470837da1aee3d5f1de58abe42b)](https://scrutinizer-ci.com/g/bee4/transport/)
@@ -12,7 +12,7 @@ This library is a transport client that can be used to handle HTTP, FTP or other
 It is inspired by the Guzzle 3 implementation with a simpler approach (no curl_multi, no SSL...), just Request and Response handling. For the moment cURL is the only implementation and all Requests options are [`CURL_*`](http://php.net/manual/fr/function.curl-setopt.php) options...
 
 
-Installing 
+Installing
 ----------
 [![Latest Stable Version](https://poser.pugx.org/bee4/transport/v/stable.png)](https://packagist.org/packages/bee4/transport)
 [![Total Downloads](https://poser.pugx.org/bee4/transport/downloads.png)](https://packagist.org/packages/bee4/transport)
