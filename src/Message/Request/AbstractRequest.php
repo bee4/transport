@@ -30,7 +30,7 @@ abstract class AbstractRequest extends AbstractMessage
 	 * Allow to identify the request initiator
 	 * @var string
 	 */
-	protected $ua;
+	protected $ua = "Bee4/Transport";
 
 	/**
 	 * Current client instance
@@ -107,7 +107,7 @@ abstract class AbstractRequest extends AbstractMessage
 	 */
 	public function addOption($name, $value) {
 		if( $name === CURLOPT_USERAGENT ) {
-			$this->setUserAgent($value);
+			$this->ua = $value;
 		}
 
 		$this->options[$name] = $value;
@@ -161,15 +161,5 @@ abstract class AbstractRequest extends AbstractMessage
 	 */
 	public function getUserAgent() {
 		return $this->ua;
-	}
-
-	/**
-	 * Set the client UA for all requests
-	 * @param string $ua
-	 * @return AbstractRequest
-	 */
-	public function setUserAgent($ua) {
-		$this->ua = $ua;
-		return $this;
 	}
 }
