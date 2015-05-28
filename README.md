@@ -1,4 +1,4 @@
-bee4/transport v1.0.5
+bee4/transport v1.1.0
 =====================
 
 [![Build Status](https://travis-ci.org/bee4/transport.svg?branch=develop)](https://travis-ci.org/bee4/transport)
@@ -23,7 +23,7 @@ This project can be installed using Composer. Add the following to your composer
 ```JSON
 {
     "require": {
-        "bee4/transport": "~1.0"
+        "bee4/transport": "~1.1"
     }
 }
 ```
@@ -31,7 +31,7 @@ This project can be installed using Composer. Add the following to your composer
 or run this command:
 
 ```Shell
-composer require bee4/transport:~1.0
+composer require bee4/transport:~1.1
 ```
 
 Example
@@ -41,7 +41,7 @@ You must create a `Client` instance then built the request and send it to retrie
 
 ```PHP
 <?php
-$client = new Bee4\Transport\Client();
+$client = new Bee4\Transport\MagicHandler();
 $request = $client->get('http://www.example.com', ['Accept: text/html']);
 $response = $request->send();
 
@@ -49,8 +49,13 @@ $respose->getStatusMessage(); //Retrieve the status definition example: 301 Move
 $respose->getBody(); //Retrieve response content
 
 //The same is possible with FTP
-$request = $client->head('ftp://user@pass:host.com/path');
-$response = $request->send();
+$request = $client->head('ftp://user@pass:host.com/path')->send();
+//Remove a file
+$client->delete('ftp://user@pass:host.com/path/to/file.php')->send();
+//Upload a file
+$client->put('ftp://user@pass:host.com/path/to/file.php')
+  ->setBody('File content here')
+  ->send();
 ```
 
 A mapping is done between HTTP methods name and FTP calls to maintain the same API. `head` is used for FTP the same way than HTTP, to check if the resource is here.
