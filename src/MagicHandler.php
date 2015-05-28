@@ -30,8 +30,8 @@ class MagicHandler implements ClientInterface
 	/**
 	 * @param Client $c
 	 */
-	public function __construct( Client $c ) {
-		$this->client = $c;
+	public function __construct( Client $c = null ) {
+		$this->client = is_null($c)?new Client():$c;
 	}
 
 	/**
