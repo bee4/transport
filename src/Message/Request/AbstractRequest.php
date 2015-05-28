@@ -164,4 +164,15 @@ abstract class AbstractRequest extends AbstractMessage
 	public function getUserAgent() {
 		return $this->ua;
 	}
+
+	/**
+	 * Set the client UA for current request
+	 * @param string $ua
+	 * @return AbstractRequest
+	 */
+	public function setUserAgent($ua) {
+		$this->addOption(CURLOPT_USERAGENT, $ua);
+
+		return $this;
+	}
 }
