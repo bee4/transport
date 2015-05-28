@@ -50,7 +50,8 @@ Failed to connect to 127.0.0.1: Cannot assign requested address
   $request = $client->createRequest('GET', '/endpoint?param1=value'); //GET
   $request = $client->createRequest('POST', '/endpoint/save'); //POST
 
-  //The magic handler use PHP __call method to attach specific transport methods (GET, POST, DELETE) as method name
+  //The magic handler use PHP __call method to attach specific
+  //transport methods (GET, POST, DELETE) as method name
   $magic = new \Bee4\Transport\MagicHandler($client);
   $request = $magic->delete('/endpoint/id'); //DELETE
 ?>
