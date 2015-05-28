@@ -13,6 +13,7 @@ namespace Bee4\Test\Transport\Message;
 
 use Bee4\PHPUnit\HttpClientTestCase;
 use Bee4\Transport\Client;
+use Bee4\Transport\MagicHandler;
 use Bee4\Transport\Message\Response;
 use Bee4\Transport\Message\ResponseFactory;
 
@@ -23,7 +24,7 @@ use Bee4\Transport\Message\ResponseFactory;
 class ResponseFactoryTest extends HttpClientTestCase
 {
 	public function testBuild() {
-		$client = new Client(self::getBaseUrl());
+		$client = new MagicHandler(new Client(self::getBaseUrl()));
 		$request = $client->get();
 		$request->addHeader('Content-Type', 'text/html');
 		$request->setUserAgent('Bee4 - BeeBot/v1.0');
