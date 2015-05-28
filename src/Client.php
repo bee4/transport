@@ -23,14 +23,8 @@ use Bee4\Transport\Handle\HandleFactory;
 /**
  * Transport client, generate a request and return the linked response
  * @package Bee4\Transport
- *
- * @method AbstractRequest get(string $url = "", array $headers = [])
- * @method AbstractRequest post(string $url = "", array $headers = [])
- * @method AbstractRequest head(string $url = "", array $headers = [])
- * @method AbstractRequest delete(string $url = "", array $headers = [])
- * @method AbstractRequest put(string $url = "", array $headers = [])
  */
-class Client
+class Client implements ClientInterface
 {
 	use DispatcherAwareTrait;
 
@@ -65,27 +59,13 @@ class Client
 	}
 
 	/**
-	 * Magic method to implement dynamically all request types that are defined.
-	 * The request factory can't build a valid object, an exception is thrown
-	 * @param string $name The method name
-	 * @param array $arguments Argument collection to be used to build request
-	 * @return AbstractRequest
-	 */
-	public function __call( $name, array $arguments = [] ) {
-		$arguments[0] = isset($arguments[0])?$arguments[0]:'';
-
-		array_unshift($arguments, $name);
-		return call_user_func_array([$this, 'createRequest'], $arguments);
-	}
-
-	/**
 	 * Create the request object
 	 * @param string $method
 	 * @param string $url
 	 * @param array $headers
 	 * @return AbstractRequest
 	 */
-	protected function createRequest( $method, $url, array $headers = [] ) {
+	public function createRequest( $method, $url = '', array $headers = [] ) {
 		if( !is_string($url) ) {
 			throw new \InvalidArgumentException('Url parameter must be a valid string!!');
 		}

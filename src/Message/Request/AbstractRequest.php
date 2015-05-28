@@ -30,7 +30,7 @@ abstract class AbstractRequest extends AbstractMessage
 	 * Allow to identify the request initiator
 	 * @var string
 	 */
-	protected $ua;
+	protected $ua = "Bee4/Transport";
 
 	/**
 	 * Current client instance
@@ -107,7 +107,7 @@ abstract class AbstractRequest extends AbstractMessage
 	 */
 	public function addOption($name, $value) {
 		if( $name === CURLOPT_USERAGENT ) {
-			$this->setUserAgent($value);
+			$this->ua = $value;
 		}
 
 		$this->options[$name] = $value;
@@ -139,7 +139,9 @@ abstract class AbstractRequest extends AbstractMessage
 			throw new \RuntimeException('A client must be set on the request');
 		}
 
-		$this->addOption(CURLOPT_URL, $this->getUrl()->toString());
+		if( !$this->hasOption(CURLOPT_URL) ) {
+			$this->addOption(CURLOPT_URL, $this->getUrl()->toString());
+		}
 		$this->prepare();
 
 		return $this->client->send($this);
@@ -164,12 +166,13 @@ abstract class AbstractRequest extends AbstractMessage
 	}
 
 	/**
-	 * Set the client UA for all requests
+	 * Set the client UA for current request
 	 * @param string $ua
 	 * @return AbstractRequest
 	 */
 	public function setUserAgent($ua) {
-		$this->ua = $ua;
+		$this->addOption(CURLOPT_USERAGENT, $ua);
+
 		return $this;
 	}
 }

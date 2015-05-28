@@ -75,18 +75,14 @@ class FtpRequest extends AbstractRequest
 	const STATUS_10068 = "Too many users, server is full.";
 
 	/**
-	 * Send the request and prepend some headers
-	 * @return \Bee4\Transport\Message\Response
-	 */
-	public function send() {
-		$this->addOption(CURLOPT_FTP_USE_EPSV, true);
-
-		return parent::send();
-	}
-
-	/**
 	 * Prepare the request execution by adding specific cURL parameters
 	 */
-	protected function prepare()
-	{}
+	protected function prepare() {
+		$this->addOption(CURLOPT_FTP_USE_EPSV, true);
+
+		//To make call on different files, we must retrieve the root and apply commands to the path
+		$tmp = clone $this->getUrl();
+		$tmp->path('');
+		$this->addOption(CURLOPT_URL, $tmp->toString());
+	}
 }

@@ -14,6 +14,7 @@ namespace Bee4\Test\Transport;
 use Bee4\Test\FakeDispatcher;
 use Bee4\PHPUnit\HttpClientTestCase;
 use Bee4\Transport\Client;
+use Bee4\Transport\MagicHandler;
 use Bee4\Transport\Events\MessageEvent;
 use Bee4\Transport\Events\ErrorEvent;
 
@@ -37,7 +38,7 @@ class ClientTest extends HttpClientTestCase
 			$this->markTestSkipped('The curl extension is not available.');
 		}
 
-		$this->object = new Client(self::getBaseUrl());
+		$this->object = new MagicHandler(new Client(self::getBaseUrl()));
 	}
 
 	/**
@@ -46,7 +47,7 @@ class ClientTest extends HttpClientTestCase
 	public function testNonStringUrl() {
 		$method = new \ReflectionMethod('\Bee4\Transport\Client', 'createRequest');
 		$method->setAccessible(TRUE);
-		$method->invoke($this->object, 'get', new \stdClass());
+		$method->invoke(new Client(), 'get', new \stdClass());
 	}
 
 	/**
@@ -150,7 +151,7 @@ class ClientTest extends HttpClientTestCase
 		$this->object = new Client("unmapped://127.0.0.1");
 
 		try {
-			$this->object->get()->send();
+			$this->object->createRequest('GET')->send();
 		} catch( \Exception $error ) {
 			$this->assertInstanceOf("\\Bee4\\Transport\\Exception\\UnknownProtocolException", $error);
 			return;
@@ -169,7 +170,7 @@ class ClientTest extends HttpClientTestCase
 		$this->object->setDispatcher($dispatcher);
 
 		try {
-			$this->object->get()->send();
+			$this->object->createRequest('GET')->send();
 		} catch( \Exception $error ) {
 			$this->assertInstanceOf("\\Bee4\\Transport\\Exception\\CurlException", $error);
 			return;

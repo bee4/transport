@@ -17,19 +17,8 @@ use Bee4\Transport\Exception\CurlException;
  * Define cURL handle wrapper
  * @package Bee4\Transport\Handle
  */
-class CurlHandle implements HandleInterface
+class CurlHandle extends AbstractHandle
 {
-	/**
-	 * cURL option to be used to execute current handle
-	 * @var array
-	 */
-	protected $options = [
-		CURLOPT_RETURNTRANSFER => true,
-		CURLOPT_FOLLOWLOCATION => true,
-		CURLOPT_HEADER => true,
-		CURLINFO_HEADER_OUT => true
-	];
-
 	/**
 	 * cURL resource handle
 	 * @var resource
@@ -37,15 +26,16 @@ class CurlHandle implements HandleInterface
 	protected $handle;
 
 	/**
-	 * cURL last execution details
-	 * @var array
-	 */
-	protected $infos = [];
-
-	/**
 	 * Initialize cURL resource
 	 */
 	public function __construct() {
+		$this->options = [
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_FOLLOWLOCATION => true,
+			CURLOPT_HEADER => true,
+			CURLINFO_HEADER_OUT => true
+		];
+
 		$this->open();
 	}
 
@@ -106,64 +96,15 @@ class CurlHandle implements HandleInterface
 	}
 
 	/**
-	 * Check if curl execution contain requested info
-	 * @param string $name
+	 * Check PHP version and reset handle option if possible
 	 * @return boolean
 	 */
-	public function hasInfo($name) {
-		return isset($this->infos[$name]);
-	}
-
-	/**
-	 * Return cURL last execution detail
-	 * @param string $name
-	 * @return int|string|double
-	 */
-	public function getInfo($name) {
-		if( $this->hasInfo($name) ) {
-			return $this->infos[$name];
+	public function reset() {
+		if( is_resource($this->handle) && function_exists('curl_reset') ) {
+			curl_reset($this->handle);
+			return true;
 		}
 
-		return null;
-	}
-
-	/**
-	 * Retrieve all infos
-	 * @return array
-	 */
-	public function getInfos() {
-		return $this->infos;
-	}
-
-	/**
-	 * Check if option is defined
-	 * @param int $name must be a CURL_XX constant
-	 * @return boolean
-	 */
-	public function hasOption($name) {
-		return isset($this->options[$name]);
-	}
-
-	/**
-	 * Add an option to the handle
-	 * @param int $name
-	 * @param mixed $value
-	 * @return Handle
-	 */
-	public function addOption( $name, $value ) {
-		$this->options[$name] = $value;
-		return $this;
-	}
-
-	/**
-	 * Add multiple option at once
-	 * @param string[] $options
-	 * @return Handle
-	 */
-	public function addOptions( array $options ) {
-		foreach( $options as $name => $value ) {
-			$this->addOption($name, $value);
-		}
-		return $this;
+		return false;
 	}
 }

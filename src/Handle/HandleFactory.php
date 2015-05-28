@@ -34,6 +34,8 @@ class HandleFactory
 		$name = get_class($request);
 		if( !isset(self::$loaded[$name]) ) {
 			self::$loaded[$name] = new CurlHandle();
+		} else {
+			self::$loaded[$name]->reset();
 		}
 		self::$loaded[$name]->addOptions($request->getOptions());
 

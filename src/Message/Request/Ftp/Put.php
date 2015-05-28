@@ -11,14 +11,28 @@
 
 namespace Bee4\Transport\Message\Request\Ftp;
 
+use Bee4\Transport\Message\WithBodyTrait;
+
 /**
- * FTP GET Request object => Retrieve the file
+ * Ftp Put Request object => Use to upload files to remote
  * @package Bee4\Transport\Message\Request\Ftp
  */
-class Get extends FtpRequest
+class Put extends FtpRequest
 {
+	use WithBodyTrait;
+
 	protected function prepare() {
 		parent::prepare();
+
+		if( false === $stream = tmpfile() ) {
+			throw new \RuntimeException("Can't create temporary file !");
+		}
+		fwrite($stream, $this->getBody());
+		rewind($stream);
+
 		$this->addOption(CURLOPT_URL, $this->getUrl());
+		$this->addOption(CURLOPT_UPLOAD, true);
+		$this->addOption(CURLOPT_INFILE, $stream);
+		$this->addOption(CURLOPT_INFILESIZE, strlen($this->getBody()));
 	}
 }
