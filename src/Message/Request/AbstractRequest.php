@@ -139,7 +139,9 @@ abstract class AbstractRequest extends AbstractMessage
 			throw new \RuntimeException('A client must be set on the request');
 		}
 
-		$this->addOption(CURLOPT_URL, $this->getUrl()->toString());
+		if( !$this->hasOption(CURLOPT_URL) ) {
+			$this->addOption(CURLOPT_URL, $this->getUrl()->toString());
+		}
 		$this->prepare();
 
 		return $this->client->send($this);
