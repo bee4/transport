@@ -22,9 +22,13 @@ interface HandleInterface
 {
 	/**
 	 * Execute the handle and retrieve the result
+	 * @throws \Exception
 	 */
 	public function execute();
 
-	public function getInfo($name);
-	public function hasInfo($name);
+	/**
+	 * Reset the current handle to allow reusing
+	 * @return boolean
+	 */
+	public function reset();
 }
