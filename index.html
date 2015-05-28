@@ -47,9 +47,12 @@ Failed to connect to 127.0.0.1: Cannot assign requested address
 <p>Then you choose an implemented request type and call the client method :</p>
 {% highlight PHP %}
 <?php
-  $request = $client->get('/endpoint?param1=value'); //GET
-  $request = $client->post('/endpoint/save'); //POST
-  $request = $client->delete('/endpoint/id'); //DELETE
+  $request = $client->createRequest('GET', '/endpoint?param1=value'); //GET
+  $request = $client->createRequest('POST', '/endpoint/save'); //POST
+
+  //The magic handler use PHP __call method to attach specific transport methods (GET, POST, DELETE) as method name
+  $magic = new \Bee4\Transport\MagicHandler($client);
+  $request = $magic->delete('/endpoint/id'); //DELETE
 ?>
 {% endhighlight %}
 
@@ -57,7 +60,7 @@ Failed to connect to 127.0.0.1: Cannot assign requested address
 {% highlight PHP %}
 <?php
   $request = $client
-    ->post('/endpoint/save')
+    ->createRequest('POST', '/endpoint/save')
     ->setBody('{ "id": 1, "name": "Arthur" }'); //POST
 ?>
 {% endhighlight %}
@@ -65,7 +68,7 @@ Failed to connect to 127.0.0.1: Cannot assign requested address
 <p>You can also make FTP requests the same way just by giving an FTP URL:</p>
 {% highlight PHP %}
 <?php
-  $file = (new \Bee4\Transport\Client())
+  $file = (new \Bee4\Transport\MagicHandler())
     ->get('ftp://serveur.com/file.zip')
     ->send()
     ->getBody();
