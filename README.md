@@ -1,4 +1,4 @@
-bee4/transport v1.1.0
+bee4/transport v1.1.1
 =====================
 
 [![Build Status](https://travis-ci.org/bee4/transport.svg?branch=develop)](https://travis-ci.org/bee4/transport)
