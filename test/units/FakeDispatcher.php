@@ -50,12 +50,12 @@ class FakeDispatcher implements DispatcherInterface
 	 * @param int $priority
 	 * @return DispatcherInterface
 	 */
-	public function addListener( $name, $listener, $priority = 0 ) {
+	public function add( $name, $listener, $priority = 0 ) {
 		$this->listeners[$name][$priority][] = $listener;
 		sort($this->listeners[$name]);
 		return $this;
 	}
 
-	public function removeListener($name, $listener) {}
-	public function getListeners($name) {}
+	public function remove($name, $listener) {}
+	public function get($name) {}
 }

@@ -139,7 +139,7 @@ class ClientTest extends HttpClientTestCase
 	 */
 	public function testRegister() {
 		$dispatcher = new FakeDispatcher();
-		$dispatcher->addListener(MessageEvent::REQUEST, function() {
+		$dispatcher->add(MessageEvent::REQUEST, function() {
 			throw new \Exception("Yes event triggered");
 		});
 
@@ -164,7 +164,7 @@ class ClientTest extends HttpClientTestCase
 		$this->object = new Client("ftp://127.0.0.1:8888");
 
 		$dispatcher = new FakeDispatcher();
-		$dispatcher->addListener(ErrorEvent::ERROR, function() {
+		$dispatcher->add(ErrorEvent::ERROR, function() {
 			echo "error";
 		});
 		$this->object->setDispatcher($dispatcher);
