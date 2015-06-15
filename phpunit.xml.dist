@@ -6,7 +6,6 @@
   stopOnFailure="false"
   stopOnSkipped="false"
   stopOnIncomplete="false"
-  strict="true"
   verbose="false"
   mapTestClassNameToCoveredClassName="true"
 >
