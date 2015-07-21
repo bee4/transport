@@ -11,9 +11,6 @@
 
 namespace Bee4\Transport\Handle;
 
-use Bee4\Transport\Exception\CurlException;
-use Bee4\Transport\Message\Request\AbstractRequest;
-
 /**
  * Handle factory
  * @package Bee4\Transport\Handle
