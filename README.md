@@ -1,11 +1,12 @@
-bee4/transport v1.1.1
+bee4/transport v1.1.2
 =====================
 
-[![Build Status](https://travis-ci.org/bee4/transport.svg?branch=develop)](https://travis-ci.org/bee4/transport)
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/bee4/transport/badges/quality-score.png?s=e908698796250470837da1aee3d5f1de58abe42b)](https://scrutinizer-ci.com/g/bee4/transport/)
-[![Code Coverage](https://scrutinizer-ci.com/g/bee4/transport/badges/coverage.png?s=458223269fcf1205044aaa271d0bbfc08f1c7f95)](https://scrutinizer-ci.com/g/bee4/transport/)
+[![Build Status](https://img.shields.io/travis/bee4/transport.svg?style=flat-square)](https://travis-ci.org/bee4/transport)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/bee4/transport.svg?style=flat-square)](https://scrutinizer-ci.com/g/bee4/transport/?branch=develop)
+[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/bee4/transport.svg?style=flat-square)](https://scrutinizer-ci.com/g/bee4/transport/)
+[![SensiolabInsight](https://img.shields.io/sensiolabs/i/a8f05979-c92d-4151-a210-913a0d6792d8.svg?style=flat-square)](https://insight.sensiolabs.com/projects/a8f05979-c92d-4151-a210-913a0d6792d8)
 
-[![License](https://poser.pugx.org/bee4/transport/license.png)](https://packagist.org/packages/bee4/transport)
+[![License](https://img.shields.io/packagist/l/bee4/transport.svg?style=flat-square)](https://packagist.org/packages/bee4/transport)
 
 This library is a transport client that can be used to handle HTTP, FTP or other protocols calls. All protocols are processed the same way and the API is a simple `Request` > `Response` mechanism.
 
@@ -14,9 +15,8 @@ It is inspired by the Guzzle 3 implementation with a simpler approach (no curl_m
 
 Installing
 ----------
-[![Latest Stable Version](https://poser.pugx.org/bee4/transport/v/stable.png)](https://packagist.org/packages/bee4/transport)
-[![Total Downloads](https://poser.pugx.org/bee4/transport/downloads.png)](https://packagist.org/packages/bee4/transport)
-[![Latest Unstable Version](https://poser.pugx.org/bee4/transport/v/unstable.png)](https://packagist.org/packages/bee4/transport)
+[![Latest Stable Version](https://img.shields.io/packagist/v/bee4/transport.svg?style=flat-square)](https://packagist.org/packages/bee4/transport)
+[![Total Downloads](https://img.shields.io/packagist/dm/bee4/transport.svg?style=flat-square)](https://packagist.org/packages/bee4/transport)
 
 This project can be installed using Composer. Add the following to your composer.json:
 

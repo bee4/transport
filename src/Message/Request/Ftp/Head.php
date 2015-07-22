@@ -21,7 +21,7 @@ class Head extends FtpRequest
 		parent::prepare();
 
 		$this->addOption(CURLOPT_NOBODY, true);
-		//apply SIZE action on the file, if not valid status is 550 the simplest way for HEAD
-		$this->addOption(CURLOPT_POSTQUOTE, ['SIZE '.$this->getUrl()->path()]);
+		//apply MDTM action on the file, if not valid status is 550 the simplest way for HEAD
+		$this->addOption(CURLOPT_QUOTE, ['MDTM '.$this->getUrl()->path()]);
 	}
 }
