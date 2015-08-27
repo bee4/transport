@@ -56,6 +56,6 @@ class FakeDispatcher implements DispatcherInterface
 		return $this;
 	}
 
-	public function remove($name, $listener) {}
+	public function remove($name, callable $listener) {}
 	public function get($name) {}
 }
