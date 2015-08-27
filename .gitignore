@@ -1,4 +1,4 @@
-#Projects files
-vendor
-report
-bin
+/vendor/
+/report/
+/bin/
+/composer.lock
