@@ -39,11 +39,23 @@ class AbstractMessageTest extends HttpClientTestCase
 		$this->assertNull($mock->getHeader('Content-Length'));
 		$this->assertEquals('text/html', $mock->getHeader('Content-Type'));
 
-		$headers = ['Content-Type' => 'application/json', 'Content-Length' => 0];
+		$headers = [
+			'Content-Type' => 'application/json',
+			'Content-Length' => 0,
+			'X-Test: Value'
+		];
 		$mock->addHeaders($headers);
-		$this->assertEquals($headers, $mock->getHeaders());
 
-		$this->assertEquals(["Content-Type: application/json", "Content-Length: 0"], $mock->getHeaderLines());
+		unset($headers[0]);
+		$headers['X-Test'] = "Value";
+		$this->assertEquals($headers, $mock->getHeaders());
+		$this->assertEquals("Value", $mock->getHeader('X-Test'));
+
+		$this->assertEquals([
+			"Content-Type: application/json",
+			"Content-Length: 0",
+			'X-Test: Value'
+		], $mock->getHeaderLines());
 
 		$mock->removeHeader('Content-Type');
 		$this->assertNull($mock->getHeader('Content-Type'));

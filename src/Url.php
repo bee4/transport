@@ -27,211 +27,223 @@ namespace Bee4\Transport;
  */
 class Url
 {
-	/**
-	 * scheme - http
-	 * @var string
-	 */
-	protected $scheme;
+    /**
+     * scheme - http
+     * @var string
+     */
+    protected $scheme;
 
-	/**
-	 * host - example.com
-	 * @var string
-	 */
-	protected $host;
+    /**
+     * host - example.com
+     * @var string
+     */
+    protected $host;
 
-	/**
-	 * port - 80, 443...
-	 * @var int
-	 */
-	protected $port;
+    /**
+     * port - 80, 443...
+     * @var int
+     */
+    protected $port;
 
-	/**
-	 * user - credential if authentication used
-	 * @var string
-	 */
-	protected $user;
+    /**
+     * user - credential if authentication used
+     * @var string
+     */
+    protected $user;
 
-	/**
-	 * pass - credential if authentication used
-	 * @var string
-	 */
-	protected $pass;
+    /**
+     * pass - credential if authentication used
+     * @var string
+     */
+    protected $pass;
 
-	/**
-	 * path - /my-page.html
-	 * @var string
-	 */
-	protected $path;
+    /**
+     * path - /my-page.html
+     * @var string
+     */
+    protected $path;
 
-	/**
-	 * query - ?xx=yy&zz=aa
-	 * @var string
-	 */
-	protected $query;
+    /**
+     * query - ?xx=yy&zz=aa
+     * @var string
+     */
+    protected $query;
 
-	/**
-	 * fragment - #anchor
-	 * @var string
-	 */
-	protected $fragment;
+    /**
+     * fragment - #anchor
+     * @var string
+     */
+    protected $fragment;
 
-	/**
-	 * Standard ports for specific schemes
-	 * @var array
-	 */
-	private static $defaultPorts = [
-		'http' => 80,
-		'https' => 443,
-		'ftp' => 21,
-		'ssh' => 22
-	];
+    /**
+     * Standard ports for specific schemes
+     * @var array
+     */
+    private static $defaultPorts = [
+        'http' => 80,
+        'https' => 443,
+        'ftp' => 21,
+        'ssh' => 22
+    ];
 
-	/**
-	 * @param string $url
-	 */
-	public function __construct( $url ) {
-		if( !is_string($url) ) {
-			throw new \InvalidArgumentException('url given must be a valid string!');
-		}
-		if( !Url::isValid($url) ) {
-			throw new \InvalidArgumentException('url given is not a valid url (according to PHP FILTER_VALIDATE_URL). '.$url);
-		}
+    /**
+     * @param string $url
+     */
+    public function __construct($url)
+    {
+        if (!is_string($url)) {
+            throw new \InvalidArgumentException('url given must be a valid string!');
+        }
+        if (!Url::isValid($url)) {
+            throw new \InvalidArgumentException(
+                'url given is not a valid url (according to PHP FILTER_VALIDATE_URL). '.$url
+            );
+        }
 
-		//Define default entries
-		if( ($parsed = parse_url($url)) !== false ) {
-			foreach( $parsed as $name => $value ) {
-				$this->$name($value);
-			}
-		}
-	}
+        //Define default entries
+        if (($parsed = parse_url($url)) !== false) {
+            foreach ($parsed as $name => $value) {
+                $this->$name($value);
+            }
+        }
+    }
 
-	/**
-	 * Check if the given string is an URL or not
-	 * @param string $url
-	 * @return boolean
-	 */
-	public static function isValid($url) {
-		return filter_var($url, FILTER_VALIDATE_URL)!==false;
-	}
+    /**
+     * Check if the given string is an URL or not
+     * @param string $url
+     * @return boolean
+     */
+    public static function isValid($url)
+    {
+        return filter_var($url, FILTER_VALIDATE_URL)!==false;
+    }
 
-	/**
-	 * Check if the current URL use Basic Auth or not
-	 * @return boolean
-	 */
-	public function hasAuth() {
-		return isset($this->user)&&isset($this->pass);
-	}
+    /**
+     * Check if the current URL use Basic Auth or not
+     * @return boolean
+     */
+    public function hasAuth()
+    {
+        return isset($this->user)&&isset($this->pass);
+    }
 
-	/**
-	 * Rebuilt the URL with all known parts
-	 * @return string
-	 */
-	public function toString() {
-		$url = $this->scheme.':';
-		if( trim($this->host) != '' ) {
-			$url .= '//';
-			if( trim( $this->user ) != '' ) {
-				$url .= $this->user.((trim($this->pass) != '')?':'.$this->pass:'').'@';
-			}
-			$url .= $this->host;
+    /**
+     * Rebuilt the URL with all known parts
+     * @return string
+     */
+    public function toString()
+    {
+        $url = $this->scheme.':';
+        if (trim($this->host) != '') {
+            $url .= '//';
+            if (trim($this->user) != '') {
+                $url .= $this->user.((trim($this->pass) != '')?':'.$this->pass:'').'@';
+            }
+            $url .= $this->host;
 
-			if( trim($this->port) != '' ) {
-				$url .= ':'.$this->port;
-			}
-		}
+            if (trim($this->port) != '') {
+                $url .= ':'.$this->port;
+            }
+        }
 
-		$url .= (trim($this->path) != '')?$this->path:'';
-		$url .= (trim($this->query) != '')?'?'.$this->query:'';
-		$url .= (trim($this->fragment) != '')?'#'.$this->fragment:'';
+        $url .= (trim($this->path) != '')?$this->path:'';
+        $url .= (trim($this->query) != '')?'?'.$this->query:'';
+        $url .= (trim($this->fragment) != '')?'#'.$this->fragment:'';
 
-		if( !self::isValid($url) ) {
-			throw new \RuntimeException('Built URL is not a valid one: '.$url);
-		}
+        if (!self::isValid($url)) {
+            throw new \RuntimeException('Built URL is not a valid one: '.$url);
+        }
 
-		return $url;
-	}
+        return $url;
+    }
 
-	/**
-	 * Encapsulate all setters / getters and method calls
-	 * @param string $name
-	 * @param array $arguments
-	 * @return mixed
-	 * @throws \BadMethodCallException
-	 */
-	public function __call($name, array $arguments) {
-		//Define getter and setter for each valid property
-		if(property_exists($this, $name)) {
-			if( count( $arguments ) == 0 ) {
-				return $this->retrieve($name);
-			} elseif( count( $arguments ) == 1 ) {
-				$this->populate($name, $arguments[0]);
-				return $this;
-			} else {
-				throw new \BadMethodCallException('Invalid parameters given for: '.$name);
-			}
-		} else {
-			throw new \BadMethodCallException('Invalid method in Url implementation: '.$name);
-		}
-	}
+    /**
+     * Encapsulate all setters / getters and method calls
+     * @param string $name
+     * @param array $arguments
+     * @return mixed
+     * @throws \BadMethodCallException
+     */
+    public function __call($name, array $arguments)
+    {
+        //Define getter and setter for each valid property
+        if (property_exists($this, $name)) {
+            if (count($arguments) == 0) {
+                return $this->retrieve($name);
+            } elseif (count($arguments) == 1) {
+                $this->populate($name, $arguments[0]);
+                return $this;
+            } else {
+                throw new \BadMethodCallException('Invalid parameters given for: '.$name);
+            }
+        } else {
+            throw new \BadMethodCallException('Invalid method in Url implementation: '.$name);
+        }
+    }
 
-	/**
-	 * Transform to string with dynamic cast
-	 * @return String
-	 */
-	public function __toString() {
-		try {
-			return $this->toString();
-		} catch (\Exception $ex) {
-			return __CLASS__.'::INVALID';
-		}
-	}
+    /**
+     * Transform to string with dynamic cast
+     * @return String
+     */
+    public function __toString()
+    {
+        try {
+            return $this->toString();
+        } catch (\Exception $ex) {
+            return __CLASS__.'::INVALID';
+        }
+    }
 
-	/**
-	 * Fill a property with the given value
-	 * @param string $name
-	 * @param mixed $value
-	 * @throws \InvalidArgumentException
-	 */
-	protected function populate( $name, $value ) {
-		switch( $name ) {
-			case 'port':
-				if( !is_int($value) ) {
-					throw new \InvalidArgumentException('Value given to set "'.$name.'" must be a valid int!!');
-				}
-				if( isset(self::$defaultPorts[$this->scheme]) && $value == self::$defaultPorts[$this->scheme] ) {
-					break;
-				}
-				$this->$name = $value;
-				break;
-			case 'host':
-				if(strpos($value, ':') !== false ) {
-					$tmp = explode(':', $value);
-					$this->port((int)$tmp[1]);
-					$value = $tmp[0];
-				}
-			default:
-				if( !is_string($value) ) {
-					throw new \InvalidArgumentException('Value given to set "'.$name.'" must be a valid string!!');
-				}
-				$this->$name = $value;
-				break;
-		}
-	}
+    /**
+     * Fill a property with the given value
+     * @param string $name
+     * @param mixed $value
+     * @throws \InvalidArgumentException
+     */
+    protected function populate($name, $value)
+    {
+        switch ($name) {
+            case 'port':
+                if (!is_int($value)) {
+                    throw new \InvalidArgumentException('Value given to set "'.$name.'" must be a valid int!!');
+                }
+                if (isset(self::$defaultPorts[$this->scheme]) && $value == self::$defaultPorts[$this->scheme]) {
+                    break;
+                }
+                $this->$name = $value;
+                break;
+            case 'host':
+                if (strpos($value, ':') !== false) {
+                    $tmp = explode(':', $value);
+                    $this->port((int)$tmp[1]);
+                    $value = $tmp[0];
+                }
+                //Just extract port then go to the default case
+            default:
+                if (!is_string($value)) {
+                    throw new \InvalidArgumentException('Value given to set "'.$name.'" must be a valid string!!');
+                }
+                $this->$name = $value;
+                break;
+        }
+    }
 
-	/**
-	 * Property name to retrieve from the current object
-	 * This function is defined only for the special port case
-	 * @param string $name
-	 * @return mixed
-	 */
-	protected function retrieve($name) {
-		switch( $name ) {
-			case 'port':
-				if( is_null($this->$name) && isset(self::$defaultPorts[$this->scheme]) ) {
-					return self::$defaultPorts[$this->scheme];
-				}
-			default:
-				return $this->$name;
-		}
-	}
+    /**
+     * Property name to retrieve from the current object
+     * This function is defined only for the special port case
+     * @param string $name
+     * @return mixed
+     */
+    protected function retrieve($name)
+    {
+        switch ($name) {
+            case 'port':
+                if (is_null($this->$name) && isset(self::$defaultPorts[$this->scheme])) {
+                    return self::$defaultPorts[$this->scheme];
+                }
+                //Just handle port then go to the default case
+            default:
+                return $this->$name;
+        }
+    }
 }

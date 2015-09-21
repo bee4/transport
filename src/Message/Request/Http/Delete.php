@@ -5,7 +5,7 @@
  * file that was distributed with this source code.
  *
  * @copyright Bee4 2014
- * @author	Stephane HULARD <s.hulard@chstudio.fr>
+ * @author  Stephane HULARD <s.hulard@chstudio.fr>
  * @package Bee4\Transport\Message\Request\Http
  */
 
@@ -19,10 +19,11 @@ use Bee4\Transport\Message\WithBodyTrait;
  */
 class Delete extends HttpRequest
 {
-	use WithBodyTrait;
+    use WithBodyTrait;
 
-	protected function prepare() {
-		$this->addOption(CURLOPT_CUSTOMREQUEST, 'DELETE');
-		$this->addOption(CURLOPT_POSTFIELDS, $this->getBody());
-	}
+    protected function prepare()
+    {
+        $this->addOption(CURLOPT_CUSTOMREQUEST, 'DELETE');
+        $this->addOption(CURLOPT_POSTFIELDS, $this->getBody());
+    }
 }

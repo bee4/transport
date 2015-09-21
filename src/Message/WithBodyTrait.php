@@ -16,27 +16,29 @@ namespace Bee4\Transport\Message;
  */
 trait WithBodyTrait
 {
-	/**
-	 * Request body
-	 * @var string
-	 */
-	protected $body = false;
+    /**
+     * Request body
+     * @var string
+     */
+    protected $body = false;
 
-	/**
-	 * Set the body for the current request
-	 * @param string $body
-	 * @return WithBodyTrait
-	 */
-	public function setBody($body) {
-		$this->body = $body;
-		return $this;
-	}
+    /**
+     * Set the body for the current request
+     * @param string $body
+     * @return WithBodyTrait
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
+        return $this;
+    }
 
-	/**
-	 * Return the body property
-	 * @return string
-	 */
-	public function getBody() {
-		return $this->body;
-	}
+    /**
+     * Return the body property
+     * @return string
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
 }
