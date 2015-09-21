@@ -43,7 +43,11 @@ abstract class AbstractMessage implements MessageInterface
     public function addHeaders(array $headers)
     {
         foreach ($headers as $name => $value) {
-            $this->addHeader($name, $value);
+        	if( is_numeric($name) ) {
+        		$this->parseHeaderLine($value);
+        	} else {
+            	$this->addHeader($name, $value);
+            }
         }
         return $this;
     }
@@ -87,7 +91,7 @@ abstract class AbstractMessage implements MessageInterface
      */
     public function getHeaderLines()
     {
-        $headers = array();
+        $headers = [];
         foreach ($this->headers as $name => $value) {
             $headers[] = $name . ': ' . $value;
         }
@@ -95,9 +99,17 @@ abstract class AbstractMessage implements MessageInterface
         return $headers;
     }
 
-    public function parseHeaderLine($line)
+    /**
+     * Parse a plain header line if required
+     * @param  string $line The line to parse: "Name: Value"
+     * @return boolean
+     */
+    private function parseHeaderLine($line)
     {
-
+    	$matches = [];
+    	if( preg_match('/^([^:]+):(.*)$/', $line, $matches) === 1 ) {
+    		$this->addHeader(trim($matches[1]), trim($matches[2]));
+    	}
     }
 
     /**
