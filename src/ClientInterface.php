@@ -19,20 +19,20 @@ use Bee4\Transport\Message\Request\AbstractRequest;
  */
 interface ClientInterface
 {
-	/**
-	 * Send the request
-	 * @param AbstractRequest $request The request to be send
-	 * @return Message\Response
-	 * @throws \Exception
-	 */
-	public function send( AbstractRequest $request );
+    /**
+     * Send the request
+     * @param AbstractRequest $request The request to be send
+     * @return Message\Response
+     * @throws \Exception
+     */
+    public function send(AbstractRequest $request);
 
-	/**
-	 * Create the request object
-	 * @param string $method
-	 * @param string $url
-	 * @param array $headers
-	 * @return AbstractRequest
-	 */
-	public function createRequest( $method, $url = '', array $headers = [] );
+    /**
+     * Create the request object
+     * @param string $method
+     * @param string $url
+     * @param array $headers
+     * @return AbstractRequest
+     */
+    public function createRequest($method, $url = '', array $headers = []);
 }

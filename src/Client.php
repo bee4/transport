@@ -26,82 +26,85 @@ use Bee4\Transport\Handle\HandleFactory;
  */
 class Client implements ClientInterface
 {
-	use DispatcherAwareTrait;
+    use DispatcherAwareTrait;
 
-	/**
-	 * Base URL for calls
-	 * @var Url
-	 */
-	protected $baseUrl;
+    /**
+     * Base URL for calls
+     * @var Url
+     */
+    protected $baseUrl;
 
-	/**
-	 * The factory to build request messages
-	 * @var RequestFactory
-	 */
-	protected $requestFactory;
+    /**
+     * The factory to build request messages
+     * @var RequestFactory
+     */
+    protected $requestFactory;
 
-	/**
-	 * HTTP Client which use cURL extension
-	 * @param string $baseUrl Base URL of the web service
-	 */
-	public function __construct($baseUrl = '') {
-		// @codeCoverageIgnoreStart
-		if (!extension_loaded('curl')) {
-			throw new \RuntimeException('The PHP cURL extension must be installed!');
-		}
-		// @codeCoverageIgnoreEnd
+    /**
+     * HTTP Client which use cURL extension
+     * @param string $baseUrl Base URL of the web service
+     */
+    public function __construct($baseUrl = '')
+    {
+        // @codeCoverageIgnoreStart
+        if (!extension_loaded('curl')) {
+            throw new \RuntimeException('The PHP cURL extension must be installed!');
+        }
+        // @codeCoverageIgnoreEnd
 
-		if( $baseUrl != '' ) {
-			$this->baseUrl = new Url($baseUrl);
-		}
+        if ($baseUrl != '') {
+            $this->baseUrl = new Url($baseUrl);
+        }
 
-		$this->requestFactory = new RequestFactory();
-	}
+        $this->requestFactory = new RequestFactory();
+    }
 
-	/**
-	 * Create the request object
-	 * @param string $method
-	 * @param string $url
-	 * @param array $headers
-	 * @return AbstractRequest
-	 */
-	public function createRequest( $method, $url = '', array $headers = [] ) {
-		if( !is_string($url) ) {
-			throw new \InvalidArgumentException('Url parameter must be a valid string!!');
-		}
+    /**
+     * Create the request object
+     * @param string $method
+     * @param string $url
+     * @param array $headers
+     * @return AbstractRequest
+     */
+    public function createRequest($method, $url = '', array $headers = [])
+    {
+        if (!is_string($url)) {
+            throw new \InvalidArgumentException('Url parameter must be a valid string!!');
+        }
 
-		$url = new Url((isset($this->baseUrl)?$this->baseUrl->toString():'').$url);
+        $url = new Url((isset($this->baseUrl)?$this->baseUrl->toString():'').$url);
 
-		$request = $this->requestFactory->build($method, $url, $headers);
-		$request->setClient($this);
+        $request = $this->requestFactory->build($method, $url, $headers);
+        $request->setClient($this);
 
-		return $request;
-	}
+        return $request;
+    }
 
-	/**
-	 * Send the request
-	 * @param AbstractRequest $request The request to be send
-	 * @return Message\Response
-	 * @throws \Exception
-	 */
-	public function send( AbstractRequest $request ) {
-		$handle = HandleFactory::build($request);
-		$this->dispatch(MessageEvent::REQUEST, new MessageEvent($request));
+    /**
+     * Send the request
+     * @param AbstractRequest $request The request to be send
+     * @return Message\Response
+     * @throws \Exception
+     */
+    public function send(AbstractRequest $request)
+    {
+        $handle = HandleFactory::build($request);
+        $this->dispatch(MessageEvent::REQUEST, new MessageEvent($request));
 
-		try {
-			$result = $handle->execute();
-		} catch( \Exception $error ) {
-			if( $error instanceof CurlException ) {
-				$response = ResponseFactory::build( '', $handle, $request );
-				$error->setResponse($response);
-			}
-			$this->dispatch(ErrorEvent::ERROR, new ErrorEvent($error));
-			throw $error;
-		}
+        try {
+            $result = $handle->execute();
+        } catch (\Exception $error) {
+            if ($error instanceof CurlException) {
+                $response = ResponseFactory::build('', $handle, $request);
+                $error->setResponse($response);
+            }
+            $this->dispatch(ErrorEvent::ERROR, new ErrorEvent($error));
+            throw $error;
+        }
 
-		$response = ResponseFactory::build( $result, $handle, $request );
-		$this->dispatch(MessageEvent::RESPONSE, new MessageEvent($response));
+        $response = ResponseFactory::build($result, $handle, $request);
+        $this->dispatch(MessageEvent::RESPONSE, new MessageEvent($response));
 
-		return $response;
-	}
+        return $response;
+    }
 }

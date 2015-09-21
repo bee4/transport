@@ -5,7 +5,7 @@
  * file that was distributed with this source code.
  *
  * @copyright Bee4 2014
- * @author	Stephane HULARD <s.hulard@chstudio.fr>
+ * @author  Stephane HULARD <s.hulard@chstudio.fr>
  * @package Bee4\Transport\Message\Request\Http
  */
 
@@ -17,7 +17,8 @@ namespace Bee4\Transport\Message\Request\Http;
  */
 class Head extends HttpRequest
 {
-	protected function prepare() {
-		$this->addOption(CURLOPT_NOBODY, true);
-	}
+    protected function prepare()
+    {
+        $this->addOption(CURLOPT_NOBODY, true);
+    }
 }

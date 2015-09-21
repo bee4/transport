@@ -17,17 +17,19 @@ namespace Bee4\Transport;
  */
 class ClientFactory
 {
-	protected function __construct() {
-		//Just a factory helper, can't be instantiated
-	}
+    protected function __construct()
+    {
+        //Just a factory helper, can't be instantiated
+    }
 
-	/**
-	 * Create a new client instance
-	 * @param  string $url The root URL used by the client
-	 * @return ClientInterface The generated instance
-	 */
-	public static function create($url = '') {
-		$instance = new Client($url);
-		return new MagicHandler($instance);
-	}
+    /**
+     * Create a new client instance
+     * @param  string $url The root URL used by the client
+     * @return ClientInterface The generated instance
+     */
+    public static function create($url = '')
+    {
+        $instance = new Client($url);
+        return new MagicHandler($instance);
+    }
 }

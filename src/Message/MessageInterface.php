@@ -5,7 +5,7 @@
  * file that was distributed with this source code.
  *
  * @copyright Bee4 2014
- * @author	Stephane HULARD <s.hulard@chstudio.fr>
+ * @author  Stephane HULARD <s.hulard@chstudio.fr>
  * @package Bee4\Transport\Message
  */
 
@@ -18,51 +18,51 @@ namespace Bee4\Transport\Message;
  */
 interface MessageInterface
 {
-	/**
-	 * Add a header to the message
-	 * @param string $name
-	 * @param string $value
-	 * @return AbstractMessage
-	 */
-	public function addHeader($name, $value);
+    /**
+     * Add a header to the message
+     * @param string $name
+     * @param string $value
+     * @return AbstractMessage
+     */
+    public function addHeader($name, $value);
 
-	/**
-	 * Add multiple headers at once
-	 * @param array $headers
-	 * @return AbstractMessage
-	 */
-	public function addHeaders( array $headers );
+    /**
+     * Add multiple headers at once
+     * @param array $headers
+     * @return AbstractMessage
+     */
+    public function addHeaders(array $headers);
 
-	/**
-	 * Check if current message has requested header
-	 * @param string $name
-	 * @return boolean
-	 */
-	public function hasHeader($name);
+    /**
+     * Check if current message has requested header
+     * @param string $name
+     * @return boolean
+     */
+    public function hasHeader($name);
 
-	/**
-	 * Get a header by name
-	 * @param string $name
-	 * @return string
-	 */
-	public function getHeader($name);
+    /**
+     * Get a header by name
+     * @param string $name
+     * @return string
+     */
+    public function getHeader($name);
 
-	/**
-	 * Get all headers at once in an array
-	 * @return array
-	 */
-	public function getHeaders();
+    /**
+     * Get all headers at once in an array
+     * @return array
+     */
+    public function getHeaders();
 
-	/**
-	 * Remove a header by name
-	 * @param string $name
-	 * @return AbstractMessage
-	 */
-	public function removeHeader($name);
+    /**
+     * Remove a header by name
+     * @param string $name
+     * @return AbstractMessage
+     */
+    public function removeHeader($name);
 
-	/**
-	 * Remove all headers at once
-	 * @return AbstractMessage
-	 */
-	public function removeHeaders();
+    /**
+     * Remove all headers at once
+     * @return AbstractMessage
+     */
+    public function removeHeaders();
 }

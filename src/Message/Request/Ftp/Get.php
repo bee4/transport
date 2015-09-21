@@ -5,7 +5,7 @@
  * file that was distributed with this source code.
  *
  * @copyright Bee4 2014
- * @author	Stephane HULARD <s.hulard@chstudio.fr>
+ * @author  Stephane HULARD <s.hulard@chstudio.fr>
  * @package Bee4\Transport\Message\Request\Ftp
  */
 
@@ -17,8 +17,9 @@ namespace Bee4\Transport\Message\Request\Ftp;
  */
 class Get extends FtpRequest
 {
-	protected function prepare() {
-		parent::prepare();
-		$this->addOption(CURLOPT_URL, $this->getUrl());
-	}
+    protected function prepare()
+    {
+        parent::prepare();
+        $this->addOption(CURLOPT_URL, $this->getUrl());
+    }
 }

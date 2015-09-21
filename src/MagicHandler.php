@@ -25,51 +25,55 @@ use Bee4\Transport\Message\Request\AbstractRequest;
  */
 class MagicHandler implements ClientInterface
 {
-	protected $client;
+    protected $client;
 
-	/**
-	 * @param Client $c
-	 */
-	public function __construct( Client $c = null ) {
-		$this->client = is_null($c)?new Client():$c;
-	}
+    /**
+     * @param Client $c
+     */
+    public function __construct(Client $c = null)
+    {
+        $this->client = is_null($c)?new Client():$c;
+    }
 
-	/**
-	 * Send decoration, rely to given client
-	 * @param  AbstractRequest $request
-	 * @return Message\Response
-	 */
-	public function send( AbstractRequest $request ) {
-		return $this->client->send($request);
-	}
+    /**
+     * Send decoration, rely to given client
+     * @param  AbstractRequest $request
+     * @return Message\Response
+     */
+    public function send(AbstractRequest $request)
+    {
+        return $this->client->send($request);
+    }
 
-	/**
-	 * Create decoration, rely to given client
-	 * @param string $method
-	 * @param string $url
-	 * @param array $headers
-	 * @return AbstractRequest
-	 */
-	public function createRequest( $method, $url = '', array $headers = [] ) {
-		return $this->client->createRequest($method, $url, $headers);
-	}
+    /**
+     * Create decoration, rely to given client
+     * @param string $method
+     * @param string $url
+     * @param array $headers
+     * @return AbstractRequest
+     */
+    public function createRequest($method, $url = '', array $headers = [])
+    {
+        return $this->client->createRequest($method, $url, $headers);
+    }
 
-	/**
-	 * Magic method to implement dynamically all request types that are defined.
-	 * The request factory can't build a valid object, an exception is thrown
-	 * @param string $name The method name
-	 * @param array $arguments Argument collection to be used to build request
-	 * @return AbstractRequest
-	 */
-	public function __call( $name, array $arguments = [] ) {
-		//Send all others method directly to the client
-		if( method_exists($this->client, $name) ) {
-			return call_user_func_array([$this->client, $name], $arguments);
-		}
+    /**
+     * Magic method to implement dynamically all request types that are defined.
+     * The request factory can't build a valid object, an exception is thrown
+     * @param string $name The method name
+     * @param array $arguments Argument collection to be used to build request
+     * @return AbstractRequest
+     */
+    public function __call($name, array $arguments = [])
+    {
+        //Send all others method directly to the client
+        if (method_exists($this->client, $name)) {
+            return call_user_func_array([$this->client, $name], $arguments);
+        }
 
-		//Then handle magic HTTP name calls
-		$arguments[0] = isset($arguments[0])?$arguments[0]:'';
-		array_unshift($arguments, $name);
-		return call_user_func_array([$this, 'createRequest'], $arguments);
-	}
+        //Then handle magic HTTP name calls
+        $arguments[0] = isset($arguments[0])?$arguments[0]:'';
+        array_unshift($arguments, $name);
+        return call_user_func_array([$this, 'createRequest'], $arguments);
+    }
 }

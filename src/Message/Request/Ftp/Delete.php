@@ -5,7 +5,7 @@
  * file that was distributed with this source code.
  *
  * @copyright Bee4 2015
- * @author	Stephane HULARD <s.hulard@chstudio.fr>
+ * @author  Stephane HULARD <s.hulard@chstudio.fr>
  * @package Bee4\Transport\Message\Request\Ftp
  */
 
@@ -17,10 +17,11 @@ namespace Bee4\Transport\Message\Request\Ftp;
  */
 class Delete extends FtpRequest
 {
-	protected function prepare() {
-		parent::prepare();
+    protected function prepare()
+    {
+        parent::prepare();
 
-		$this->addOption(CURLOPT_NOBODY, true);
-		$this->addOption(CURLOPT_POSTQUOTE, ['DELE '.$this->getUrl()->path()]);
-	}
+        $this->addOption(CURLOPT_NOBODY, true);
+        $this->addOption(CURLOPT_POSTQUOTE, ['DELE '.$this->getUrl()->path()]);
+    }
 }
