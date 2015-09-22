@@ -11,7 +11,7 @@
 
 namespace Bee4\Transport\Message\Request\Http;
 
-use Bee4\Transport\Message\WithBodyTrait;
+use Bee4\Transport\Message\WithBodyStreamTrait;
 
 /**
  * HTTP POST Request object
@@ -19,11 +19,17 @@ use Bee4\Transport\Message\WithBodyTrait;
  */
 class Put extends HttpRequest
 {
-    use WithBodyTrait;
+    use WithBodyStreamTrait;
 
     protected function prepare()
     {
-        $this->addOption(CURLOPT_CUSTOMREQUEST, 'PUT');
-        $this->addOption(CURLOPT_POSTFIELDS, $this->getBody());
+        if( $this->hasBodyStream() ) {
+            $this->addOption(CURLOPT_PUT, true);
+            $this->addOption(CURLOPT_INFILE, $this->getBody());
+            $this->addOption(CURLOPT_INFILESIZE, $this->getBodyLength());
+        } else {
+            $this->addOption(CURLOPT_CUSTOMREQUEST, 'PUT');
+            $this->addOption(CURLOPT_POSTFIELDS, $this->getBody());
+        }
     }
 }
