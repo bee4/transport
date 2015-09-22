@@ -10,6 +10,8 @@
  */
 namespace Bee4\Transport\Message;
 
+use \InvalidArgumentException;
+
 /**
  * Allow the body to be a stream
  * @package Bee4\Transport\Message
