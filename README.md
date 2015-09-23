@@ -1,4 +1,4 @@
-bee4/transport v1.1.3
+bee4/transport v1.1.4
 =====================
 
 [![Build Status](https://img.shields.io/travis/bee4/transport.svg?style=flat-square)](https://travis-ci.org/bee4/transport)
