@@ -30,14 +30,21 @@ class CurlHandle extends AbstractHandle
      */
     public function __construct()
     {
+        $this->setDefaults();
+        $this->open();
+    }
+
+    /**
+     * Set default CURL options
+     */
+    private function setDefaults()
+    {
         $this->options = [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HEADER => true,
             CURLINFO_HEADER_OUT => true
         ];
-
-        $this->open();
     }
 
     /**
@@ -108,6 +115,7 @@ class CurlHandle extends AbstractHandle
     {
         if (is_resource($this->handle) && function_exists('curl_reset')) {
             curl_reset($this->handle);
+            $this->setDefaults();
             return true;
         }
 
