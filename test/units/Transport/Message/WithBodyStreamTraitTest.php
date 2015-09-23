@@ -11,25 +11,27 @@
 
 namespace Bee4\Test\Transport\Message;
 
+require __DIR__.'/WithBodyTraitTest.php';
+
 /**
- * WithBodyTrait unit test definition
+ * WithBodyStreamTrait unit test definition
  * @package Bee4\Test\Transport\Message
  */
-class WithBodyTraitTest extends \PHPUnit_Framework_TestCase
+class WithBodyStreamTraitTest extends WithBodyTraitTest
 {
 	/**
 	 * Test all headers collection manipulation function
 	 */
 	public function testBody($mock = null) {
-		if( null === $mock ) {
-			$mock = $this->getObjectForTrait('Bee4\Transport\Message\WithBodyTrait');
-		}
+		$mock = $this->getObjectForTrait('Bee4\Transport\Message\WithBodyStreamTrait');
+		parent::testBody($mock);
 
-		$body = 'Just a sample body';
+		$stream = tmpfile();
+		fwrite($stream, 'toto');
+		$mock->setBody($stream);
 
-		$this->assertFalse($mock->getBody());
-		$mock->setBody($body);
-		$this->assertEquals($body, $mock->getBody());
-		$this->assertEquals(strlen($body), $mock->getBodyLength());
+		$this->assertEquals($stream, $mock->getBody());
+		$this->assertTrue($mock->hasBodyStream());
+		$this->assertEquals(4, $mock->getBodyLength());
 	}
 }

@@ -121,7 +121,7 @@ class ClientTest extends HttpClientTestCase
 		$this->assertInstanceOf('\Bee4\Transport\Message\Request\Http\Delete', $response->getRequest());
 	}
 
-	public function testPut() {
+	public function testPutFromString() {
 		$request = $this->object->put('/index.html');
 		$response = $request->send();
 		$options = $request->getOptions();
@@ -130,6 +130,27 @@ class ClientTest extends HttpClientTestCase
 		$this->assertArrayHasKey(CURLOPT_POSTFIELDS, $options);
 		$this->assertEquals('PUT', $options[CURLOPT_CUSTOMREQUEST]);
 		$this->assertEquals(false, $options[CURLOPT_POSTFIELDS]);
+		$this->assertInstanceOf('\Bee4\Transport\Message\Request\Http\Put', $response->getRequest());
+	}
+
+	public function testPutFromStream() {
+		$stream = tmpfile();
+		$size = 200;
+		$content = str_repeat('*', $size);
+
+		fwrite($stream, $content);
+
+		$request = $this->object->put('/index.html');
+		$request->setBody($stream);
+		$response = $request->send();
+		$options = $request->getOptions();
+
+		$this->assertArrayHasKey(CURLOPT_PUT, $options);
+		$this->assertArrayHasKey(CURLOPT_INFILE, $options);
+		$this->assertArrayHasKey(CURLOPT_INFILESIZE, $options);
+		$this->assertEquals(true, $options[CURLOPT_PUT]);
+		$this->assertEquals($stream, $options[CURLOPT_INFILE]);
+		$this->assertEquals($size, $options[CURLOPT_INFILESIZE]);
 		$this->assertInstanceOf('\Bee4\Transport\Message\Request\Http\Put', $response->getRequest());
 	}
 

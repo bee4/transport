@@ -41,4 +41,13 @@ trait WithBodyTrait
     {
         return $this->body;
     }
+
+    /**
+     * Retrieve the body length
+     * @return integer
+     */
+    public function getBodyLength()
+    {
+        return strlen($this->body);
+    }
 }

@@ -11,7 +11,7 @@
 
 namespace Bee4\Transport\Message\Request\Ftp;
 
-use Bee4\Transport\Message\WithBodyTrait;
+use Bee4\Transport\Message\WithBodyStreamTrait;
 
 /**
  * Ftp Put Request object => Use to upload files to remote
@@ -19,21 +19,35 @@ use Bee4\Transport\Message\WithBodyTrait;
  */
 class Put extends FtpRequest
 {
-    use WithBodyTrait;
+    use WithBodyStreamTrait;
 
     protected function prepare()
     {
         parent::prepare();
 
-        if (false === $stream = tmpfile()) {
-            throw new \RuntimeException("Can't create temporary file !");
+        if( !$this->hasBodyStream() ) {
+            if (false === $stream = tmpfile()) {
+                throw new \RuntimeException("Can't create temporary file !");
+            }
+            fwrite($stream, $this->getBody());
+            rewind($stream);
+            $this->setBody($stream);
         }
-        fwrite($stream, $this->getBody());
-        rewind($stream);
 
         $this->addOption(CURLOPT_URL, $this->getUrl());
         $this->addOption(CURLOPT_UPLOAD, true);
-        $this->addOption(CURLOPT_INFILE, $stream);
-        $this->addOption(CURLOPT_INFILESIZE, strlen($this->getBody()));
+        $this->addOption(CURLOPT_INFILE, $this->getBody());
+        $this->addOption(CURLOPT_INFILESIZE, $this->getBodyLength());
+    }
+
+    /**
+     * Handle resource management
+     */
+    public function __destruct()
+    {
+        if( $this->hasOption(CURLOPT_INFILE) ) {
+            $options = $this->getOptions();
+            fclose($options[CURLOPT_INFILE]);
+        }
     }
 }
