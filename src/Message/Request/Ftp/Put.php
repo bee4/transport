@@ -39,4 +39,15 @@ class Put extends FtpRequest
         $this->addOption(CURLOPT_INFILE, $this->getBody());
         $this->addOption(CURLOPT_INFILESIZE, $this->getBodyLength());
     }
+
+    /**
+     * Handle resource management
+     */
+    public function __destruct()
+    {
+        if( $this->hasOption(CURLOPT_INFILE) ) {
+            $options = $this->getOptions();
+            fclose($options[CURLOPT_INFILE]);
+        }
+    }
 }

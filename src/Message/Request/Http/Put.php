@@ -32,4 +32,15 @@ class Put extends HttpRequest
             $this->addOption(CURLOPT_POSTFIELDS, $this->getBody());
         }
     }
+
+    /**
+     * Handle resource management
+     */
+    public function __destruct()
+    {
+        if( $this->hasOption(CURLOPT_INFILE) ) {
+            $options = $this->getOptions();
+            fclose($options[CURLOPT_INFILE]);
+        }
+    }
 }
