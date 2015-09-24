@@ -4,7 +4,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @copyright Bee4 2014
+ * @copyright Bee4 2015
  * @author    Stephane HULARD <s.hulard@chstudio.fr>
  * @package   Bee4\Test\Transport\Message\Request
  */
