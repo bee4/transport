@@ -2,9 +2,10 @@
 
 // Command that starts the built-in web server
 $command = sprintf(
-    'php -S %s:%d -t "'.realpath(__DIR__).'/public'.'" >/dev/null 2>&1 & echo $!',
+    'php -S %s:%d -t "%s" >/dev/null 2>&1 & echo $!',
     WEBSERVER_HOST,
-    WEBSERVER_PORT
+    WEBSERVER_PORT,
+    realpath(__DIR__).'/public'
 );
 
 // Execute the command and store the process ID

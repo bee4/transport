@@ -11,8 +11,6 @@
 
 namespace Bee4\Test\Transport\Message;
 
-require __DIR__.'/WithBodyTraitTest.php';
-
 /**
  * WithBodyStreamTrait unit test definition
  * @package Bee4\Test\Transport\Message
@@ -24,7 +22,9 @@ class WithBodyStreamTraitTest extends WithBodyTraitTest
      */
     public function testBody($mock = null)
     {
-        $mock = $this->getObjectForTrait('Bee4\Transport\Message\WithBodyStreamTrait');
+        $mock = $this->getObjectForTrait(
+            'Bee4\Transport\Message\WithBodyStreamTrait'
+        );
         parent::testBody($mock);
 
         $stream = tmpfile();
