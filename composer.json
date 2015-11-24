@@ -1,6 +1,6 @@
 {
   "name": "bee4/transport",
-  "description": "A simple chainable HTTP client. Built for intensive HTTP calls!",
+  "description": "A simple chainable HTTP client.",
   "license": "Apache-2.0",
   "authors": [
     {
@@ -23,6 +23,11 @@
   "autoload": {
     "psr-4": {
       "Bee4\\Transport\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Bee4\\Test\\Transport\\": "test/units/Transport"
     }
   },
   "scripts": {
