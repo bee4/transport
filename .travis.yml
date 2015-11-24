@@ -7,7 +7,6 @@ php:
   - 5.4
 install:
   - composer install --no-interaction --prefer-source
-  - composer install:phpunit
 script: bin/phpunit --coverage-clover=coverage.clover
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
