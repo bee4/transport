@@ -18,51 +18,56 @@ use Bee4\Transport\Handle\CurlHandle;
  * Check behaviour of Url helper
  * @package Bee4\Test\Transport\Handle
  */
-class CurlHandleTest extends HttpClientTestCase {
-	/**
-	 * @var CurlHandle
-	 */
-	protected $object;
+class CurlHandleTest extends HttpClientTestCase
+{
+    /**
+     * @var CurlHandle
+     */
+    protected $object;
 
-	public function setUp() {
-		$this->object = new CurlHandle();
-	}
+    public function setUp()
+    {
+        $this->object = new CurlHandle();
+    }
 
-	public function testAll() {
-		$this->assertTrue($this->object->hasOption(CURLOPT_HEADER));
-		$this->assertTrue($this->object->hasOption(CURLINFO_HEADER_OUT));
+    public function testAll()
+    {
+        $this->assertTrue($this->object->hasOption(CURLOPT_HEADER));
+        $this->assertTrue($this->object->hasOption(CURLINFO_HEADER_OUT));
 
-		$this->object->addOption(CURLOPT_FOLLOWLOCATION, false);
-		$this->assertTrue($this->object->hasOption(CURLINFO_HEADER_OUT));
+        $this->object->addOption(CURLOPT_FOLLOWLOCATION, false);
+        $this->assertTrue($this->object->hasOption(CURLINFO_HEADER_OUT));
 
-		$this->object->addOption(CURLOPT_URL, self::getBaseUrl());
-		$this->assertTrue($this->object->hasOption(CURLOPT_URL));
+        $this->object->addOption(CURLOPT_URL, self::getBaseUrl());
+        $this->assertTrue($this->object->hasOption(CURLOPT_URL));
 
-		$result = $this->object->execute();
+        $result = $this->object->execute();
 
-		$this->assertTrue($this->object->hasInfo('request_header'));
-		$this->assertEquals(200, $this->object->getInfo('http_code'));
-		$this->assertNull($this->object->getInfo('unknown_property'));
-		$this->assertTrue(is_string($result));
+        $this->assertTrue($this->object->hasInfo('request_header'));
+        $this->assertEquals(200, $this->object->getInfo('http_code'));
+        $this->assertNull($this->object->getInfo('unknown_property'));
+        $this->assertTrue(is_string($result));
 
-		$this->assertArrayHasKey('content_type', $this->object->getInfos());
+        $this->assertArrayHasKey('content_type', $this->object->getInfos());
 
-		unset($this->object);
-	}
+        unset($this->object);
+    }
 
-	/**
-	 * @expectedException \RuntimeException
-	 */
-	public function testClose() {
-		$this->object->close();
-		$this->object->execute();
-	}
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testClose()
+    {
+        $this->object->close();
+        $this->object->execute();
+    }
 
-	/**
-	 * @expectedException \Bee4\Transport\Exception\CurlException
-	 */
-	public function testInvalidUrl() {
-		$this->object->addOptions([CURLOPT_URL => 'invalidUrlToGet']);
-		$this->object->execute();
-	}
+    /**
+     * @expectedException \Bee4\Transport\Exception\CurlException
+     */
+    public function testInvalidUrl()
+    {
+        $this->object->addOptions([CURLOPT_URL => 'invalidUrlToGet']);
+        $this->object->execute();
+    }
 }

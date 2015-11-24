@@ -88,7 +88,7 @@ class FtpRequest extends AbstractRequest
     protected function prepare()
     {
         //Force passice mode if not specified
-        if( !$this->hasOption(CURLOPT_FTP_USE_EPSV) ) {
+        if (!$this->hasOption(CURLOPT_FTP_USE_EPSV)) {
             $this->addOption(CURLOPT_FTP_USE_EPSV, true);
         }
 

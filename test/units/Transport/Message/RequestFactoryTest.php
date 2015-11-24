@@ -20,22 +20,24 @@ use Bee4\Transport\Url;
  */
 class RequestFactoryTest extends \PHPUnit_Framework_TestCase
 {
-	public function testBuild() {
-		$object = new RequestFactory();
+    public function testBuild()
+    {
+        $object = new RequestFactory();
 
-		$get = $object->build('GET', new Url('http://www.bee4.fr'), ['Content-Type' => 'text/html'] );
-		$this->assertInstanceOf('\Bee4\Transport\Message\Request\Http\Get', $get);
-		$this->assertEquals('text/html', $get->getHeader('Content-Type'));
-		$post = $object->build('POST', new Url('http://www.bee4.fr'), ['Content-Length' => 128] );
-		$this->assertInstanceOf('\Bee4\Transport\Message\Request\Http\Post', $post);
-		$this->assertEquals(128, $post->getHeader('Content-Length'));
-	}
+        $get = $object->build('GET', new Url('http://www.bee4.fr'), ['Content-Type' => 'text/html']);
+        $this->assertInstanceOf('\Bee4\Transport\Message\Request\Http\Get', $get);
+        $this->assertEquals('text/html', $get->getHeader('Content-Type'));
+        $post = $object->build('POST', new Url('http://www.bee4.fr'), ['Content-Length' => 128]);
+        $this->assertInstanceOf('\Bee4\Transport\Message\Request\Http\Post', $post);
+        $this->assertEquals(128, $post->getHeader('Content-Length'));
+    }
 
-	/**
-	 * @expectedException \InvalidArgumentException
-	 */
-	public function testInvalidRequestBuild() {
-		$object = new RequestFactory();
-		$object->build('UNKNOWN', new Url('http://www.bee4.fr'), []);
-	}
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidRequestBuild()
+    {
+        $object = new RequestFactory();
+        $object->build('UNKNOWN', new Url('http://www.bee4.fr'), []);
+    }
 }

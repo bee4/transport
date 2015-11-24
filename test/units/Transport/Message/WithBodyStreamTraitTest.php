@@ -19,19 +19,20 @@ require __DIR__.'/WithBodyTraitTest.php';
  */
 class WithBodyStreamTraitTest extends WithBodyTraitTest
 {
-	/**
-	 * Test all headers collection manipulation function
-	 */
-	public function testBody($mock = null) {
-		$mock = $this->getObjectForTrait('Bee4\Transport\Message\WithBodyStreamTrait');
-		parent::testBody($mock);
+    /**
+     * Test all headers collection manipulation function
+     */
+    public function testBody($mock = null)
+    {
+        $mock = $this->getObjectForTrait('Bee4\Transport\Message\WithBodyStreamTrait');
+        parent::testBody($mock);
 
-		$stream = tmpfile();
-		fwrite($stream, 'toto');
-		$mock->setBody($stream);
+        $stream = tmpfile();
+        fwrite($stream, 'toto');
+        $mock->setBody($stream);
 
-		$this->assertEquals($stream, $mock->getBody());
-		$this->assertTrue($mock->hasBodyStream());
-		$this->assertEquals(4, $mock->getBodyLength());
-	}
+        $this->assertEquals($stream, $mock->getBody());
+        $this->assertTrue($mock->hasBodyStream());
+        $this->assertEquals(4, $mock->getBodyLength());
+    }
 }

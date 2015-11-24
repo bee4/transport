@@ -17,19 +17,20 @@ namespace Bee4\Test\Transport\Message;
  */
 class WithBodyTraitTest extends \PHPUnit_Framework_TestCase
 {
-	/**
-	 * Test all headers collection manipulation function
-	 */
-	public function testBody($mock = null) {
-		if( null === $mock ) {
-			$mock = $this->getObjectForTrait('Bee4\Transport\Message\WithBodyTrait');
-		}
+    /**
+     * Test all headers collection manipulation function
+     */
+    public function testBody($mock = null)
+    {
+        if (null === $mock) {
+            $mock = $this->getObjectForTrait('Bee4\Transport\Message\WithBodyTrait');
+        }
 
-		$body = 'Just a sample body';
+        $body = 'Just a sample body';
 
-		$this->assertFalse($mock->getBody());
-		$mock->setBody($body);
-		$this->assertEquals($body, $mock->getBody());
-		$this->assertEquals(strlen($body), $mock->getBodyLength());
-	}
+        $this->assertFalse($mock->getBody());
+        $mock->setBody($body);
+        $this->assertEquals($body, $mock->getBody());
+        $this->assertEquals(strlen($body), $mock->getBodyLength());
+    }
 }

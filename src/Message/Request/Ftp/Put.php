@@ -25,7 +25,7 @@ class Put extends FtpRequest
     {
         parent::prepare();
 
-        if( !$this->hasBodyStream() ) {
+        if (!$this->hasBodyStream()) {
             if (false === $stream = tmpfile()) {
                 throw new \RuntimeException("Can't create temporary file !");
             }
@@ -45,7 +45,7 @@ class Put extends FtpRequest
      */
     public function __destruct()
     {
-        if( $this->hasOption(CURLOPT_INFILE) ) {
+        if ($this->hasOption(CURLOPT_INFILE)) {
             $options = $this->getOptions();
             fclose($options[CURLOPT_INFILE]);
         }
