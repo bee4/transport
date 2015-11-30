@@ -14,3 +14,8 @@ default:
       contexts:
         - FeatureContext:
           - ftp://shulard:stephane@192.168.145.135
+    ssh:
+      paths: [ %paths.base%/test/features/ssh ]
+      contexts:
+        - FeatureContext:
+          - sftp://shulard:stephane@192.168.145.135/home/shulard

@@ -16,6 +16,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
 
     private $request;
     private $response;
+    private $error;
 
     /**
      * Initializes context.
@@ -41,7 +42,14 @@ class FeatureContext implements Context, SnippetAcceptingContext
         if( isset($body) ) {
             $this->request->setBody($body);
         }
-        $this->response = $this->request->send();
+        try {
+            $this->response = $this->request->send();
+        } catch( \Exception $error ) {
+            $this->error = $error;
+            if (method_exists($this->error, "getResponse")) {
+                $this->response = $error->getResponse();
+            }
+        }
     }
 
     /**
@@ -49,6 +57,31 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function iShouldGotAStatusOf($status)
     {
-        return $this->response->getStatus()==$status;
+        return preg_match('/'.$status.'/', $this->response->getStatus())===1;
+    }
+
+    /**
+     * @Then I should got a status different than :status
+     */
+    public function iShouldGotAStatusDifferentThan($status)
+    {
+        return preg_match('/'.$status.'/', $this->response->getStatus())!==1;
+    }
+
+    /**
+     * @Then I should have an empty body
+     * @Then I should have a body of :body
+     */
+    public function iShouldHaveABodyLike($body = '')
+    {
+        return $this->response->getBody()===$body;
+    }
+
+    /**
+     * @Then I should got an exception :type
+     */
+    public function iShouldGotAnException($type)
+    {
+        return $this->error instanceof $type;
     }
 }
