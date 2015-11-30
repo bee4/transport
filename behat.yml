@@ -1,3 +1,16 @@
 default:
-    autoload:
-        '': %paths.base%/test/features/bootstrap
+  autoload: [ %paths.base%/test/features/bootstrap ]
+  suites:
+    default:
+      contexts:
+        - FeatureContext:
+    http:
+      paths: [ %paths.base%/test/features/http ]
+      contexts:
+        - FeatureContext:
+          - http://localhost
+    ftp:
+      paths: [ %paths.base%/test/features/ftp ]
+      contexts:
+        - FeatureContext:
+          - ftp://shulard:stephane@192.168.145.135
