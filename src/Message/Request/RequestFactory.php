@@ -32,7 +32,10 @@ class RequestFactory
     public function build($method, Url $url, array $headers)
     {
         if (($scheme = self::isAllowedScheme($url->scheme())) === false) {
-            throw new UnknownProtocolException("You can't request a transfer on protocol different than FTP or HTTP!");
+            throw new UnknownProtocolException(sprintf(
+                "You can't request a transfer on unsupported protocol '%s'!",
+                $url->scheme()
+            ));
         }
 
         $name = __NAMESPACE__.'\\'.ucfirst($scheme).'\\'.ucfirst(strtolower($method));
@@ -52,10 +55,12 @@ class RequestFactory
      */
     private static function isAllowedScheme($scheme)
     {
-        if (strpos($scheme, AbstractRequest::HTTP) === 0) {
-            return AbstractRequest::HTTP;
-        } elseif (strpos($scheme, AbstractRequest::FTP) === 0) {
-            return AbstractRequest::FTP;
+        if (preg_match(AbstractRequest::HTTP, $scheme) === 1) {
+            return 'http';
+        } elseif (preg_match(AbstractRequest::FTP, $scheme) === 1) {
+            return 'ftp';
+        } elseif (preg_match(AbstractRequest::SSH, $scheme) === 1) {
+            return 'ssh';
         } else {
             return false;
         }
