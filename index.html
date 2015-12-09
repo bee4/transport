@@ -1,31 +1,16 @@
 ---
 layout: default
-title: Bee4/Transport a PHP cURL interface to build intensive calls application
-description: "A simple HTTP client which is designed to perform intensive HTTP calls"
-keywords: HTTP, PHP, cURL, ElasticSearch, NoSQL, Intensive
+title: Bee4/Transport a PHP cURL interface to handle different transports calls
+description: "A simple transport client which is designed to perform HTTP, HTTPS, FTP, FTPS, SFTP, SCP calls"
+keywords: HTTP, HTTP, HTTPS, FTP, FTPS, SFTP, SCP, PHP, cURL
 ---
 
 <h3>
 	<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick">
 		<span class="octicon octicon-link"></span>
-	</a> A new client, why not using <a href="http://guzzlephp.org" title="PHP HTTP client and framework for building RESTful web service clients">Guzzle</a> ??
+	</a> A new client, why not using something like <a href="http://guzzlephp.org" title="PHP HTTP client and framework for building RESTful web service clients">Guzzle</a> ??
 </h3>
-<p>This project is a simple HTTP client which is designed to perform intensive HTTP calls. We previously use well known <a href="http://guzzlephp.org" title="PHP HTTP client and framework for building RESTful web service clients">Guzzle</a> client but we found limitation not about design but about curl handle reusing.</p>
-<p>In these libraries, the curl handle build with <code>curl_init()</code> is used for only one request and then close and garbage collected.</p>
-<p>
-	This one shot approach tend to limit the successive number of calls in a limited time.
-	When you touch this limit, you receive curl libraries exception like:
-</p>
-{% highlight BASH %}
-Failed to connect to 127.0.0.1: Cannot assign requested address
-{% endhighlight %}
-<p>
-	We made a simple <a href="https://github.com/shulard/guzzle-saturation">repository</a> to demonstrate that standard libraries or just curl handle
-	non reusing, tend to trigger these errors. Just checkout and try it on an <a href="http://www.elasticsearch.org">ElasticSearch</a> instance for example
-	you will see the problem.<br/>
-	If you think using HTTP databases like <a href="http://www.elasticsearch.org">ElasticSearch</a> in PHP, you should consider
-	this client as yours because it was build around the specific needs of theses REST apis.
-</p>
+<p>This project is a simple transport client which is designed to perform calls using the same API regarding the protocol used. We previously use well known <a href="http://guzzlephp.org" title="PHP HTTP client and framework for building RESTful web service clients">Guzzle</a> client but we also need to perform FTP, FTPS, SFTP requests.</p>
 
 <h3>
 	<a name="designer-templates" class="anchor" href="#designer-templates">
@@ -36,7 +21,6 @@ Failed to connect to 127.0.0.1: Cannot assign requested address
 <p>
 	This code is built around a fluent interface between the <code>Client</code>, the <code>Request</code> and the <code>Response</code> objects.
 </p>
-
 <p>
 	You first build a client and define if needed, the start URL point:
 </p>
@@ -49,7 +33,14 @@ Failed to connect to 127.0.0.1: Cannot assign requested address
 <?php
   $request = $client->createRequest('GET', '/endpoint?param1=value'); //GET
   $request = $client->createRequest('POST', '/endpoint/save'); //POST
-
+?>
+{% endhighlight %}
+<p>If the request type requested does not exists or is not handled, an `Exception` is thrown.</p>
+{% highlight PHP %}
+  $request = $client->createRequest('TOTO', '/endpoint/save');
+{% endhighlight %}
+<p>You can also use the `MagicHandler` with it request as a method API :</p>
+{% highlight PHP %}
   //The magic handler use PHP __call method to attach specific
   //transport methods (GET, POST, DELETE) as method name
   $magic = new \Bee4\Transport\MagicHandler($client);
@@ -66,9 +57,10 @@ Failed to connect to 127.0.0.1: Cannot assign requested address
 ?>
 {% endhighlight %}
 
-<p>You can also make FTP requests the same way just by giving an FTP URL:</p>
+<p>The exact same code is used to perform all the requests, you just need to give your URL:</p>
 {% highlight PHP %}
 <?php
+  //Downlad a FTP file
   $file = (new \Bee4\Transport\MagicHandler())
     ->get('ftp://serveur.com/file.zip')
     ->send()
