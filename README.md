@@ -1,4 +1,4 @@
-bee4/transport v1.1.4
+bee4/transport v1.2.0
 =====================
 
 [![Build Status](https://img.shields.io/travis/bee4/transport.svg?style=flat-square)](https://travis-ci.org/bee4/transport)
@@ -23,7 +23,7 @@ This project can be installed using Composer. Add the following to your composer
 ```JSON
 {
     "require": {
-        "bee4/transport": "~1.1"
+        "bee4/transport": "~1.2"
     }
 }
 ```
@@ -31,7 +31,7 @@ This project can be installed using Composer. Add the following to your composer
 or run this command:
 
 ```Shell
-composer require bee4/transport:~1.1
+composer require bee4/transport:~1.2
 ```
 
 Example
