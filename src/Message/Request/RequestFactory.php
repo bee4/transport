@@ -55,10 +55,12 @@ class RequestFactory
      */
     private static function isAllowedScheme($scheme)
     {
-        if (strpos($scheme, AbstractRequest::HTTP) === 0) {
-            return AbstractRequest::HTTP;
-        } elseif (strpos($scheme, AbstractRequest::FTP) === 0) {
-            return AbstractRequest::FTP;
+        if (preg_match(AbstractRequest::HTTP, $scheme) === 1) {
+            return 'http';
+        } elseif (preg_match(AbstractRequest::FTP, $scheme) === 1) {
+            return 'ftp';
+        } elseif (preg_match(AbstractRequest::SSH, $scheme) === 1) {
+            return 'ssh';
         } else {
             return false;
         }

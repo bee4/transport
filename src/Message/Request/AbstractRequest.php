@@ -22,8 +22,9 @@ use Bee4\Transport\Url;
 abstract class AbstractRequest extends AbstractMessage
 {
     //Compatible SCHEME
-    const HTTP = 'http';
-    const FTP = 'ftp';
+    const HTTP = '/^http/';
+    const FTP = '/^ftp/';
+    const SSH = '/sftp|scp/';
 
     /**
      * Request UserAgent
