@@ -6,20 +6,19 @@
  *
  * @copyright Bee4 2015
  * @author  Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Transport\Message\Request\Ftp
+ * @package Bee4\Transport\Message\Request\Ssh
  */
 
-namespace Bee4\Transport\Message\Request\Ftp;
+namespace Bee4\Transport\Message\Request\Ssh;
 
 /**
- * FTP GET Request object => Retrieve the file
- * @package Bee4\Transport\Message\Request\Ftp
+ * SSH HEAD Request object
+ * @package Bee4\Transport\Message\Request\Ssh
  */
-class Get extends FtpRequest
+class Head extends SshRequest
 {
     protected function prepare()
     {
-        parent::prepare();
-        $this->addOption(CURLOPT_URL, $this->getUrl());
+        $this->addOption(CURLOPT_NOBODY, true);
     }
 }

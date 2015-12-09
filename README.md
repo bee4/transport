@@ -1,4 +1,4 @@
-bee4/transport v1.1.4
+bee4/transport v1.2.0
 =====================
 
 [![Build Status](https://img.shields.io/travis/bee4/transport.svg?style=flat-square)](https://travis-ci.org/bee4/transport)
@@ -8,7 +8,7 @@ bee4/transport v1.1.4
 
 [![License](https://img.shields.io/packagist/l/bee4/transport.svg?style=flat-square)](https://packagist.org/packages/bee4/transport)
 
-This library is a transport client that can be used to handle HTTP, FTP or other protocols calls. All protocols are processed the same way and the API is a simple `Request` > `Response` mechanism.
+This library is a transport client that can be used to handle HTTP, FTP, FTPS, SFTP, SCP calls. All protocols are processed the same way and the API is a simple `Request` > `Response` mechanism.
 
 It is inspired by the Guzzle 3 implementation with a simpler approach (no curl_multi, no SSL...), just Request and Response handling. For the moment cURL is the only implementation and all Requests options are [`CURL_*`](http://php.net/manual/fr/function.curl-setopt.php) options...
 
@@ -23,7 +23,7 @@ This project can be installed using Composer. Add the following to your composer
 ```JSON
 {
     "require": {
-        "bee4/transport": "~1.1"
+        "bee4/transport": "~1.2"
     }
 }
 ```
@@ -31,7 +31,7 @@ This project can be installed using Composer. Add the following to your composer
 or run this command:
 
 ```Shell
-composer require bee4/transport:~1.1
+composer require bee4/transport:~1.2
 ```
 
 Example
@@ -52,10 +52,18 @@ $respose->getBody(); //Retrieve response content
 $request = $client->head('ftp://user@pass:host.com/path')->send();
 //Remove a file
 $client->delete('ftp://user@pass:host.com/path/to/file.php')->send();
-//Upload a file
-$client->put('ftp://user@pass:host.com/path/to/file.php')
+
+//And SFTP - Upload a file
+$client->put('sftp://user@pass:host.com/path/to/file.php')
   ->setBody('File content here')
   ->send();
 ```
 
-A mapping is done between HTTP methods name and FTP calls to maintain the same API. `head` is used for FTP the same way than HTTP, to check if the resource is here.
+A mapping is done between HTTP methods name and client calls to maintain the same API :
+
+* `head` is used to check if the resource is here ;
+* `get` is used to retrieve a resource ;
+* `put` is used to upload a resource ;
+* `delete` is used to remove a resource.
+
+Others method are handled only by HTTP: `POST`

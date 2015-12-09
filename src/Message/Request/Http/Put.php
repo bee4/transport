@@ -4,7 +4,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @copyright Bee4 2014
+ * @copyright Bee4 2015
  * @author  Stephane HULARD <s.hulard@chstudio.fr>
  * @package Bee4\Transport\Message\Request\Http
  */
@@ -23,7 +23,7 @@ class Put extends HttpRequest
 
     protected function prepare()
     {
-        if( $this->hasBodyStream() ) {
+        if ($this->hasBodyStream()) {
             $this->addOption(CURLOPT_PUT, true);
             $this->addOption(CURLOPT_INFILE, $this->getBody());
             $this->addOption(CURLOPT_INFILESIZE, $this->getBodyLength());
@@ -38,7 +38,7 @@ class Put extends HttpRequest
      */
     public function __destruct()
     {
-        if( $this->hasOption(CURLOPT_INFILE) ) {
+        if ($this->hasOption(CURLOPT_INFILE)) {
             $options = $this->getOptions();
             fclose($options[CURLOPT_INFILE]);
         }

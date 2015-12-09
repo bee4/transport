@@ -6,18 +6,18 @@
  *
  * @copyright Bee4 2015
  * @author  Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Transport\Message\Request\Ftp
+ * @package Bee4\Transport\Message\Request\Ssh
  */
 
-namespace Bee4\Transport\Message\Request\Ftp;
+namespace Bee4\Transport\Message\Request\Ssh;
 
 use Bee4\Transport\Message\WithBodyStreamTrait;
 
 /**
- * Ftp Put Request object => Use to upload files to remote
- * @package Bee4\Transport\Message\Request\Ftp
+ * SSH Put Request object => Use to upload files to remote
+ * @package Bee4\Transport\Message\Request\Ssh
  */
-class Put extends FtpRequest
+class Put extends SshRequest
 {
     use WithBodyStreamTrait;
 

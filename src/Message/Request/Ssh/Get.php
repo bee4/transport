@@ -6,15 +6,18 @@
  *
  * @copyright Bee4 2015
  * @author  Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Transport\Exception
+ * @package Bee4\Transport\Message\Request\Ssh
  */
 
-namespace Bee4\Transport\Exception;
+namespace Bee4\Transport\Message\Request\Ssh;
 
 /**
- * Define cURL handle wrapper
- * @package Bee4\Transport\Exception
+ * SSH GET Request object
+ * @package Bee4\Transport\Message\Request\Ssh
  */
-class UnknownProtocolException extends \Exception
+class Get extends SshRequest
 {
+    protected function prepare()
+    {
+    }
 }

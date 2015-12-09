@@ -4,7 +4,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @copyright Bee4 2014
+ * @copyright Bee4 2015
  * @author    Stephane HULARD <s.hulard@chstudio.fr>
  * @package   Bee4\Test\Transport\Message
  */
@@ -19,47 +19,48 @@ use Bee4\PHPUnit\HttpClientTestCase;
  */
 class AbstractMessageTest extends HttpClientTestCase
 {
-	/**
-	 * @var \Bee4\Transport\Message\AbstractMessage
-	 */
-	protected $object;
+    /**
+     * @var \Bee4\Transport\Message\AbstractMessage
+     */
+    protected $object;
 
-	/**
-	 * Test all headers collection manipulation function
-	 */
-	public function testAllHeaders() {
-		$mock = $this->getMockForAbstractClass(
-			'\Bee4\Transport\Message\AbstractMessage'
-		);
+    /**
+     * Test all headers collection manipulation function
+     */
+    public function testAllHeaders()
+    {
+        $mock = $this->getMockForAbstractClass(
+            '\Bee4\Transport\Message\AbstractMessage'
+        );
 
-		$mock->addHeader('Content-Type', 'text/html');
-		$this->assertTrue($mock->hasHeader('Content-Type'));
-		$this->assertFalse($mock->hasHeader('Content-Length'));
+        $mock->addHeader('Content-Type', 'text/html');
+        $this->assertTrue($mock->hasHeader('Content-Type'));
+        $this->assertFalse($mock->hasHeader('Content-Length'));
 
-		$this->assertNull($mock->getHeader('Content-Length'));
-		$this->assertEquals('text/html', $mock->getHeader('Content-Type'));
+        $this->assertNull($mock->getHeader('Content-Length'));
+        $this->assertEquals('text/html', $mock->getHeader('Content-Type'));
 
-		$headers = [
-			'Content-Type' => 'application/json',
-			'Content-Length' => 0,
-			'X-Test: Value'
-		];
-		$mock->addHeaders($headers);
+        $headers = [
+            'Content-Type' => 'application/json',
+            'Content-Length' => 0,
+            'X-Test: Value'
+        ];
+        $mock->addHeaders($headers);
 
-		unset($headers[0]);
-		$headers['X-Test'] = "Value";
-		$this->assertEquals($headers, $mock->getHeaders());
-		$this->assertEquals("Value", $mock->getHeader('X-Test'));
+        unset($headers[0]);
+        $headers['X-Test'] = "Value";
+        $this->assertEquals($headers, $mock->getHeaders());
+        $this->assertEquals("Value", $mock->getHeader('X-Test'));
 
-		$this->assertEquals([
-			"Content-Type: application/json",
-			"Content-Length: 0",
-			'X-Test: Value'
-		], $mock->getHeaderLines());
+        $this->assertEquals([
+            "Content-Type: application/json",
+            "Content-Length: 0",
+            'X-Test: Value'
+        ], $mock->getHeaderLines());
 
-		$mock->removeHeader('Content-Type');
-		$this->assertNull($mock->getHeader('Content-Type'));
-		$mock->removeHeaders();
-		$this->assertCount(0, $mock->getHeaders());
-	}
+        $mock->removeHeader('Content-Type');
+        $this->assertNull($mock->getHeader('Content-Type'));
+        $mock->removeHeaders();
+        $this->assertCount(0, $mock->getHeaders());
+    }
 }

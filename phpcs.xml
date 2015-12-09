@@ -30,7 +30,11 @@
  <rule ref="Generic.PHP.NoSilencedErrors" />
  <rule ref="Generic.PHP.SAPIUsage" />
 
- <rule ref="Generic.Strings.UnnecessaryStringConcat" />
+ <rule ref="Generic.Strings.UnnecessaryStringConcat">
+  <properties>
+   <property name="allowMultiline" value="true"/>
+  </properties>
+ </rule>
 
  <rule ref="Generic.WhiteSpace.DisallowTabIndent" />
 </ruleset>

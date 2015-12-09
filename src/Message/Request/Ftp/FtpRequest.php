@@ -4,7 +4,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @copyright Bee4 2014
+ * @copyright Bee4 2015
  * @author  Stephane HULARD <s.hulard@chstudio.fr>
  * @package Bee4\Transport\Message\Request\Ftp
  */
@@ -88,7 +88,7 @@ class FtpRequest extends AbstractRequest
     protected function prepare()
     {
         //Force passice mode if not specified
-        if( !$this->hasOption(CURLOPT_FTP_USE_EPSV) ) {
+        if (!$this->hasOption(CURLOPT_FTP_USE_EPSV)) {
             $this->addOption(CURLOPT_FTP_USE_EPSV, true);
         }
 

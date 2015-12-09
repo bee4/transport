@@ -4,7 +4,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @copyright Bee4 2014
+ * @copyright Bee4 2015
  * @author  Stephane HULARD <s.hulard@chstudio.fr>
  * @package Bee4\Transport\Message
  */
@@ -43,10 +43,10 @@ abstract class AbstractMessage implements MessageInterface
     public function addHeaders(array $headers)
     {
         foreach ($headers as $name => $value) {
-        	if( is_numeric($name) ) {
-        		$this->parseHeaderLine($value);
-        	} else {
-            	$this->addHeader($name, $value);
+            if (is_numeric($name)) {
+                $this->parseHeaderLine($value);
+            } else {
+                $this->addHeader($name, $value);
             }
         }
         return $this;
@@ -106,10 +106,10 @@ abstract class AbstractMessage implements MessageInterface
      */
     private function parseHeaderLine($line)
     {
-    	$matches = [];
-    	if( preg_match('/^([^:]+):(.*)$/', $line, $matches) === 1 ) {
-    		$this->addHeader(trim($matches[1]), trim($matches[2]));
-    	}
+        $matches = [];
+        if (preg_match('/^([^:]+):(.*)$/', $line, $matches) === 1) {
+            $this->addHeader(trim($matches[1]), trim($matches[2]));
+        }
     }
 
     /**

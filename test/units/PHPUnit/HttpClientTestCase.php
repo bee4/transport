@@ -16,25 +16,28 @@ namespace Bee4\PHPUnit;
  * Allow to register the base URL for all tests
  * @package   Bee4\PHPUnit
  */
-class HttpClientTestCase extends \PHPUnit_Framework_TestCase {
-	/**
-	 * @var string
-	 */
-	private static $baseURL;
+class HttpClientTestCase extends \PHPUnit_Framework_TestCase
+{
+    /**
+     * @var string
+     */
+    private static $baseURL;
 
-	/**
-	 * Set the URL that will be used as root in all tests
-	 * @param string $baseURL The base URL configured
-	 */
-	public static function setBaseUrl( $baseURL ) {
-		self::$baseURL = $baseURL;
-	}
+    /**
+     * Set the URL that will be used as root in all tests
+     * @param string $baseURL The base URL configured
+     */
+    public static function setBaseUrl($baseURL)
+    {
+        self::$baseURL = $baseURL;
+    }
 
-	/**
-	 * Base URL accessor
-	 * @return string
-	 */
-	public static function getBaseUrl() {
-		return self::$baseURL;
-	}
+    /**
+     * Base URL accessor
+     * @return string
+     */
+    public static function getBaseUrl()
+    {
+        return self::$baseURL;
+    }
 }

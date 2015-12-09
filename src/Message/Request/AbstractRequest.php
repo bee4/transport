@@ -4,7 +4,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @copyright Bee4 2014
+ * @copyright Bee4 2015
  * @author  Stephane HULARD <s.hulard@chstudio.fr>
  * @package Bee4\Transport\Message\Request
  */
@@ -22,8 +22,9 @@ use Bee4\Transport\Url;
 abstract class AbstractRequest extends AbstractMessage
 {
     //Compatible SCHEME
-    const HTTP = 'http';
-    const FTP = 'ftp';
+    const HTTP = '/^http/';
+    const FTP = '/^ftp/';
+    const SSH = '/sftp|scp/';
 
     /**
      * Request UserAgent

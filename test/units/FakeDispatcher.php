@@ -4,7 +4,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @copyright Bee4 2014
+ * @copyright Bee4 2015
  * @author Stephane HULARD <s.hulard@chstudio.fr>
  * @package Bee4\Test
  */
@@ -20,42 +20,48 @@ use Bee4\Events\EventInterface;
  */
 class FakeDispatcher implements DispatcherInterface
 {
-	/**
-	 * Listener collection
-	 * @var array
-	 */
-	protected $listeners = [];
+    /**
+     * Listener collection
+     * @var array
+     */
+    protected $listeners = [];
 
-	/**
-	 * @param string $name
-	 * @param EventInterface $event
-	 * @return EventInterface
-	 */
-	public function dispatch($name, EventInterface $event) {
-		if( isset($this->listeners[$name]) ) {
-			foreach( $this->listeners[$name] as $priority ) {
-				foreach( $priority as $callable ) {
-					call_user_func($callable, $event, $name, $this);
-				}
-			}
-		}
+    /**
+     * @param string $name
+     * @param EventInterface $event
+     * @return EventInterface
+     */
+    public function dispatch($name, EventInterface $event)
+    {
+        if (isset($this->listeners[$name])) {
+            foreach ($this->listeners[$name] as $priority) {
+                foreach ($priority as $callable) {
+                    call_user_func($callable, $event, $name, $this);
+                }
+            }
+        }
 
-		return $event;
-	}
+        return $event;
+    }
 
-	/**
-	 * Add a listener for the given event
-	 * @param string $name
-	 * @param Callable $listener
-	 * @param int $priority
-	 * @return DispatcherInterface
-	 */
-	public function add( $name, callable $listener, $priority = 0 ) {
-		$this->listeners[$name][$priority][] = $listener;
-		sort($this->listeners[$name]);
-		return $this;
-	}
+    /**
+     * Add a listener for the given event
+     * @param string $name
+     * @param Callable $listener
+     * @param int $priority
+     * @return DispatcherInterface
+     */
+    public function add($name, callable $listener, $priority = 0)
+    {
+        $this->listeners[$name][$priority][] = $listener;
+        sort($this->listeners[$name]);
+        return $this;
+    }
 
-	public function remove($name, callable $listener) {}
-	public function get($name) {}
+    public function remove($name, callable $listener)
+    {
+    }
+    public function get($name)
+    {
+    }
 }
