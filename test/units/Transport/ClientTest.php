@@ -11,7 +11,8 @@
 
 namespace Bee4\Test\Transport;
 
-use Bee4\Test\FakeDispatcher;
+use Bee4\Events\Adapters\EvenementEventEmitterAdapter;
+use Evenement\EventEmitter;
 use Bee4\PHPUnit\HttpClientTestCase;
 use Bee4\Transport\Client;
 use Bee4\Transport\MagicHandler;
@@ -170,8 +171,8 @@ class ClientTest extends HttpClientTestCase
      */
     public function testRegister()
     {
-        $dispatcher = new FakeDispatcher();
-        $dispatcher->add(MessageEvent::REQUEST, function () {
+        $dispatcher = new EvenementEventEmitterAdapter(new EventEmitter);
+        $dispatcher->on(MessageEvent::REQUEST, function () {
             throw new \Exception("Yes event triggered");
         });
 
@@ -197,8 +198,8 @@ class ClientTest extends HttpClientTestCase
         $this->expectOutputString('error');
         $this->object = new Client("ftp://127.0.0.1:8888");
 
-        $dispatcher = new FakeDispatcher();
-        $dispatcher->add(ErrorEvent::ERROR, function () {
+        $dispatcher = new EvenementEventEmitterAdapter(new EventEmitter);
+        $dispatcher->on(ErrorEvent::ERROR, function () {
             echo "error";
         });
         $this->object->setDispatcher($dispatcher);
