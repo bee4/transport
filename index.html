@@ -37,10 +37,11 @@ keywords: HTTP, HTTP, HTTPS, FTP, FTPS, SFTP, SCP, PHP, cURL
 {% endhighlight %}
 <p>If the request type requested does not exists or is not handled, an `Exception` is thrown.</p>
 {% highlight PHP %}
-  $request = $client->createRequest('TOTO', '/endpoint/save');
+<?php $request = $client->createRequest('TOTO', '/endpoint/save'); ?>
 {% endhighlight %}
 <p>You can also use the `MagicHandler` with it request as a method API :</p>
 {% highlight PHP %}
+<?php
   //The magic handler use PHP __call method to attach specific
   //transport methods (GET, POST, DELETE) as method name
   $magic = new \Bee4\Transport\MagicHandler($client);
