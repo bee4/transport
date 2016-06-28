@@ -8,9 +8,6 @@
       "email": "s.hulard@chstudio.fr"
     }
   ],
-  "config": {
-    "bin-dir": "bin"
-  },
   "require": {
     "php": ">=5.4.0",
     "ext-curl": "*",
