@@ -5,12 +5,22 @@ if( !defined('WEBSERVER_BIN') ) {
 }
 
 // Command that starts the built-in web server
-$command = sprintf(
-    WEBSERVER_BIN.' -S %s:%d -t "%s" >/dev/null 2>&1 & echo $!',
-    WEBSERVER_HOST,
-    WEBSERVER_PORT,
-    realpath(__DIR__).'/public'
-);
+if (WEBSERVER_BIN === 'hhvm') {
+    $command = sprintf(
+        '%s -m server -p %d -d hhvm.server.source_root="%s" >/dev/null 2>&1 & echo $!',
+        WEBSERVER_BIN,
+        WEBSERVER_PORT,
+        realpath(__DIR__).'/public'
+    );
+} else {
+    $command = sprintf(
+        '%s -S %s:%d -t "%s" >/dev/null 2>&1 & echo $!',
+        WEBSERVER_BIN,
+        WEBSERVER_HOST,
+        WEBSERVER_PORT,
+        realpath(__DIR__).'/public'
+    );
+}
 
 // Execute the command and store the process ID
 $output = array();
