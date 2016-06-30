@@ -124,9 +124,10 @@ class Response extends AbstractMessage
     {
         $json = json_decode($this->getBody(), true);
         if ($json === null) {
-            throw new \RuntimeException(
-                "Can't decode JSON response: ".$json
-            );
+            throw new \RuntimeException(sprintf(
+                "Can't decode response as JSON: %s",
+                json_last_error_msg()
+            ));
         }
         return $json;
     }
