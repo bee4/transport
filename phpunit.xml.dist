@@ -25,5 +25,6 @@
 	<php>
     <const name="WEBSERVER_HOST" value="127.0.0.1" />
     <const name="WEBSERVER_PORT" value="1349" />
+    <const name="WEBSERVER_BIN"  value="php" />
   </php>
 </phpunit>

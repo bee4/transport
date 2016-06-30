@@ -1,8 +1,12 @@
 <?php
 
+if( !defined('WEBSERVER_BIN') ) {
+    define('WEBSERVER_BIN', 'php');
+}
+
 // Command that starts the built-in web server
 $command = sprintf(
-    'php -S %s:%d -t "%s" >/dev/null 2>&1 & echo $!',
+    WEBSERVER_BIN.' -S %s:%d -t "%s" >/dev/null 2>&1 & echo $!',
     WEBSERVER_HOST,
     WEBSERVER_PORT,
     realpath(__DIR__).'/public'
