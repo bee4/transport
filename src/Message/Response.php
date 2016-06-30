@@ -126,7 +126,9 @@ class Response extends AbstractMessage
         if ($json === null) {
             throw new \RuntimeException(sprintf(
                 "Can't decode response as JSON: %s",
-                json_last_error_msg()
+                function_exists('json_last_error_msg')?
+                    json_last_error_msg():
+                    'Error code '.json_last_error()
             ));
         }
         return $json;
