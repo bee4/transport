@@ -30,8 +30,8 @@
     }
   },
   "scripts": {
-    "test": "bin/phpunit",
-    "cs": "bin/phpcs --standard=phpcs.xml src test",
-    "cs-fixer": "bin/phpcbf --standard=phpcs.xml src test"
+    "test": "vendor/bin/phpunit",
+    "cs": "vendor/bin/phpcs --standard=phpcs.xml src test",
+    "cs-fixer": "vendor/bin/phpcbf --standard=phpcs.xml src test"
   }
 }
