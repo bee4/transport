@@ -5,9 +5,12 @@ php:
   - 5.6
   - 5.5
   - 5.4
+  - hhvm
 install:
   - composer install --no-interaction --prefer-source
-script: bin/phpunit --coverage-clover=coverage.clover
+script:
+  - if [[ $PHP = hhvm* ]]; then cp phpunit.xml.dist phpunit.xml && sed -i '' "s/name=\"WEBSERVER_BIN\"  value=\"php\"/name=\"WEBSERVER_BIN\"  value=\"hhvm\"/" phpunit.xml; fi
+  - vendor/bin/phpunit --coverage-clover=coverage.clover
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
