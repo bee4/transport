@@ -39,7 +39,7 @@ class AbstractRequestTest extends HttpClientTestCase
      */
     public function testConstructor()
     {
-        $headers = ['Content-Type' => 'text/html'];
+        $headers = ['content-type' => 'text/html'];
 
         $mock = $this->getMockForAbstractClass(
             '\Bee4\Transport\Message\Request\AbstractRequest',

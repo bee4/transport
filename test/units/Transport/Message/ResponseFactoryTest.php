@@ -32,12 +32,12 @@ class ResponseFactoryTest extends HttpClientTestCase
         $response = $request->send();
 
         $headers = $response->getHeaders();
-        $this->assertArrayHasKey('Content-Type', $headers);
-        $this->assertArrayHasKey('Content-Length', $headers);
+        $this->assertArrayHasKey('content-type', $headers);
+        $this->assertArrayHasKey('content-length', $headers);
 
         $requestHeaders = $request->getHeaders();
-        $this->assertArrayHasKey('Content-Type', $requestHeaders);
-        $this->assertArrayHasKey('User-Agent', $requestHeaders);
+        $this->assertArrayHasKey('content-type', $requestHeaders);
+        $this->assertArrayHasKey('user-agent', $requestHeaders);
     }
 
     /**
