@@ -21,10 +21,13 @@ abstract class AbstractMessage implements MessageInterface
 {
     /**
      * Header collection
-     * @var array
+     * @var Collection
      */
     protected $headers;
 
+    /**
+     * Initialize AbstractMessage
+     */
     public function __construct()
     {
         $this->headers = new Collection(function($item) {
