@@ -28,7 +28,7 @@ class HandleFactory
     /**
      * Build the Handle instance based on the given request
      * @param AbstractRequest $request
-     * @return HandleInterface
+     * @return CurlHandle
      */
     public static function build(AbstractRequest $request)
     {

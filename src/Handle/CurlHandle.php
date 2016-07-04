@@ -58,7 +58,7 @@ class CurlHandle extends AbstractHandle
 
     /**
      * Open the curl handle to be used
-     * @return Handle
+     * @return CurlHandle
      */
     public function open()
     {
@@ -70,7 +70,7 @@ class CurlHandle extends AbstractHandle
 
     /**
      * Close currently opened handle
-     * @return Handle
+     * @return CurlHandle
      */
     public function close()
     {

@@ -64,8 +64,7 @@ abstract class AbstractHandle implements HandleInterface
     /**
      * Add an option to the handle
      * @param int $name
-     * @param mixed $value
-     * @return Handle
+     * @return AbstractHandle
      */
     public function hasOption($name)
     {
@@ -76,7 +75,7 @@ abstract class AbstractHandle implements HandleInterface
      * Add an option to the handle
      * @param int $name
      * @param mixed $value
-     * @return Handle
+     * @return AbstractHandle
      */
     public function addOption($name, $value)
     {
@@ -87,7 +86,7 @@ abstract class AbstractHandle implements HandleInterface
     /**
      * Add multiple option at once
      * @param string[] $options
-     * @return Handle
+     * @return AbstractHandle
      */
     public function addOptions(array $options)
     {

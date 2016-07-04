@@ -27,7 +27,7 @@ class RequestFactory
      * @param array $headers
      * @return AbstractRequest
      * @throws UnknownProtocolException
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function build($method, Url $url, array $headers)
     {
