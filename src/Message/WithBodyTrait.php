@@ -25,7 +25,7 @@ trait WithBodyTrait
     /**
      * Set the body for the current request
      * @param string $body
-     * @return WithBodyTrait
+     * @return MessageInterface
      */
     public function setBody($body)
     {

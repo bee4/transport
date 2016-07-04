@@ -31,7 +31,7 @@ class RequestFactory
      */
     public function build($method, Url $url, array $headers)
     {
-        if (($scheme = self::isAllowedScheme($url->scheme())) === false) {
+        if (($scheme = self::isAllowedScheme((string)$url->scheme())) === false) {
             throw new UnknownProtocolException(sprintf(
                 "You can't request a transfer on unsupported protocol '%s'!",
                 $url->scheme()

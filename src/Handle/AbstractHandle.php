@@ -64,7 +64,6 @@ abstract class AbstractHandle implements HandleInterface
     /**
      * Add an option to the handle
      * @param int $name
-     * @param mixed $value
      * @return Handle
      */
     public function hasOption($name)
