@@ -11,6 +11,8 @@
 
 namespace Bee4\Transport\Message;
 
+use Bee4\Transport\Collection;
+
 /**
  * HTTP Message basic implementation
  * @package Bee4\Transport\Message
@@ -21,7 +23,14 @@ abstract class AbstractMessage implements MessageInterface
      * Header collection
      * @var array
      */
-    protected $headers = [];
+    protected $headers;
+
+    public function __construct()
+    {
+        $this->headers = new Collection(function($item) {
+            return strtolower($item);
+        });
+    }
 
     /**
      * Add a header to the message
@@ -31,7 +40,6 @@ abstract class AbstractMessage implements MessageInterface
      */
     public function addHeader($name, $value)
     {
-        $name = strtolower($name);
         $this->headers[$name] = $value;
         return $this;
     }
@@ -60,7 +68,6 @@ abstract class AbstractMessage implements MessageInterface
      */
     public function hasHeader($name)
     {
-        $name = strtolower($name);
         return isset($this->headers[$name]);
     }
 
@@ -71,7 +78,6 @@ abstract class AbstractMessage implements MessageInterface
      */
     public function getHeader($name)
     {
-        $name = strtolower($name);
         if ($this->hasHeader($name)) {
             return $this->headers[$name];
         }
@@ -85,7 +91,7 @@ abstract class AbstractMessage implements MessageInterface
      */
     public function getHeaders()
     {
-        return $this->headers;
+        return $this->headers->toArray();
     }
 
     /**
@@ -95,7 +101,7 @@ abstract class AbstractMessage implements MessageInterface
     public function getHeaderLines()
     {
         $headers = [];
-        foreach ($this->headers as $name => $value) {
+        foreach ($this->headers->getIterator() as $name => $value) {
             $headers[] = $name . ': ' . $value;
         }
 
@@ -122,11 +128,7 @@ abstract class AbstractMessage implements MessageInterface
      */
     public function removeHeader($name)
     {
-        $name = strtolower($name);
-        if ($this->hasHeader($name)) {
-            unset($this->headers[$name]);
-        }
-
+        unset($this->headers[$name]);
         return $this;
     }
 
@@ -136,7 +138,7 @@ abstract class AbstractMessage implements MessageInterface
      */
     public function removeHeaders()
     {
-        $this->headers = [];
+        $this->headers->flush();
         return $this;
     }
 }

@@ -45,6 +45,7 @@ class Response extends AbstractMessage
      */
     public function __construct(AbstractRequest $request = null)
     {
+        parent::__construct();
         $this->request = $request;
     }
 

@@ -57,6 +57,7 @@ abstract class AbstractRequest extends AbstractMessage
      */
     public function __construct(Url $url, array $headers = [])
     {
+        parent::__construct();
         $this->url = $url;
         $this->options = [];
         $this->addHeaders($headers);
