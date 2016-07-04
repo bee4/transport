@@ -2,7 +2,7 @@ bee4/transport v1.2.0
 =====================
 
 [![Build Status](https://img.shields.io/travis/bee4/transport.svg?style=flat-square)](https://travis-ci.org/bee4/transport)
-[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/bee4/transport.svg?style=flat-square)](https://scrutinizer-ci.com/g/bee4/transport/?branch=develop)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/bee4/transport.svg?style=flat-square)](https://scrutinizer-ci.com/g/bee4/transport/?branch=master)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/bee4/transport.svg?style=flat-square)](https://scrutinizer-ci.com/g/bee4/transport/)
 [![SensiolabInsight](https://img.shields.io/sensiolabs/i/a8f05979-c92d-4151-a210-913a0d6792d8.svg?style=flat-square)](https://insight.sensiolabs.com/projects/a8f05979-c92d-4151-a210-913a0d6792d8)
 
