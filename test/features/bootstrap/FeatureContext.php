@@ -57,6 +57,9 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function iShouldGotAStatusOf($status)
     {
+        if(null === $this->response) {
+            return false;
+        }
         return preg_match('/'.$status.'/', $this->response->getStatus())===1;
     }
 
@@ -65,6 +68,9 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function iShouldGotAStatusDifferentThan($status)
     {
+        if(null === $this->response) {
+            return false;
+        }
         return preg_match('/'.$status.'/', $this->response->getStatus())!==1;
     }
 
@@ -74,6 +80,9 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function iShouldHaveABodyLike($body = '')
     {
+        if(null === $this->response) {
+            return false;
+        }
         return $this->response->getBody()===$body;
     }
 
