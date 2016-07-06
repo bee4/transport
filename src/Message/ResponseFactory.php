@@ -14,15 +14,15 @@ namespace Bee4\Transport\Message;
 use Bee4\Transport\Handle\HandleInterface;
 
 /**
- * Build a response from cURL response
+ * Build a response from an Handle response
  * @package Bee4\Transport\Message
  */
 class ResponseFactory
 {
     /**
-     * Build a new reponse object from cURL execution result
+     * Build a new reponse object from handle execution result
      * @param string $content Response content
-     * @param Handle $handle Curl handle used to perform request which generate response
+     * @param Handle $handle Handle used to perform request which generate response
      * @param Request\AbstractRequest $request
      * @return Response
      */
