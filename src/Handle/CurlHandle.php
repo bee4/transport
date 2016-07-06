@@ -118,6 +118,8 @@ class CurlHandle extends AbstractHandle
             curl_reset($this->handle);
             $this->setDefaults();
             return true;
+        } else {
+            trigger_error('Your must upgrade to PHP5.5 to use `curl_reset`', E_USER_NOTICE);
         }
 
         return false;
