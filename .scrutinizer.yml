@@ -25,8 +25,3 @@ filter:
   excluded_paths:
     - vendor/*
     - test/public/*
-
-build:
-  tests:
-    before:
-      - "phpunit"
