@@ -104,7 +104,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Url must be called with a valid string has parameter
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Bee4\Transport\Exception\InvalidArgumentException
      */
     public function testBadConstruct()
     {
@@ -113,7 +113,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Check exception when call an invalid property
-     * @expectedException \BadMethodCallException
+     * @expectedException \Bee4\Transport\Exception\BadMethodCallException
      */
     public function testBadProperty()
     {
@@ -123,7 +123,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Check exception when call a valid property with invalid parameters
-     * @expectedException \BadMethodCallException
+     * @expectedException \Bee4\Transport\Exception\BadMethodCallException
      */
     public function testBadPropertyParameters()
     {
@@ -133,7 +133,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Check exception when try to build an invalid URL (after a bad set)
-     * @expectedException \RuntimeException
+     * @expectedException \Bee4\Transport\Exception\RuntimeException
      */
     public function testInvalidToString()
     {
@@ -150,7 +150,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Bee4\Transport\Exception\InvalidArgumentException
      */
     public function testSetInvalidPort()
     {
@@ -159,7 +159,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Bee4\Transport\Exception\InvalidArgumentException
      */
     public function testSetInvalidScheme()
     {
@@ -168,7 +168,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Bee4\Transport\Exception\InvalidArgumentException
      */
     public function testSetInvalidHost()
     {
@@ -177,7 +177,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Bee4\Transport\Exception\InvalidArgumentException
      */
     public function testSetInvalidUser()
     {
@@ -186,7 +186,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Bee4\Transport\Exception\InvalidArgumentException
      */
     public function testSetInvalidPass()
     {
@@ -195,7 +195,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Bee4\Transport\Exception\InvalidArgumentException
      */
     public function testSetInvalidPath()
     {
@@ -204,7 +204,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Bee4\Transport\Exception\InvalidArgumentException
      */
     public function testSetInvalidQuery()
     {
@@ -213,7 +213,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Bee4\Transport\Exception\InvalidArgumentException
      */
     public function testSetInvalidFragment()
     {

@@ -44,23 +44,19 @@ class ClientTest extends HttpClientTestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Bee4\Transport\Exception\InvalidArgumentException
      */
     public function testNonStringUrl()
     {
-        $method = new \ReflectionMethod('\Bee4\Transport\Client', 'createRequest');
-        $method->setAccessible(true);
-        $method->invoke(new Client(), 'get', new \stdClass());
+        (new Client())->createRequest('post', new \stdClass());
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Bee4\Transport\Exception\InvalidArgumentException
      */
     public function testEmptyUrl()
     {
-        $method = new \ReflectionMethod('\Bee4\Transport\Client', 'createRequest');
-        $method->setAccessible(true);
-        $method->invoke(new Client(), 'post', '');
+        (new Client())->createRequest('post', '');
     }
 
     public function testSend()

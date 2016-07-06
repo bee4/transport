@@ -62,7 +62,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider badResponseTimeProvider
      * @param string $value
-     * @expectedException \RuntimeException
+     * @expectedException \Bee4\Transport\Exception\RuntimeException
      */
     public function testResponseTimeFormatCheck($value)
     {

@@ -33,7 +33,7 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Bee4\Transport\Exception\InvalidArgumentException
      */
     public function testInvalidRequestBuild()
     {

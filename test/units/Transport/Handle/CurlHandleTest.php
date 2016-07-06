@@ -54,7 +54,7 @@ class CurlHandleTest extends HttpClientTestCase
     }
 
     /**
-     * @expectedException \RuntimeException
+     * @expectedException \Bee4\Transport\Exception\RuntimeException
      */
     public function testClose()
     {
