@@ -11,7 +11,8 @@
 
 namespace Bee4\Transport\Handle;
 
-use Bee4\Transport\Exception\CurlException;
+use Bee4\Transport\Exception\Curl\ExceptionFactory;
+use Bee4\Transport\Exception\RuntimeException;
 
 /**
  * Define cURL handle wrapper
@@ -83,14 +84,14 @@ class CurlHandle extends AbstractHandle
 
     /**
      * Execute current handle and return result
-     * @throws \RuntimeException
+     * @throws RuntimeException
      * @throws CurlException
      * @return string
      */
     public function execute()
     {
         if (!is_resource($this->handle)) {
-            throw new \RuntimeException('Curl handle has been closed, just open it before execute...');
+            throw new RuntimeException('Curl handle has been closed, just open it before execute...');
         }
 
         curl_setopt_array($this->handle, $this->options);
@@ -98,9 +99,9 @@ class CurlHandle extends AbstractHandle
         $return = curl_exec($this->handle);
         $this->infos = curl_getinfo($this->handle);
         if ($return === false) {
-            throw new CurlException(
-                curl_error($this->handle),
-                curl_errno($this->handle)
+            throw ExceptionFactory::build(
+                curl_errno($this->handle),
+                curl_error($this->handle)
             );
         }
 

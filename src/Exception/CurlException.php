@@ -17,7 +17,7 @@ use Bee4\Transport\Message\Response;
  * Define cURL handle wrapper
  * @package Bee4\Transport\Exception
  */
-class CurlException extends \Exception
+class CurlException extends Exception
 {
     /**
      * @var Response

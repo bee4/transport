@@ -10,7 +10,7 @@
  */
 namespace Bee4\Transport\Message;
 
-use InvalidArgumentException;
+use Bee4\Transport\Exception\InvalidArgumentException;
 
 /**
  * Allow the body to be a stream
@@ -25,6 +25,7 @@ trait WithBodyStreamTrait
     /**
      * Set body with stream acceptance
      * @param resource|string $body Request body
+     * @throws InvalidArgumentException
      */
     public function setBody($body)
     {

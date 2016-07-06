@@ -6,15 +6,17 @@
  *
  * @copyright Bee4 2015
  * @author  Stephane HULARD <s.hulard@chstudio.fr>
- * @package Bee4\Transport\Exception
+ * @package Bee4\Transport\Exception\Curl
  */
 
-namespace Bee4\Transport\Exception;
+namespace Bee4\Transport\Exception\Curl;
+
+use Bee4\Transport\Exception\CurlException;
 
 /**
- * Define cURL handle wrapper
- * @package Bee4\Transport\Exception
+ * Error thrown when the URL is considered malformed by cURL
+ * @package Bee4\Transport\Exception\Curl
  */
-class UnknownProtocolException extends Exception
+class MalformedUrlException extends CurlException
 {
 }

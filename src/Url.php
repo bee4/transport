@@ -11,6 +11,11 @@
 
 namespace Bee4\Transport;
 
+use Bee4\Transport\Exception\Exception;
+use Bee4\Transport\Exception\RuntimeException;
+use Bee4\Transport\Exception\InvalidArgumentException;
+use Bee4\Transport\Exception\BadMethodCallException;
+
 /**
  * Define a valid URL component
  * Allow to check if it's a valid Url and define all components
@@ -92,10 +97,10 @@ class Url
     public function __construct($url)
     {
         if (!is_string($url)) {
-            throw new \InvalidArgumentException('url given must be a valid string!');
+            throw new InvalidArgumentException('url given must be a valid string!');
         }
         if (!Url::isValid($url)) {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 'url given is not a valid url (according to PHP FILTER_VALIDATE_URL). '.$url
             );
         }
@@ -130,6 +135,7 @@ class Url
     /**
      * Rebuilt the URL with all known parts
      * @return string
+     * @throws RuntimeException
      */
     public function toString()
     {
@@ -151,7 +157,7 @@ class Url
         $url .= (trim($this->fragment) != '')?'#'.$this->fragment:'';
 
         if (!self::isValid($url)) {
-            throw new \RuntimeException('Built URL is not a valid one: '.$url);
+            throw new RuntimeException('Built URL is not a valid one: '.$url);
         }
 
         return $url;
@@ -162,7 +168,7 @@ class Url
      * @param string $name
      * @param array $arguments
      * @return mixed
-     * @throws \BadMethodCallException
+     * @throws BadMethodCallException
      */
     public function __call($name, array $arguments)
     {
@@ -174,10 +180,10 @@ class Url
                 $this->populate($name, $arguments[0]);
                 return $this;
             } else {
-                throw new \BadMethodCallException('Invalid parameters given for: '.$name);
+                throw new BadMethodCallException('Invalid parameters given for: '.$name);
             }
         } else {
-            throw new \BadMethodCallException('Invalid method in Url implementation: '.$name);
+            throw new BadMethodCallException('Invalid method in Url implementation: '.$name);
         }
     }
 
@@ -198,14 +204,14 @@ class Url
      * Fill a property with the given value
      * @param string $name
      * @param mixed $value
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     protected function populate($name, $value)
     {
         switch ($name) {
             case 'port':
                 if (!is_int($value)) {
-                    throw new \InvalidArgumentException('Value given to set "'.$name.'" must be a valid int!!');
+                    throw new InvalidArgumentException('Value given to set "'.$name.'" must be a valid int!!');
                 }
                 if (isset(self::$defaultPorts[$this->scheme]) && $value == self::$defaultPorts[$this->scheme]) {
                     break;
@@ -221,7 +227,7 @@ class Url
                 //Just extract port then go to the default case
             default:
                 if (!is_string($value)) {
-                    throw new \InvalidArgumentException('Value given to set "'.$name.'" must be a valid string!!');
+                    throw new InvalidArgumentException('Value given to set "'.$name.'" must be a valid string!!');
                 }
                 $this->$name = $value;
                 break;

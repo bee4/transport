@@ -14,6 +14,7 @@ namespace Bee4\Transport\Message\Request;
 use Bee4\Transport\Message\AbstractMessage;
 use Bee4\Transport\Client;
 use Bee4\Transport\Url;
+use Bee4\Transport\Exception\RuntimeException;
 
 /**
  * HTTP Request object
@@ -43,7 +44,7 @@ abstract class AbstractRequest extends AbstractMessage
      * specific cURL options for the current request
      * @var array
      */
-    protected $options;
+    protected $options = [];
 
     /**
      * @var Url
@@ -142,11 +143,12 @@ abstract class AbstractRequest extends AbstractMessage
      * Send method.
      * To send a request, a client must be linked
      * @return \Bee4\Transport\Message\Response
+     * @throws RuntimeException
      */
     public function send()
     {
         if (!$this->client) {
-            throw new \RuntimeException('A client must be set on the request');
+            throw new RuntimeException('A client must be set on the request');
         }
 
         if (!$this->hasOption(CURLOPT_URL)) {

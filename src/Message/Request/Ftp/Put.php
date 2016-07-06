@@ -12,6 +12,7 @@
 namespace Bee4\Transport\Message\Request\Ftp;
 
 use Bee4\Transport\Message\WithBodyStreamTrait;
+use Bee4\Transport\Exception\RuntimeException;
 
 /**
  * Ftp Put Request object => Use to upload files to remote
@@ -21,13 +22,17 @@ class Put extends FtpRequest
 {
     use WithBodyStreamTrait;
 
+    /**
+     * Prepare current request to being executed
+     * @throws RuntimeException
+     */
     protected function prepare()
     {
         parent::prepare();
 
         if (!$this->hasBodyStream()) {
             if (false === $stream = tmpfile()) {
-                throw new \RuntimeException("Can't create temporary file !");
+                throw new RuntimeException("Can't create temporary file.");
             }
             fwrite($stream, $this->getBody());
             rewind($stream);

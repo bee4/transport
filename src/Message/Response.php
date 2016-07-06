@@ -11,6 +11,7 @@
 
 namespace Bee4\Transport\Message;
 
+use Bee4\Transport\Exception\RuntimeException;
 use Bee4\Transport\Message\Request\AbstractRequest;
 
 /**
@@ -97,12 +98,12 @@ class Response extends AbstractMessage
     /**
      * @param double $time
      * @return Response
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
     public function setTransactionTime($time)
     {
         if (!is_numeric($time) || $time < 0) {
-            throw new \RuntimeException("Invalid response time format");
+            throw new RuntimeException("Invalid response time format");
         }
         $this->transactionTime = (float)$time;
         return $this;
@@ -119,13 +120,13 @@ class Response extends AbstractMessage
     /**
      * Try to json_decode the response body
      * @return string
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
     public function json()
     {
         $json = json_decode($this->getBody(), true);
         if ($json === null) {
-            throw new \RuntimeException(sprintf(
+            throw new RuntimeException(sprintf(
                 "Can't decode response as JSON: %s",
                 function_exists('json_last_error_msg')?
                     json_last_error_msg():

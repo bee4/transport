@@ -19,6 +19,9 @@ use Bee4\Transport\Message\Request\AbstractRequest;
 use Bee4\Transport\Message\Request\RequestFactory;
 use Bee4\Transport\Message\ResponseFactory;
 use Bee4\Transport\Handle\HandleFactory;
+use Bee4\Transport\Exception\Exception;
+use Bee4\Transport\Exception\RuntimeException;
+use Bee4\Transport\Exception\InvalidArgumentException;
 
 /**
  * Transport client, generate a request and return the linked response
@@ -48,7 +51,7 @@ class Client implements ClientInterface
     {
         // @codeCoverageIgnoreStart
         if (!extension_loaded('curl')) {
-            throw new \RuntimeException('The PHP cURL extension must be installed!');
+            throw new RuntimeException('The PHP cURL extension must be installed!');
         }
         // @codeCoverageIgnoreEnd
 
@@ -69,7 +72,7 @@ class Client implements ClientInterface
     public function createRequest($method, $url = '', array $headers = [])
     {
         if (!is_string($url)) {
-            throw new \InvalidArgumentException('Url parameter must be a valid string!!');
+            throw new InvalidArgumentException('Url parameter must be a valid string!!');
         }
 
         $url = new Url((isset($this->baseUrl)?$this->baseUrl->toString():'').$url);
@@ -84,7 +87,7 @@ class Client implements ClientInterface
      * Send the request
      * @param AbstractRequest $request The request to be send
      * @return Message\Response
-     * @throws \Exception
+     * @throws Exception
      */
     public function send(AbstractRequest $request)
     {

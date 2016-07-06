@@ -11,6 +11,7 @@
 
 namespace Bee4\Transport\Message\Request;
 
+use Bee4\Transport\Exception\InvalidArgumentException;
 use Bee4\Transport\Exception\UnknownProtocolException;
 use Bee4\Transport\Url;
 
@@ -40,7 +41,7 @@ class RequestFactory
 
         $name = __NAMESPACE__.'\\'.ucfirst($scheme).'\\'.ucfirst(strtolower($method));
         if (!class_exists($name)) {
-            throw new \InvalidArgumentException('Method given is not a valid request: '.$method);
+            throw new InvalidArgumentException('Method given is not a valid request: '.$method);
         }
 
         $request = new $name($url, $headers);

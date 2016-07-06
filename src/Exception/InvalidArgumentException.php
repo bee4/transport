@@ -12,9 +12,9 @@
 namespace Bee4\Transport\Exception;
 
 /**
- * Define cURL handle wrapper
+ * Global InvalidArgumentException canvas
  * @package Bee4\Transport\Exception
  */
-class UnknownProtocolException extends Exception
+class InvalidArgumentException extends \InvalidArgumentException
 {
 }
