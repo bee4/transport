@@ -1,13 +1,25 @@
 sudo: false
 language: php
+
+matrix:
+  fast_finish: true
+  allow_failures:
+    - php: nightly
+
 php:
-  - 7.0
-  - 5.6
-  - 5.5
   - 5.4
-install:
+  - 5.5
+  - 5.6
+  - 7.0
+  - nightly
+
+install: 
   - composer install --no-interaction --prefer-source
-script: vendor/bin/phpunit --coverage-clover=coverage.clover
+
+script: 
+  - if [[ $TRAVIS_PHP_VERSION = 5.4* ]]; then vendor/bin/phpunit -d error_reporting=2; fi
+  - if [[ ! $TRAVIS_PHP_VERSION = 5.4* ]]; then vendor/bin/phpunit --coverage-clover=coverage.clover; fi
+
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
