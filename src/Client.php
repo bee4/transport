@@ -49,12 +49,6 @@ class Client implements ClientInterface
      */
     public function __construct($baseUrl = '')
     {
-        // @codeCoverageIgnoreStart
-        if (!extension_loaded('curl')) {
-            throw new RuntimeException('The PHP cURL extension must be installed!');
-        }
-        // @codeCoverageIgnoreEnd
-
         if ($baseUrl != '') {
             $this->baseUrl = new Url($baseUrl);
         }

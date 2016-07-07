@@ -30,7 +30,13 @@ class CurlHandle extends AbstractHandle
      * Initialize cURL resource
      */
     public function __construct()
-    {
+    {        
+        // @codeCoverageIgnoreStart
+        if (!extension_loaded('curl')) {
+            throw new RuntimeException('The PHP cURL extension must be installed!');
+        }
+        // @codeCoverageIgnoreEnd
+
         $this->setDefaults();
         $this->open();
     }
