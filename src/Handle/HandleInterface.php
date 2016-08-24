@@ -11,7 +11,7 @@
 
 namespace Bee4\Transport\Handle;
 
-use Bee4\Transport\Configuration\Configuration;
+use Bee4\Transport\Message\Request\AbstractRequest;
 
 /**
  * Handle factory
@@ -21,9 +21,9 @@ interface HandleInterface
 {
     /**
      * Prepare the handle to be configured
-     * @param Configuration $config
+     * @param AbstractRequest $request
      */
-    public function prepare(Configuration $config);
+    public function prepare(AbstractRequest $request);
 
     /**
      * Execute the handle and retrieve the result

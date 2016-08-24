@@ -11,6 +11,7 @@
 
 namespace Bee4\Transport\Handle;
 
+use Bee4\Transport\Message\Request\AbstractRequest;
 use Bee4\Transport\Configuration;
 use Bee4\Transport\Exception\Curl\ExceptionFactory;
 use Bee4\Transport\Exception\RuntimeException;
@@ -99,10 +100,13 @@ class CurlHandle implements HandleInterface
      * Prepare the handle to be configured
      * @param Configuration\Configuration $config
      */
-    public function prepare(Configuration\Configuration $config)
+    public function prepare(AbstractRequest $request)
     {
+        $config = $request->getOptions();
+
         $this->options[CURLOPT_URL] = (string)$config->url;
         $this->options[CURLOPT_UPLOAD] = (bool)$config->upload;
+        $this->options[CURLOPT_HTTPHEADER] = $request->getHeaderLines();
 
         if($config instanceof Configuration\HttpConfiguration) {
             switch($config->method)
