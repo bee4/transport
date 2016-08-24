@@ -21,6 +21,12 @@ class HttpConfiguration extends Configuration
      * Default configuration values
      */
     const DEFAULTS = [
+        'allow_redirects' => [
+            'max' => null,
+            'referer' => true,
+        ],
+        'accept_encoding' => null,
+        'user_agent' => null,
         'commands' => [
             'request' => null,
             'post' => null
@@ -37,5 +43,32 @@ class HttpConfiguration extends Configuration
             self::DEFAULTS,
             $data
         ));
+    }
+
+    /**
+     * Check if redirects are allowed
+     * @return boolean
+     */
+    public function redirectsAllowed()
+    {
+        return $this['allow_redirects']!==false;
+    }
+
+    /**
+     * Define how much redirects must be followed, default null = infinite
+     * @return Configuration|integer|null
+     */
+    public function allowRedirectsMax($max = null)
+    {
+        return $this->arrayValue('allow_redirects', 'max', $max);
+    }
+
+    /**
+     * Define if referer must be set during redirection
+     * @return Configuration|boolean
+     */
+    public function allowRedirectsReferer($referer = null)
+    {
+        return $this->arrayValue('allow_redirects', 'referer', $referer);
     }
 }

@@ -23,14 +23,7 @@ class Configuration extends Collection
      * Default configuration values
      */
     const DEFAULTS = [
-        'allow_redirects' => [
-            'max' => null,
-            'referer' => true,
-        ],
         'connect_timeout' => 0,
-        'accept_encoding' => null,
-        'user_agent' => null,
-        'http_errors' => false,
         'timeout' => 30,
         'verify' => false,
 
@@ -53,39 +46,12 @@ class Configuration extends Collection
     }
 
     /**
-     * Check if redirects are allowed
-     * @return boolean
-     */
-    public function redirectsAllowed()
-    {
-        return $this['allow_redirects']!==false;
-    }
-
-    /**
      * Check if has body
      * @return boolean
      */
     public function hasBody()
     {
         return $this['body']!==false;
-    }
-
-    /**
-     * Define how much redirects must be followed, default null = infinite
-     * @return Configuration|integer|null
-     */
-    public function allowRedirectsMax($max = null)
-    {
-        return $this->arrayValue('allow_redirects', 'max', $max);
-    }
-
-    /**
-     * Define if referer must be set during redirection
-     * @return Configuration|boolean
-     */
-    public function allowRedirectsReferer($referer = null)
-    {
-        return $this->arrayValue('allow_redirects', 'referer', $referer);
     }
 
     /**
