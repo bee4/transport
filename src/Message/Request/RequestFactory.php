@@ -55,7 +55,7 @@ class RequestFactory
             ));
         }
 
-        $schema = ucfirst($scheme);
+        $scheme = ucfirst($scheme);
         $name = __NAMESPACE__.'\\'.$scheme.'\\'.ucfirst(strtolower($method));
         if (!class_exists($name)) {
             throw new InvalidArgumentException('Method given is not a valid request: '.$method);
