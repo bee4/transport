@@ -30,7 +30,7 @@ abstract class AbstractMessage implements MessageInterface
      */
     public function __construct()
     {
-        $this->headers = (new Collection())->withKeyFilter(function($item) {
+        $this->headers = (new Collection())->withKeyFilter(function ($item) {
             return strtolower($item);
         });
     }

@@ -108,9 +108,8 @@ class CurlHandle implements HandleInterface
         $this->options[CURLOPT_UPLOAD] = (bool)$config->upload;
         $this->options[CURLOPT_HTTPHEADER] = $request->getHeaderLines();
 
-        if($config instanceof Configuration\HttpConfiguration) {
-            switch($config->method)
-            {
+        if ($config instanceof Configuration\HttpConfiguration) {
+            switch ($config->method) {
                 case 'GET':
                     $this->options[CURLOPT_HTTPGET] = true;
                     break;
@@ -136,18 +135,18 @@ class CurlHandle implements HandleInterface
                 $this->options[CURLOPT_ENCODING] = $config->accept_encoding;
             }
         }
-        if($config instanceof Configuration\FtpConfiguration) {
+        if ($config instanceof Configuration\FtpConfiguration) {
             $this->options[CURLOPT_FTP_USE_EPSV] = $config->passive;
             $this->options[CURLOPT_QUOTE] = $config->commandsRequest();
             $this->options[CURLOPT_POSTQUOTE] = $config->commandsPost();
         }
-        if($config instanceof Configuration\SshConfiguration) {
+        if ($config instanceof Configuration\SshConfiguration) {
             $this->options[CURLOPT_POSTQUOTE] = $config->commandsPost();
         }
 
-        if($config->hasBody()) {
+        if ($config->hasBody()) {
             $body = $config->body;
-            if(is_resource($body)) {
+            if (is_resource($body)) {
                 $this->options[CURLOPT_INFILE] = $body;
                 $md = stream_get_meta_data($body);
                 $this->options[CURLOPT_INFILESIZE] = filesize($md['uri']);

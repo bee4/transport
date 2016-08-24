@@ -114,7 +114,7 @@ abstract class AbstractRequest extends AbstractMessage
             $method = explode('.', $name);
             $method = array_shift($method).implode('', array_map('ucfirst', $method));
             $this->configuration->$method($value);
-        } elseif($name === 'user_agent') {
+        } elseif ($name === 'user_agent') {
             $this->setUserAgent($value);
         } else {
             $this->configuration->$name = $value;
