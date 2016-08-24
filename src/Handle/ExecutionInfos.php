@@ -80,7 +80,7 @@ class ExecutionInfos
     public function __get($name)
     {
         if (!property_exists($this, $name)) {
-            throw new BadMethodCallException('Invalid property name: '.$name);
+            throw new \BadMethodCallException('Invalid property name: '.$name);
         }
 
         if (null === $this->$name && isset($this->resolver)) {
@@ -103,7 +103,7 @@ class ExecutionInfos
             $this->$name = $arguments[0];
             return $this;
         } else {
-            throw new BadMethodCallException('Invalid method: '.$name);
+            throw new \BadMethodCallException('Invalid method: '.$name);
         }
     }
 }
