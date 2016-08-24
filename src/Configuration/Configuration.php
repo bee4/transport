@@ -95,7 +95,9 @@ class Configuration extends Collection
         $is = is_array($array);
         if (null !== $value) {
             if (!$is) {
-                $array = self::DEFAULTS[$key];
+                $array = isset(self::DEFAULTS[$key])
+                    ?self::DEFAULTS[$key]
+                    :$this::DEFAULTS[$key];
             }
             $array[$arrayKey] = $value;
             $this[$key] = $array;
