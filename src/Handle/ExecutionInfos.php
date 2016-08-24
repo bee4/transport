@@ -11,8 +11,6 @@
 
 namespace Bee4\Transport\Handle;
 
-use Bee4\Transport\Collection;
-
 /**
  * Handle execution informations implementation
  * @package Bee4\Transport\Handle
