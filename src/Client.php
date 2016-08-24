@@ -20,7 +20,6 @@ use Bee4\Transport\Message\Request\RequestFactory;
 use Bee4\Transport\Message\ResponseFactory;
 use Bee4\Transport\Handle\HandleFactory;
 use Bee4\Transport\Exception\Exception;
-use Bee4\Transport\Exception\RuntimeException;
 use Bee4\Transport\Exception\InvalidArgumentException;
 use Bee4\Transport\Configuration\Configuration;
 
