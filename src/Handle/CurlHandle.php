@@ -11,6 +11,7 @@
 
 namespace Bee4\Transport\Handle;
 
+use Composer\CaBundle\CaBundle;
 use Bee4\Transport\Message\Request\AbstractRequest;
 use Bee4\Transport\Configuration;
 use Bee4\Transport\Exception\Curl\ExceptionFactory;
@@ -109,31 +110,7 @@ class CurlHandle implements HandleInterface
         $this->options[CURLOPT_HTTPHEADER] = $request->getHeaderLines();
 
         if ($config instanceof Configuration\HttpConfiguration) {
-            switch ($config->method) {
-                case 'GET':
-                    $this->options[CURLOPT_HTTPGET] = true;
-                    break;
-                case 'PUT':
-                    if (is_resource($config->body)) {
-                        $this->options[CURLOPT_PUT] = true;
-                    } else {
-                        $this->options[CURLOPT_CUSTOMREQUEST] = 'PUT';
-                    }
-                    break;
-                default:
-                    $this->options[CURLOPT_CUSTOMREQUEST] = $config->method;
-            }
-
-            if ($config->redirectsAllowed()) {
-                $this->options[CURLOPT_AUTOREFERER] = $config->allowRedirectsReferer();
-                $this->options[CURLOPT_MAXREDIRS] = $config->allowRedirectsMax();
-            } else {
-                $this->options[CURLOPT_FOLLOWLOCATION] = false;
-            }
-
-            if (null !== $config->accept_encoding) {
-                $this->options[CURLOPT_ENCODING] = $config->accept_encoding;
-            }
+            $this->prepareHttp($config);
         }
         if ($config instanceof Configuration\FtpConfiguration) {
             $this->options[CURLOPT_FTP_USE_EPSV] = $config->passive;
@@ -155,6 +132,48 @@ class CurlHandle implements HandleInterface
             }
         } else {
             $this->options[CURLOPT_NOBODY] = true;
+        }
+    }
+
+    /**
+     * Specific method to prepare HTTP requests options
+     * @param  HttpConfiguration $config
+     */
+    private function prepareHttp(HttpConfiguration $config)
+    {
+        switch ($config->method) {
+            case 'GET':
+                $this->options[CURLOPT_HTTPGET] = true;
+                break;
+            case 'PUT':
+                if (is_resource($config->body)) {
+                    $this->options[CURLOPT_PUT] = true;
+                } else {
+                    $this->options[CURLOPT_CUSTOMREQUEST] = 'PUT';
+                }
+                break;
+            default:
+                $this->options[CURLOPT_CUSTOMREQUEST] = $config->method;
+        }
+
+        if ($config->redirectsAllowed()) {
+            $this->options[CURLOPT_AUTOREFERER] = $config->allowRedirectsReferer();
+            $this->options[CURLOPT_MAXREDIRS] = $config->allowRedirectsMax();
+        } else {
+            $this->options[CURLOPT_FOLLOWLOCATION] = false;
+        }
+
+        if (null !== $config->accept_encoding) {
+            $this->options[CURLOPT_ENCODING] = $config->accept_encoding;
+        }
+
+        if (true === $config->verify) {
+            $this->options[CURLOPT_SSL_VERIFYPEER] = true;
+            $this->options[CURLOPT_SSL_VERIFYHOST] = 2;
+            $this->options[CURLOPT_CAINFO] = CaBundle::getSystemCaRootBundlePath();
+        } else {
+            $this->options[CURLOPT_SSL_VERIFYPEER] = false;
+            $this->options[CURLOPT_SSL_VERIFYHOST] = 0;
         }
     }
 
