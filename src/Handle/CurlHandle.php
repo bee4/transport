@@ -120,6 +120,17 @@ class CurlHandle implements HandleInterface
                 default:
                     $this->options[CURLOPT_CUSTOMREQUEST] = $config->method;
             }
+
+            if ($config->redirectsAllowed()) {
+                $this->options[CURLOPT_AUTOREFERER] = $config->allowRedirectsReferer();
+                $this->options[CURLOPT_MAXREDIRS] = $config->allowRedirectsMax();
+            } else {
+                $this->options[CURLOPT_FOLLOWLOCATION] = false;
+            }
+
+            if (null !== $config->accept_encoding) {
+                $this->options[CURLOPT_ENCODING] = $config->accept_encoding;
+            }
         }
         if($config instanceof Configuration\FtpConfiguration) {
             $this->options[CURLOPT_FTP_USE_EPSV] = $config->passive;
