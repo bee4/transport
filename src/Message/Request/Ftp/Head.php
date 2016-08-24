@@ -21,8 +21,8 @@ class Head extends FtpRequest
     {
         parent::prepare();
 
-        $this->addOption(CURLOPT_NOBODY, true);
+        $this->addOption('body', false);
         //apply MDTM action on the file, if not valid status is 550 the simplest way for HEAD
-        $this->addOption(CURLOPT_QUOTE, ['MDTM '.$this->getUrl()->path()]);
+        $this->addOption('commands.request', ['MDTM '.$this->getUrl()->path()]);
     }
 }

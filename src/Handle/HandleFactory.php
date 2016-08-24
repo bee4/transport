@@ -38,7 +38,7 @@ class HandleFactory
         } else {
             self::$loaded[$name]->reset();
         }
-        self::$loaded[$name]->addOptions($request->getOptions());
+        self::$loaded[$name]->prepare($request->getOptions());
 
         return self::$loaded[$name];
     }

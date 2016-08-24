@@ -32,25 +32,22 @@ class CurlHandleTest extends HttpClientTestCase
 
     public function testAll()
     {
-        $this->assertTrue($this->object->hasOption(CURLOPT_HEADER));
-        $this->assertTrue($this->object->hasOption(CURLINFO_HEADER_OUT));
+        $rfl = (new \ReflectionObject($this->object))->getProperty('options');
+        $rfl->setAccessible(true);
+        $options = $rfl->getValue($this->object);
+        $this->assertArrayHasKey(CURLOPT_HEADER, $options);
+        $this->assertArrayHasKey(CURLINFO_HEADER_OUT, $options);
+        $this->assertArrayHasKey(CURLOPT_FOLLOWLOCATION, $options);
+        $this->assertArrayHasKey(CURLOPT_RETURNTRANSFER, $options);
 
-        $this->object->addOption(CURLOPT_FOLLOWLOCATION, false);
-        $this->assertTrue($this->object->hasOption(CURLINFO_HEADER_OUT));
-
-        $this->object->addOption(CURLOPT_URL, self::getBaseUrl());
-        $this->assertTrue($this->object->hasOption(CURLOPT_URL));
+        $options[CURLOPT_URL] = self::getBaseUrl();
+        $rfl->setValue($this->object, $options);
 
         $result = $this->object->execute();
-
-        $this->assertTrue($this->object->hasInfo('request_header'));
-        $this->assertEquals(200, $this->object->getInfo('http_code'));
-        $this->assertNull($this->object->getInfo('unknown_property'));
+        $infos = $this->object->infos();
+        $this->assertNotNull($infos->headers);
+        $this->assertEquals(200, $infos->status);
         $this->assertTrue(is_string($result));
-
-        $this->assertArrayHasKey('content_type', $this->object->getInfos());
-
-        unset($this->object);
     }
 
     /**
@@ -67,7 +64,11 @@ class CurlHandleTest extends HttpClientTestCase
      */
     public function testInvalidUrl()
     {
-        $this->object->addOptions([CURLOPT_URL => 'invalidUrlToGet']);
+        $rfl = (new \ReflectionObject($this->object))->getProperty('options');
+        $rfl->setAccessible(true);
+        $options = $rfl->getValue($this->object);
+        $options[CURLOPT_URL] = 'invalidUrlToGet';
+        $rfl->setValue($this->object, $options);
         $this->object->execute();
     }
 }

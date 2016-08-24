@@ -23,7 +23,7 @@ class Post extends HttpRequest
 
     protected function prepare()
     {
-        $this->addOption(CURLOPT_POST, true);
-        $this->addOption(CURLOPT_POSTFIELDS, $this->getBody());
+        $this->addOption('method', 'POST');
+        $this->addOption('body', $this->getBody());
     }
 }

@@ -13,7 +13,7 @@ namespace Bee4\Transport\Message\Request\Ssh;
 
 use Bee4\Transport\Message\Request\AbstractRequest;
 
-class SshRequest extends AbstractRequest
+abstract class SshRequest extends AbstractRequest
 {
     const STATUS_0  = "0  OK";
     const STATUS_1  = "1  EOF";
@@ -47,13 +47,4 @@ class SshRequest extends AbstractRequest
     const STATUS_29 = "29 Owner invalid";
     const STATUS_30 = "30 Group invalid";
     const STATUS_31 = "31 No matching byte range lock";
-
-    /**
-     * Prepare the request execution by adding specific cURL parameters
-     */
-    protected function prepare()
-    {
-        $this->addOption(CURLOPT_SSH_AUTH_TYPES, CURLSSH_AUTH_ANY);
-        $this->addOption(CURLOPT_PROTOCOLS, CURLPROTO_SCP|CURLPROTO_SFTP);
-    }
 }

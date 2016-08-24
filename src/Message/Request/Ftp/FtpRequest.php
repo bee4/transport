@@ -88,13 +88,11 @@ class FtpRequest extends AbstractRequest
     protected function prepare()
     {
         //Force passice mode if not specified
-        if (!$this->hasOption(CURLOPT_FTP_USE_EPSV)) {
-            $this->addOption(CURLOPT_FTP_USE_EPSV, true);
-        }
+        $this->addOption('passive', true);
 
         //To make call on different files, we must retrieve the root and apply commands to the path
         $tmp = clone $this->getUrl();
         $tmp->path('');
-        $this->addOption(CURLOPT_URL, $tmp->toString());
+        $this->addOption('url', $tmp->toString());
     }
 }

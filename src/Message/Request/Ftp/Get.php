@@ -20,6 +20,6 @@ class Get extends FtpRequest
     protected function prepare()
     {
         parent::prepare();
-        $this->addOption(CURLOPT_URL, $this->getUrl());
+        $this->addOption('url', $this->getUrl());
     }
 }

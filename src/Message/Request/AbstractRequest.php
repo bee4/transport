@@ -12,6 +12,7 @@
 namespace Bee4\Transport\Message\Request;
 
 use Bee4\Transport\Message\AbstractMessage;
+use Bee4\Transport\Configuration\Configuration;
 use Bee4\Transport\Client;
 use Bee4\Transport\Url;
 use Bee4\Transport\Exception\RuntimeException;
@@ -28,23 +29,16 @@ abstract class AbstractRequest extends AbstractMessage
     const SSH = '/sftp|scp/';
 
     /**
-     * Request UserAgent
-     * Allow to identify the request initiator
-     * @var string
-     */
-    protected $ua = "Bee4/Transport";
-
-    /**
      * Current client instance
      * @var Client
      */
     protected $client;
 
     /**
-     * specific cURL options for the current request
-     * @var array
+     * Current request configuration
+     * @var Configuration
      */
-    protected $options = [];
+    protected $configuration;
 
     /**
      * @var Url
@@ -56,11 +50,12 @@ abstract class AbstractRequest extends AbstractMessage
      * @param Url $url
      * @param array $headers
      */
-    public function __construct(Url $url, array $headers = [])
+    public function __construct(Url $url, array $headers = [], Configuration $configuration = null)
     {
         parent::__construct();
+
         $this->url = $url;
-        $this->options = [];
+        $this->configuration = $configuration===null?new Configuration:$configuration;
         $this->addHeaders($headers);
     }
 
@@ -86,11 +81,11 @@ abstract class AbstractRequest extends AbstractMessage
 
     /**
      * cURL option collection accessor
-     * @return array
+     * @return Configuration
      */
     public function getOptions()
     {
-        return $this->options;
+        return $this->configuration;
     }
 
     /**
@@ -115,11 +110,13 @@ abstract class AbstractRequest extends AbstractMessage
      */
     public function addOption($name, $value)
     {
-        if ($name === CURLOPT_USERAGENT) {
-            $this->ua = $value;
+        if (strpos($name, '.') !== false) {
+            $method = explode('.', $name);
+            $method = array_shift($method).implode('', array_map('ucfirst', $method));
+            $this->configuration->$method($value);
+        } else {
+            $this->configuration->$name = $value;
         }
-
-        $this->options[$name] = $value;
 
         return $this;
     }
@@ -131,7 +128,7 @@ abstract class AbstractRequest extends AbstractMessage
      */
     public function hasOption($name)
     {
-        return isset($this->options[$name]);
+        return $this->configuration->offsetExists($name);
     }
 
     /**
@@ -151,8 +148,8 @@ abstract class AbstractRequest extends AbstractMessage
             throw new RuntimeException('A client must be set on the request');
         }
 
-        if (!$this->hasOption(CURLOPT_URL)) {
-            $this->addOption(CURLOPT_URL, $this->getUrl()->toString());
+        if (null === $this->configuration->url) {
+            $this->configuration->url = $this->getUrl()->toString();
         }
         $this->prepare();
 
@@ -176,7 +173,7 @@ abstract class AbstractRequest extends AbstractMessage
      */
     public function getUserAgent()
     {
-        return $this->ua;
+        return $this->configuration->user_agent;
     }
 
     /**
@@ -186,7 +183,8 @@ abstract class AbstractRequest extends AbstractMessage
      */
     public function setUserAgent($ua)
     {
-        $this->addOption(CURLOPT_USERAGENT, $ua);
+        $this->configuration->user_agent = $ua;
+        $this->addHeader('User-Agent', $ua);
 
         return $this;
     }

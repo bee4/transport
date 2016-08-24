@@ -33,6 +33,5 @@ class WithBodyStreamTraitTest extends WithBodyTraitTest
 
         $this->assertEquals($stream, $mock->getBody());
         $this->assertTrue($mock->hasBodyStream());
-        $this->assertEquals(4, $mock->getBodyLength());
     }
 }

@@ -21,7 +21,7 @@ class Delete extends FtpRequest
     {
         parent::prepare();
 
-        $this->addOption(CURLOPT_NOBODY, true);
-        $this->addOption(CURLOPT_POSTQUOTE, ['DELE '.$this->getUrl()->path()]);
+        $this->addOption('body', false);
+        $this->addOption('commands.post', ['DELE '.$this->getUrl()->path()]);
     }
 }

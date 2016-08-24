@@ -21,7 +21,7 @@ class Delete extends SshRequest
     {
         parent::prepare();
 
-        $this->addOption(CURLOPT_NOBODY, true);
-        $this->addOption(CURLOPT_POSTQUOTE, ['rm '.$this->getUrl()->path()]);
+        $this->addOption('body', false);
+        $this->addOption('commands.post', ['rm '.$this->getUrl()->path()]);
     }
 }
