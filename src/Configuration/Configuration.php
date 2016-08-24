@@ -16,6 +16,13 @@ use Bee4\Transport\Collection;
 /**
  * Configuration implementation
  * @package Bee4\Transport\Configuration
+ * @property string $connect_timeout Timeout for the connection duration
+ * @property string $timeout         Timeout for the whole curl request
+ * @property boolean $verify         True if connection must be verified
+ * @property string $method          HTTP method name to be used
+ * @property string $url             URL for the current request
+ * @property string|resource $body   Request body
+ * @property boolean $upload         True if the request must realized an upload
  */
 class Configuration extends Collection
 {

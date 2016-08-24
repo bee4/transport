@@ -14,6 +14,8 @@ namespace Bee4\Transport\Configuration;
 /**
  * HTTP Configuration implementation
  * @package Bee4\Transport\Configuration
+ * @property string $accept_encoding Value used for the Accept-Encoding header
+ * @property string $user_agent      User agent used in the current request
  */
 class HttpConfiguration extends Configuration
 {
@@ -26,11 +28,7 @@ class HttpConfiguration extends Configuration
             'referer' => true,
         ],
         'accept_encoding' => null,
-        'user_agent' => null,
-        'commands' => [
-            'request' => null,
-            'post' => null
-        ]
+        'user_agent' => null
     ];
 
     /**

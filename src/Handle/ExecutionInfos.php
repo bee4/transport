@@ -14,6 +14,11 @@ namespace Bee4\Transport\Handle;
 /**
  * Handle execution informations implementation
  * @package Bee4\Transport\Handle
+ * @method ExecutionInfos status(integer $status)      Set the execution status
+ * @method ExecutionInfos headers(array $headers)      Set headers
+ * @method ExecutionInfos effectiveUrl(string $url)    Effective URL for the request
+ * @method ExecutionInfos transactionTime(float $time) Total request process duration in second
+ * @method ExecutionInfos contentType(string $type)    Content-Type header for the request
  */
 class ExecutionInfos
 {

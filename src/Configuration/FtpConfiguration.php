@@ -14,6 +14,7 @@ namespace Bee4\Transport\Configuration;
 /**
  * FTP Configuration implementation
  * @package Bee4\Transport\Configuration
+ * @property boolean $passive Is the passive mode must be used for the current request ?
  */
 class FtpConfiguration extends Configuration
 {
