@@ -137,9 +137,9 @@ class CurlHandle implements HandleInterface
 
     /**
      * Specific method to prepare HTTP requests options
-     * @param  HttpConfiguration $config
+     * @param Configuration\HttpConfiguration $config
      */
-    private function prepareHttp(HttpConfiguration $config)
+    private function prepareHttp(Configuration\HttpConfiguration $config)
     {
         switch ($config->method) {
             case 'GET':
