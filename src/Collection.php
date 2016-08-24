@@ -41,14 +41,45 @@ class Collection implements ArrayAccess, Countable
 
     /**
      * Build Collection
+     * @param array         $data
      * @param callable|null $key
      * @param callable|null $value
      */
-    public function __construct(callable $key = null, callable $value = null)
+    public function __construct(array $data = [])
     {
-        $this->data        = [];
-        $this->keyFilter   = $key;
+        $this->data        = $data;
+    }
+
+    /**
+     * Set the keyFilter callable
+     * @param  callable $key
+     * @return Collection
+     */
+    public function withKeyFilter(callable $key)
+    {
+        $this->keyFilter = $key;
+        return $this;
+    }
+
+    /**
+     * Set the valueFilter callable
+     * @param  callable $value
+     * @return Collection
+     */
+    public function withValueFilter(callable $value)
+    {
         $this->valueFilter = $value;
+        return $this;
+    }
+
+    /**
+     * Build a new Collection from an existing array
+     * @param  array  $data
+     * @return Collection
+     */
+    public static function fromArray(array $data)
+    {
+        return new self($data);
     }
 
     /**
@@ -92,9 +123,7 @@ class Collection implements ArrayAccess, Countable
      */
     public function offsetExists($offset)
     {
-        return isset($this->data[
-            $this->key($offset)
-        ]);
+        return array_key_exists($this->key($offset), $this->data);
     }
 
     /**
@@ -153,7 +182,7 @@ class Collection implements ArrayAccess, Countable
      * Flush all items from the collection
      * @return Collection
      */
-    public function flush() 
+    public function flush()
     {
         $this->data = [];
         return $this;
