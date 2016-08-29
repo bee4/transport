@@ -34,6 +34,18 @@ class RequestFactory
      */
     public function __construct(Configuration $config = null)
     {
+        if(null !== $config) {
+            $this->setConfiguration($config);
+        }
+    }
+
+    /**
+     * Set configuration to use when building requests
+     * @param Configuration $config
+     * @return RequestFactory
+     */
+    public function setConfiguration(Configuration $config)
+    {
         $this->configuration = $config;
     }
 
