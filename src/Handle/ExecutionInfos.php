@@ -101,7 +101,7 @@ class ExecutionInfos
     public function __call($name, array $arguments)
     {
         //Define getter and setter for each valid property
-        if (!in_array($name, self::PROPERTIES) && count($arguments) === 1) {
+        if (in_array($name, self::PROPERTIES) && count($arguments) === 1) {
             $this->$name = $arguments[0];
             return $this;
         } else {
