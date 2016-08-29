@@ -11,6 +11,7 @@
 
 namespace Bee4\Transport\Message\Request;
 
+use Bee4\Transport\Configuration\Configuration;
 use Bee4\Transport\Exception\InvalidArgumentException;
 use Bee4\Transport\Exception\UnknownProtocolException;
 use Bee4\Transport\Url;
@@ -21,6 +22,21 @@ use Bee4\Transport\Url;
  */
 class RequestFactory
 {
+    /**
+     * Configuration to use when building Request
+     * @var Configuration
+     */
+    protected $configuration;
+
+    /**
+     * Initialize the Request factory
+     * @param Configuration|null $config
+     */
+    public function __construct(Configuration $config = null)
+    {
+        $this->configuration = $config;
+    }
+
     /**
      * Build a new request from parameters
      * @param string $method
@@ -39,12 +55,20 @@ class RequestFactory
             ));
         }
 
-        $name = __NAMESPACE__.'\\'.ucfirst($scheme).'\\'.ucfirst(strtolower($method));
+        $scheme = ucfirst($scheme);
+        $name = __NAMESPACE__.'\\'.$scheme.'\\'.ucfirst(strtolower($method));
         if (!class_exists($name)) {
             throw new InvalidArgumentException('Method given is not a valid request: '.$method);
         }
 
-        $request = new $name($url, $headers);
+        $configurationClass = '\Bee4\Transport\Configuration\\'.$scheme.'Configuration';
+        $request = new $name(
+            $url,
+            $headers,
+            new $configurationClass(
+                $this->configuration!==null?$this->configuration->toArray():[]
+            )
+        );
 
         return $request;
     }

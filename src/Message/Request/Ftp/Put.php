@@ -39,10 +39,9 @@ class Put extends FtpRequest
             $this->setBody($stream);
         }
 
-        $this->addOption(CURLOPT_URL, $this->getUrl());
-        $this->addOption(CURLOPT_UPLOAD, true);
-        $this->addOption(CURLOPT_INFILE, $this->getBody());
-        $this->addOption(CURLOPT_INFILESIZE, $this->getBodyLength());
+        $this->addOption('url', $this->getUrl());
+        $this->addOption('body', $this->getBody());
+        $this->addOption('upload', true);
     }
 
     /**
@@ -50,9 +49,8 @@ class Put extends FtpRequest
      */
     public function __destruct()
     {
-        if ($this->hasOption(CURLOPT_INFILE)) {
-            $options = $this->getOptions();
-            fclose($options[CURLOPT_INFILE]);
+        if ($this->hasBodyStream()) {
+            fclose($this->getBody());
         }
     }
 }

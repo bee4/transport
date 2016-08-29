@@ -52,28 +52,4 @@ trait WithBodyStreamTrait
     {
         return is_resource($this->getBody());
     }
-
-    /**
-     * Retrieve stream meta data if available
-     * @return array|null
-     */
-    public function getMetaData()
-    {
-        if ($this->hasBodyStream()) {
-            return stream_get_meta_data($this->getBody());
-        }
-        return null;
-    }
-
-    /**
-     * Retrieve the body length from string or stream
-     * @return integer
-     */
-    public function getBodyLength()
-    {
-        $md = $this->getMetaData();
-        return null !== $md
-            ?filesize($md['uri'])
-            :strlen($this->getBody());
-    }
 }

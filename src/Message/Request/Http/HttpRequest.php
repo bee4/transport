@@ -13,7 +13,7 @@ namespace Bee4\Transport\Message\Request\Http;
 
 use Bee4\Transport\Message\Request\AbstractRequest;
 
-class HttpRequest extends AbstractRequest
+abstract class HttpRequest extends AbstractRequest
 {
     //1XX - Informational
     const STATUS_100 = "100 Continue";
@@ -91,18 +91,6 @@ class HttpRequest extends AbstractRequest
     const STATUS_509 = "509 Bandwidth Limit Exceeded (Apache bw/limited extension)";
     const STATUS_510 = "510 Not Extended (RFC 2774)";
     const STATUS_511 = "511 Network Authentication Required (RFC 6585)";
-
-    /**
-     * Send the request and prepend some headers
-     * @return \Bee4\Transport\Message\Response
-     */
-    public function send()
-    {
-        $this->addOption(CURLOPT_HTTPHEADER, $this->getHeaderLines());
-        $this->addOption(CURLOPT_USERAGENT, $this->getUserAgent());
-
-        return parent::send();
-    }
 
     /**
      * Prepare the request execution by adding specific cURL parameters

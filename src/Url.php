@@ -11,7 +11,6 @@
 
 namespace Bee4\Transport;
 
-use Bee4\Transport\Exception\Exception;
 use Bee4\Transport\Exception\RuntimeException;
 use Bee4\Transport\Exception\InvalidArgumentException;
 use Bee4\Transport\Exception\BadMethodCallException;

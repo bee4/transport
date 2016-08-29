@@ -23,14 +23,8 @@ class Put extends HttpRequest
 
     protected function prepare()
     {
-        if ($this->hasBodyStream()) {
-            $this->addOption(CURLOPT_PUT, true);
-            $this->addOption(CURLOPT_INFILE, $this->getBody());
-            $this->addOption(CURLOPT_INFILESIZE, $this->getBodyLength());
-        } else {
-            $this->addOption(CURLOPT_CUSTOMREQUEST, 'PUT');
-            $this->addOption(CURLOPT_POSTFIELDS, $this->getBody());
-        }
+        $this->addOption('method', 'PUT');
+        $this->addOption('body', $this->getBody());
     }
 
     /**
@@ -38,9 +32,8 @@ class Put extends HttpRequest
      */
     public function __destruct()
     {
-        if ($this->hasOption(CURLOPT_INFILE)) {
-            $options = $this->getOptions();
-            fclose($options[CURLOPT_INFILE]);
+        if ($this->hasBodyStream()) {
+            fclose($this->getBody());
         }
     }
 }

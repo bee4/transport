@@ -20,8 +20,8 @@ use Bee4\Transport\Message\Request\RequestFactory;
 use Bee4\Transport\Message\ResponseFactory;
 use Bee4\Transport\Handle\HandleFactory;
 use Bee4\Transport\Exception\Exception;
-use Bee4\Transport\Exception\RuntimeException;
 use Bee4\Transport\Exception\InvalidArgumentException;
+use Bee4\Transport\Configuration\Configuration;
 
 /**
  * Transport client, generate a request and return the linked response
@@ -47,13 +47,24 @@ class Client implements ClientInterface
      * HTTP Client which use cURL extension
      * @param string $baseUrl Base URL of the web service
      */
-    public function __construct($baseUrl = '')
+    public function __construct($baseUrl = '', Configuration $config = null)
     {
         if ($baseUrl != '') {
             $this->baseUrl = new Url($baseUrl);
         }
 
-        $this->requestFactory = new RequestFactory();
+        $this->requestFactory = new RequestFactory($config);
+    }
+
+    /**
+     * Set configuration in the Request factory
+     * @param Configuration $config
+     * @return Client
+     */
+    public function setConfiguration(Configuration $config)
+    {
+        $this->requestFactory->setConfiguration($config);
+        return $this;
     }
 
     /**
@@ -92,14 +103,14 @@ class Client implements ClientInterface
             $result = $handle->execute();
         } catch (\Exception $error) {
             if ($error instanceof CurlException) {
-                $response = ResponseFactory::build('', $handle, $request);
+                $response = ResponseFactory::build('', $handle->infos(), $request);
                 $error->setResponse($response);
             }
             $this->dispatch(ErrorEvent::ERROR, new ErrorEvent($error));
             throw $error;
         }
 
-        $response = ResponseFactory::build($result, $handle, $request);
+        $response = ResponseFactory::build($result, $handle->infos(), $request);
         $this->dispatch(MessageEvent::RESPONSE, new MessageEvent($response));
 
         return $response;

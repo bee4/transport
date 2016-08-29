@@ -23,7 +23,7 @@ class Delete extends HttpRequest
 
     protected function prepare()
     {
-        $this->addOption(CURLOPT_CUSTOMREQUEST, 'DELETE');
-        $this->addOption(CURLOPT_POSTFIELDS, $this->getBody());
+        $this->addOption('method', 'DELETE');
+        $this->addOption('body', $this->getBody());
     }
 }

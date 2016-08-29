@@ -19,6 +19,7 @@ class Head extends HttpRequest
 {
     protected function prepare()
     {
-        $this->addOption(CURLOPT_NOBODY, true);
+        $this->addOption('method', 'HEAD');
+        $this->addOption('body', false);
     }
 }

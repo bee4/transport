@@ -11,7 +11,7 @@
 
 namespace Bee4\Transport\Message;
 
-use Bee4\Transport\Handle\HandleInterface;
+use Bee4\Transport\Handle\ExecutionInfos;
 
 /**
  * Build a response from an Handle response
@@ -28,18 +28,18 @@ class ResponseFactory
      */
     public static function build(
         $content,
-        HandleInterface $handle,
+        ExecutionInfos $infos,
         Request\AbstractRequest $request
     ) {
         $response = new Response($request);
-
-        $response->setStatus($handle->getInfo('http_code'));
-        $response->setTransactionTime($handle->getInfo('total_time'));
+        $response->setStatus($infos->status);
+        $response->setTransactionTime($infos->transactionTime);
+        $response->setExecutionInfos($infos);
 
         //Populate request headers with all really sent headers
-        if ($handle->hasInfo('request_header')) {
+        if (!empty($infos->headers)) {
             self::parseHeaders(
-                $handle->getInfo('request_header'),
+                $infos->headers,
                 $request
             );
         }

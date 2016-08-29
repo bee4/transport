@@ -12,6 +12,7 @@
 namespace Bee4\Test\Transport\Message\Request;
 
 use Bee4\PHPUnit\HttpClientTestCase;
+use Bee4\Transport\Configuration\Configuration;
 use Bee4\Transport\Client;
 use Bee4\Transport\Url;
 
@@ -43,7 +44,7 @@ class AbstractRequestTest extends HttpClientTestCase
 
         $mock = $this->getMockForAbstractClass(
             '\Bee4\Transport\Message\Request\AbstractRequest',
-            [$this->url, $headers]
+            [$this->url, $headers, new Configuration]
         );
 
         $this->assertEquals($headers, $mock->getHeaders());
@@ -51,26 +52,6 @@ class AbstractRequestTest extends HttpClientTestCase
             self::getBaseUrl(),
             (string)$mock->getUrl()
         );
-    }
-
-    /**
-     * Check curl option collection manipulation
-     */
-    public function testOptions()
-    {
-        $mock = $this->getMockForAbstractClass('\Bee4\Transport\Message\Request\AbstractRequest', [$this->url]);
-
-        $this->assertEmpty($mock->getOptions());
-        $mock->addOption(CURL_HTTP_VERSION_1_1, true);
-        $mock->addOptions([CURLOPT_AUTOREFERER => true, CURLOPT_CONNECTTIMEOUT => 10]);
-
-        $options = $mock->getOptions();
-        $this->assertArrayHasKey(CURLOPT_CONNECTTIMEOUT, $options);
-        $this->assertArrayHasKey(CURLOPT_AUTOREFERER, $options);
-        $this->assertArrayHasKey(CURL_HTTP_VERSION_1_1, $options);
-
-        $this->assertTrue($options[CURLOPT_AUTOREFERER]);
-        $this->assertEquals(10, $options[CURLOPT_CONNECTTIMEOUT]);
     }
 
     /**

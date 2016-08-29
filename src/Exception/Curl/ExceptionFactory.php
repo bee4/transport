@@ -22,7 +22,7 @@ class ExceptionFactory
     public static function build($code, $message)
     {
         $error = null;
-        switch($code) {
+        switch ($code) {
             case CURLE_UNSUPPORTED_PROTOCOL:
                 $error = new UnsupportedProtocolException($message, $code);
                 break;

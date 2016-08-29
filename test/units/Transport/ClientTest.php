@@ -84,8 +84,7 @@ class ClientTest extends HttpClientTestCase
         $response = $request->send();
         $options = $request->getOptions();
 
-        $this->assertArrayHasKey(CURLOPT_HTTPGET, $options);
-        $this->assertTrue($options[CURLOPT_HTTPGET]);
+        $this->assertEquals('GET', $options->method);
         $this->assertInstanceOf('\Bee4\Transport\Message\Request\Http\Get', $response->getRequest());
     }
 
@@ -95,10 +94,8 @@ class ClientTest extends HttpClientTestCase
         $response = $request->send();
         $options = $request->getOptions();
 
-        $this->assertArrayHasKey(CURLOPT_POST, $options);
-        $this->assertArrayHasKey(CURLOPT_POSTFIELDS, $options);
-        $this->assertTrue($options[CURLOPT_POST]);
-        $this->assertEquals('{"body": "I\'m the body"}}', $options[CURLOPT_POSTFIELDS]);
+        $this->assertEquals('POST', $options->method);
+        $this->assertEquals('{"body": "I\'m the body"}}', $options->body);
         $this->assertInstanceOf('\Bee4\Transport\Message\Request\Http\Post', $response->getRequest());
     }
 
@@ -108,8 +105,8 @@ class ClientTest extends HttpClientTestCase
         $response = $request->send();
         $options = $request->getOptions();
 
-        $this->assertArrayHasKey(CURLOPT_NOBODY, $options);
-        $this->assertTrue($options[CURLOPT_NOBODY]);
+        $this->assertFalse($options->body);
+        $this->assertEquals('HEAD', $options->method);
         $this->assertInstanceOf('\Bee4\Transport\Message\Request\Http\Head', $response->getRequest());
     }
 
@@ -119,10 +116,7 @@ class ClientTest extends HttpClientTestCase
         $response = $request->send();
         $options = $request->getOptions();
 
-        $this->assertArrayHasKey(CURLOPT_CUSTOMREQUEST, $options);
-        $this->assertArrayHasKey(CURLOPT_POSTFIELDS, $options);
-        $this->assertEquals('DELETE', $options[CURLOPT_CUSTOMREQUEST]);
-        $this->assertEquals(false, $options[CURLOPT_POSTFIELDS]);
+        $this->assertEquals('DELETE', $options->method);
         $this->assertInstanceOf('\Bee4\Transport\Message\Request\Http\Delete', $response->getRequest());
     }
 
@@ -132,10 +126,8 @@ class ClientTest extends HttpClientTestCase
         $response = $request->send();
         $options = $request->getOptions();
 
-        $this->assertArrayHasKey(CURLOPT_CUSTOMREQUEST, $options);
-        $this->assertArrayHasKey(CURLOPT_POSTFIELDS, $options);
-        $this->assertEquals('PUT', $options[CURLOPT_CUSTOMREQUEST]);
-        $this->assertEquals(false, $options[CURLOPT_POSTFIELDS]);
+        $this->assertEquals('PUT', $options->method);
+        $this->assertEquals('', $options->body);
         $this->assertInstanceOf('\Bee4\Transport\Message\Request\Http\Put', $response->getRequest());
     }
 
@@ -144,7 +136,6 @@ class ClientTest extends HttpClientTestCase
         $stream = tmpfile();
         $size = 200;
         $content = str_repeat('*', $size);
-
         fwrite($stream, $content);
 
         $request = $this->object->put('/index.html');
@@ -152,12 +143,8 @@ class ClientTest extends HttpClientTestCase
         $response = $request->send();
         $options = $request->getOptions();
 
-        $this->assertArrayHasKey(CURLOPT_PUT, $options);
-        $this->assertArrayHasKey(CURLOPT_INFILE, $options);
-        $this->assertArrayHasKey(CURLOPT_INFILESIZE, $options);
-        $this->assertEquals(true, $options[CURLOPT_PUT]);
-        $this->assertEquals($stream, $options[CURLOPT_INFILE]);
-        $this->assertEquals($size, $options[CURLOPT_INFILESIZE]);
+        $this->assertEquals('PUT', $options->method);
+        $this->assertTrue(is_resource($options->body));
         $this->assertInstanceOf('\Bee4\Transport\Message\Request\Http\Put', $response->getRequest());
     }
 

@@ -11,6 +11,7 @@
 
 namespace Bee4\Transport\Message;
 
+use Bee4\Transport\Handle\ExecutionInfos;
 use Bee4\Transport\Exception\RuntimeException;
 use Bee4\Transport\Message\Request\AbstractRequest;
 
@@ -27,6 +28,12 @@ class Response extends AbstractMessage
      * @var AbstractRequest
      */
     protected $request;
+
+    /**
+     * The execution details which helped to build the request
+     * @var ExecutionInfos
+     */
+    protected $infos;
 
     /**
      * HTTP Status code
@@ -67,6 +74,25 @@ class Response extends AbstractMessage
     public function getRequest()
     {
         return $this->request;
+    }
+
+    /**
+     * Set the execution infos
+     * @param ExecutionInfos $infos
+     * @return Response
+     */
+    public function setExecutionInfos(ExecutionInfos $infos)
+    {
+        $this->infos = $infos;
+        return $this;
+    }
+
+    /**
+     * @return ExecutionInfos
+     */
+    public function getExecutionInfos()
+    {
+        return $this->infos;
     }
 
     /**

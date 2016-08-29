@@ -19,6 +19,6 @@ class Get extends HttpRequest
 {
     protected function prepare()
     {
-        $this->addOption(CURLOPT_HTTPGET, true);
+        $this->addOption('method', 'GET');
     }
 }

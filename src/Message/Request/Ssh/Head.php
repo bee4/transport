@@ -19,6 +19,6 @@ class Head extends SshRequest
 {
     protected function prepare()
     {
-        $this->addOption(CURLOPT_NOBODY, true);
+        $this->addOption('body', false);
     }
 }
