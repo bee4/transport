@@ -36,12 +36,6 @@ class CurlHandle implements HandleInterface
     private $options = [];
 
     /**
-     * Latest execution information collection
-     * @var array
-     */
-    private $infos;
-
-    /**
      * Initialize cURL resource
      */
     public function __construct()
@@ -200,7 +194,6 @@ class CurlHandle implements HandleInterface
 
         curl_setopt_array($this->handle, array_filter($this->options));
         $return = curl_exec($this->handle);
-        $this->infos = curl_getinfo($this->handle);
 
         if ($return === false) {
             throw ExceptionFactory::build(
@@ -225,6 +218,15 @@ class CurlHandle implements HandleInterface
         }
 
         return false;
+    }
+
+    /**
+     * Access to `curl_getinfo` result on the current handle
+     * @return array
+     */
+    public function getCurlInfo()
+    {
+        return curl_getinfo($this->handle);
     }
 
     /**
