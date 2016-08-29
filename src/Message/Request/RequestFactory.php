@@ -34,7 +34,7 @@ class RequestFactory
      */
     public function __construct(Configuration $config = null)
     {
-        if(null !== $config) {
+        if (null !== $config) {
             $this->setConfiguration($config);
         }
     }
