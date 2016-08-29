@@ -21,9 +21,9 @@ class ResponseFactory
 {
     /**
      * Build a new reponse object from handle execution result
-     * @param string $content Response content
-     * @param Handle $handle Handle used to perform request which generate response
-     * @param Request\AbstractRequest $request
+     * @param  string                  $content Response content
+     * @param  ExecutionInfos          $infos   Execution details
+     * @param  Request\AbstractRequest $request
      * @return Response
      */
     public static function build(

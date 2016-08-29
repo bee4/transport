@@ -104,7 +104,7 @@ abstract class AbstractRequest extends AbstractMessage
 
     /**
      * Add an option for current request
-     * @param int $name
+     * @param mixed $name
      * @param mixed $value
      * @return AbstractRequest
      */

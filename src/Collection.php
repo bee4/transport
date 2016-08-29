@@ -41,9 +41,7 @@ class Collection implements ArrayAccess, Countable
 
     /**
      * Build Collection
-     * @param array         $data
-     * @param callable|null $key
-     * @param callable|null $value
+     * @param array $data
      */
     public function __construct(array $data = [])
     {

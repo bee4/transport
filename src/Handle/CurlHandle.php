@@ -27,13 +27,19 @@ class CurlHandle implements HandleInterface
      * cURL resource handle
      * @var resource
      */
-    protected $handle;
+    private $handle;
 
     /**
      * Option collection used for the current request
      * @var array
      */
-    protected $options = [];
+    private $options = [];
+
+    /**
+     * Latest execution information collection
+     * @var array
+     */
+    private $infos;
 
     /**
      * Initialize cURL resource
@@ -98,8 +104,9 @@ class CurlHandle implements HandleInterface
     }
 
     /**
-     * Prepare the handle to be configured
-     * @param Configuration\Configuration $config
+     * Prepare the handle to be configured by a given request
+     * @param  AbstractRequest $request
+     * @return CurlHandle
      */
     public function prepare(AbstractRequest $request)
     {
@@ -133,6 +140,8 @@ class CurlHandle implements HandleInterface
         } else {
             $this->options[CURLOPT_NOBODY] = true;
         }
+
+        return $this;
     }
 
     /**

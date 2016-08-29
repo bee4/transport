@@ -36,4 +36,13 @@ trait HasCommand
     {
         return $this->arrayValue('commands', 'post', $command);
     }
+
+    /**
+     * Allow to set an array value in the collection
+     * @param  string $key      Key to retrieve the array in the collection
+     * @param  string $arrayKey Array key to set
+     * @param  mixed  $value    Value to be set or null
+     * @return mixed
+     */
+    abstract protected function arrayValue($key, $arrayKey, $value = null);
 }
