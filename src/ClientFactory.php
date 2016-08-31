@@ -17,11 +17,6 @@ namespace Bee4\Transport;
  */
 class ClientFactory
 {
-    protected function __construct()
-    {
-        //Just a factory helper, can't be instantiated
-    }
-
     /**
      * Create a new client instance
      * @param  string $url The root URL used by the client
